@@ -8,7 +8,7 @@
 
 
 // Import the interfaces
-#import "HelloWorldScene.h"
+#import "FIghtScene.h"
 
 //Pixel to metres ratio. Box2D uses metres as the unit for measurement.
 //This ratio defines how many pixels correspond to 1 Box2D "metre"
@@ -25,7 +25,7 @@ enum {
 
 
 // HelloWorld implementation
-@implementation HelloWorld
+@implementation FightScene
 
 +(id) scene
 {
@@ -33,7 +33,7 @@ enum {
 	CCScene *scene = [CCScene node];
 	
 	// 'layer' is an autorelease object.
-	HelloWorld *layer = [HelloWorld node];
+	FightScene *layer = [FightScene node];
 	
 	// add layer as a child to scene
 	[scene addChild: layer];
@@ -136,7 +136,7 @@ enum {
 	glDisableClientState(GL_COLOR_ARRAY);
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	
-	//world->DrawDebugData();
+	world->DrawDebugData();
 	
 	// restore default GL states
 	glEnable(GL_TEXTURE_2D);
@@ -149,7 +149,7 @@ enum {
 -(void) tick: (ccTime) dt
 {
 		
-	if (babycount < 100) {
+	if (babycount < 20) {
 		[self throwABaby];
 		babycount += 1;
 	}

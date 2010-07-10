@@ -16,7 +16,7 @@
 #import "Baby.h"
 
 // HelloWorld Layer
-@interface HelloWorld : CCLayer
+@interface FightScene : CCLayer
 {
 	b2World* world;
 	GLESDebugDraw *m_debugDraw;

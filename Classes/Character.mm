@@ -133,8 +133,8 @@
 	 polygonShape.SetAsBox(shWidth/2, shHeight/2);
 	 
 	 fixtureDef.shape = &polygonShape;	
-	 fixtureDef.density = 1.0f;
-	 fixtureDef.friction = 0.3f;
+	 fixtureDef.density = 0.0f;
+	 fixtureDef.friction = 1.3f;
 	 //body->CreateFixture(&fighterFixture);
 }
 
