@@ -12,16 +12,18 @@
 @implementation Character
 
 @synthesize actions;
-@synthesize body;
-@synthesize polygonShape;
-@synthesize fixtureDef;
+@synthesize density;
+@synthesize friction;
 
 -(id)init {
 
 	if ((self=[super init])) {
 		actions = [[NSMutableDictionary alloc] init];
 		[self loadAnimations];
-		[self addToBox2d];
+
+		density = 1.0f;
+		friction = 0.3f;
+		
 	}
 	
 	return self;
@@ -30,8 +32,13 @@
 #pragma mark -
 #pragma mark Sprite / Animation helpers
 
+// FIXME: Going about this the wrong way.
+//        Everytime a new object is initialized we're creating a seperate animation object per instance
+//        This gets very expensive after initializing lots of characters.
+//        Instead there should be a scene delegate that has a dictionary which holds all loaded animations
 -(void)loadAnimations {
 
+	// Get the bundle path for resources based on class name (ie, Resources/Character/Fighter
 	NSString *path = [[NSString alloc] initWithFormat:@"Character/%@", NSStringFromClass([self class])];
 	
 	NSBundle *characterBundle = [NSBundle mainBundle];
@@ -39,11 +46,21 @@
 	
 	NSString *actionName;
 	int rows, columns, width, height;
-	
+
+	// Iterate over each gif found in the resources bundle for the particular class
 	for (NSString *filename in mySprites) {
 		filename = [[filename componentsSeparatedByString:@"/"] lastObject];
 		NSLog(@"%@", filename);
 	
+		// Spritesheets have a file name convention
+		// Rather than parse the image to figure out how big it is, how many cells it holds, etc
+		// we name files things like 'actionname.1.5.30.100.gif'
+		//
+		// The first section is what the animation action will be named
+		// The second is the number of rows
+		// The third is the number of columns or cells per row
+		// The fourth is the height of the image
+		// The fifth is the width of the image
 		NSArray *fileStructure = [filename componentsSeparatedByString:@"."];
 		if ([fileStructure count] > 5) {
 			
@@ -81,6 +98,7 @@
 	CCAnimation *animation = [CCAnimation animationWithName:action_name delay:0.1f];
 	
 	for(int i=0; i < num_columns; i++){
+		// FIXME: We're not taking rows into account just yet.
 		CCSpriteFrame *frame = [CCSpriteFrame frameWithTexture:spriteSheet.texture rect:CGRectMake(i*(_width/num_columns), 0, _width/num_columns, _height/num_rows) offset:ccp(0,0)];
 		[animation addFrame:frame];
 	}
@@ -120,22 +138,23 @@
 
 #define PTM_RATIO 32
 
+// FIXME: Don't think this should be here.
+// We're creating too many extra objects.
+// Should probably replace with a struct that box2d can access from the scene
 -(void)addToBox2d {
-	
+	/*
 	 float shWidth = [self contentSize].width/PTM_RATIO;
 	 float shHeight = [self contentSize].height/PTM_RATIO;
 	 
 	 body.type = b2_dynamicBody;
 	 body.userData = self;
-	
-	 //b2Body *body = world->CreateBody(&heroDude);
-	
+		
 	 polygonShape.SetAsBox(shWidth/2, shHeight/2);
 	 
 	 fixtureDef.shape = &polygonShape;	
-	 fixtureDef.density = 0.0f;
-	 fixtureDef.friction = 1.3f;
-	 //body->CreateFixture(&fighterFixture);
+	 fixtureDef.density = 1.0f;
+	 fixtureDef.friction = 0.3f;
+	 */
 }
 
 #pragma mark -

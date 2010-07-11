@@ -110,21 +110,75 @@ enum {
 		groundBox.SetAsEdge(b2Vec2(screenSize.width/PTM_RATIO,screenSize.height/PTM_RATIO), b2Vec2(screenSize.width/PTM_RATIO,0));
 		groundBody->CreateFixture(&groundBox,0);
 	
-		fighter = [[Fighter alloc] init];
-		fighter.position = ccp(screenSize.width/2, screenSize.height/2);
-			b2BodyDef fighterbody = fighter.body;
-			b2FixtureDef fighterfixture = fighter.fixtureDef;
-			fighterbody.position.Set(fighter.position.x/PTM_RATIO, fighter.position.y/PTM_RATIO);
-			b2Body *body = world->CreateBody(&fighterbody);
-			body->CreateFixture(&fighterfixture);
-		[self addChild:fighter];
-				
+	
+		[self createCharacterFrom:@"Fighter" withCoords:CGPointMake(screenSize.width/2, screenSize.height/2)];
+		
 		babycount = 0;
 		[self schedule: @selector(tick:)];
 				
 	
 	}
 	return self;
+}
+
+-(void)createCharacterFrom:(NSString *)class_string withCoords:(CGPoint)coords {
+	
+	fighter = [[Fighter alloc] init];
+	fighter.position = ccp(coords.x, coords.y);
+	
+	//id character = [[NSClassFromString(class_string) alloc] init];
+	//NSLog(@"%@", character);
+	
+	b2BodyDef characterBody;
+	characterBody.type = b2_dynamicBody;
+	characterBody.userData = fighter;
+	characterBody.position.Set(fighter.position.x/PTM_RATIO, fighter.position.y/PTM_RATIO);
+
+	
+	b2PolygonShape characterShape;
+	characterShape.SetAsBox(([fighter contentSize].width/PTM_RATIO)/2, ([fighter contentSize].height/PTM_RATIO)/2);
+	
+	
+	b2FixtureDef fixture;
+	fixture.shape = &characterShape;
+	fixture.density = fighter.density;
+	fixture.friction = fighter.friction;
+	NSLog(@"Density: %f Friction: %f", fighter.density, fighter.friction);
+
+	
+	b2Body *body = world->CreateBody(&characterBody);
+	body->CreateFixture(&fixture);
+	
+	[self addChild:fighter];
+}
+
+-(void)createBabyFrom:(NSString *)class_string withCoords:(CGPoint)coords {
+	
+	Baby *baby = [[Baby alloc] init];
+	baby.position = ccp(coords.x, coords.y);
+	
+	//id character = [[NSClassFromString(class_string) alloc] init];
+	//NSLog(@"%@", character);
+	
+	b2BodyDef characterBody;
+	characterBody.type = b2_dynamicBody;
+	characterBody.userData = baby;
+	characterBody.position.Set(baby.position.x/PTM_RATIO, baby.position.y/PTM_RATIO);
+	
+	
+	b2PolygonShape characterShape;
+	characterShape.SetAsBox(([baby contentSize].width/PTM_RATIO)/2, ([baby contentSize].height/PTM_RATIO)/2);
+	
+	b2FixtureDef fixture;
+	fixture.shape = &characterShape;
+	fixture.density = baby.density;
+	fixture.friction = baby.friction;
+	NSLog(@"Density:%f Friction:%f", baby.density, baby.friction);
+	
+	b2Body *body = world->CreateBody(&characterBody);
+	body->CreateFixture(&fixture);
+	
+	[self addChild:baby];
 }
 
 -(void) draw
@@ -136,7 +190,7 @@ enum {
 	glDisableClientState(GL_COLOR_ARRAY);
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	
-	world->DrawDebugData();
+	//world->DrawDebugData();
 	
 	// restore default GL states
 	glEnable(GL_TEXTURE_2D);
@@ -180,33 +234,12 @@ enum {
 }
 
 -(void)throwABaby {
-	Baby *baby = [[Baby alloc] init];	
-	baby.position = ccp([CCDirector sharedDirector].winSize.width/2, [CCDirector sharedDirector].winSize.height/2);
-	b2BodyDef babybody = baby.body;
-	b2FixtureDef babyfixture = baby.fixtureDef;
-	babybody.position.Set(baby.position.x/PTM_RATIO, baby.position.y/PTM_RATIO);
-	b2Body *body = world->CreateBody(&babybody);
-	body->CreateFixture(&babyfixture);
-	[self addChild:baby];
-	
+	[self createBabyFrom:@"Baby" withCoords:CGPointMake(100, 100)];
 }
 
 - (void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-	
 	[fighter click];
-	
-	/*
-	//Add a new body/atlas sprite at the touched location
-	for( UITouch *touch in touches ) {
-		CGPoint location = [touch locationInView: [touch view]];
-		
-		location = [[CCDirector sharedDirector] convertToGL: location];
-		
-		[self addNewSpriteWithCoords: location];
-	}*/
-	
-	
 }
 
 - (void)accelerometer:(UIAccelerometer*)accelerometer didAccelerate:(UIAcceleration*)acceleration
@@ -214,7 +247,7 @@ enum {
 	static float prevX=0, prevY=0;
 	
 	//#define kFilterFactor 0.05f
-#define kFilterFactor 1.0f	// don't use filter. the code is here just as an example
+	#define kFilterFactor 1.0f	// don't use filter. the code is here just as an example
 	
 	float accelX = (float) acceleration.x * kFilterFactor + (1- kFilterFactor)*prevX;
 	float accelY = (float) acceleration.y * kFilterFactor + (1- kFilterFactor)*prevY;

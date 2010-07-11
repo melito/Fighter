@@ -15,6 +15,8 @@
 -(id)init {
 
 	if (self=[super init]) {
+		density = 0.0f;
+		friction = 0.1f;
 	}
 	return self;
 }

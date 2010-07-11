@@ -13,16 +13,14 @@
 @interface Character : CCSprite {
 	NSMutableDictionary *actions;
 	
-	b2BodyDef body;
-	b2PolygonShape polygonShape;
-	b2FixtureDef fixtureDef;
-	
+	float density;
+	float friction;
+
 }
 
 @property (nonatomic, retain) NSMutableDictionary *actions;
-@property (nonatomic, readonly) b2BodyDef body;
-@property (nonatomic, readonly) b2PolygonShape polygonShape;
-@property (nonatomic, readonly) b2FixtureDef fixtureDef;
+@property (nonatomic, readonly) float density;
+@property (nonatomic, readonly) float friction;
 
 -(void)loadAnimations;
 -(void)createAnimationNamed:(NSString *)action_name 
