@@ -14,6 +14,7 @@
 
 #import "Fighter.h"
 #import "Baby.h"
+#import "ContactWatcher.h"
 
 // HelloWorld Layer
 @interface FightScene : CCLayer
@@ -22,10 +23,15 @@
 	GLESDebugDraw *m_debugDraw;
 	
 	Fighter *fighter;
+	b2FixtureDef fighterFixture;
 	
+	ContactWatcher *contactWatcher;
+		
 	int babycount;
 	
 }
+
+@property (nonatomic, retain) Fighter *fighter;
 
 -(void)throwABaby;
 
@@ -33,7 +39,7 @@
 +(id) scene;
 
 // adds a new sprite at a given coordinate
--(void) addNewSpriteWithCoords:(CGPoint)p;
+//-(void) addNewSpriteWithCoords:(CGPoint)p;
 -(void) createCharacterFrom:(NSString *)class_name withCoords:(CGPoint)coords;
 
 @end

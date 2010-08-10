@@ -15,6 +15,7 @@
 	
 	float density;
 	float friction;
+	int health;
 
 }
 

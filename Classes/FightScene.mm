@@ -27,6 +27,8 @@ enum {
 // HelloWorld implementation
 @implementation FightScene
 
+@synthesize fighter;
+
 +(id) scene
 {
 	// 'scene' is an autorelease object.
@@ -54,7 +56,7 @@ enum {
 		self.isAccelerometerEnabled = YES;
 		
 		CGSize screenSize = [CCDirector sharedDirector].winSize;
-		CCLOG(@"Screen width %0.2f screen height %0.2f",screenSize.width,screenSize.height);
+		CCLOG(@"Screen width %0.2f screen height %0.2f", screenSize.width, screenSize.height);
 		
 		// Define the gravity vector.
 		b2Vec2 gravity;
@@ -62,7 +64,7 @@ enum {
 		
 		// Do we want to let bodies sleep?
 		// This will speed up the physics simulation
-		bool doSleep = true;
+		bool doSleep = false;
 		
 		// Construct a world object, which will hold and simulate the rigid bodies.
 		world = new b2World(gravity, doSleep);
@@ -110,10 +112,13 @@ enum {
 		groundBox.SetAsEdge(b2Vec2(screenSize.width/PTM_RATIO,screenSize.height/PTM_RATIO), b2Vec2(screenSize.width/PTM_RATIO,0));
 		groundBody->CreateFixture(&groundBox,0);
 	
-	
 		[self createCharacterFrom:@"Fighter" withCoords:CGPointMake(screenSize.width/2, screenSize.height/2)];
 		
-		babycount = 0;
+		contactWatcher = new ContactWatcher();
+		world->SetContactListener(contactWatcher);
+		
+		
+		babycount = 19;
 		[self schedule: @selector(tick:)];
 				
 	
@@ -134,20 +139,17 @@ enum {
 	characterBody.userData = fighter;
 	characterBody.position.Set(fighter.position.x/PTM_RATIO, fighter.position.y/PTM_RATIO);
 
-	
 	b2PolygonShape characterShape;
 	characterShape.SetAsBox(([fighter contentSize].width/PTM_RATIO)/2, ([fighter contentSize].height/PTM_RATIO)/2);
 	
-	
-	b2FixtureDef fixture;
-	fixture.shape = &characterShape;
-	fixture.density = fighter.density;
-	fixture.friction = fighter.friction;
+	fighterFixture;
+	fighterFixture.shape = &characterShape;
+	fighterFixture.density = fighter.density;
+	fighterFixture.friction = fighter.friction;
 	NSLog(@"Density: %f Friction: %f", fighter.density, fighter.friction);
-
 	
 	b2Body *body = world->CreateBody(&characterBody);
-	body->CreateFixture(&fixture);
+	body->CreateFixture(&fighterFixture);
 	
 	[self addChild:fighter];
 }
@@ -157,15 +159,17 @@ enum {
 	Baby *baby = [[Baby alloc] init];
 	baby.position = ccp(coords.x, coords.y);
 	
+	// FIXME: Kill this meta crap.
 	//id character = [[NSClassFromString(class_string) alloc] init];
 	//NSLog(@"%@", character);
 	
+	// Set the characters body
 	b2BodyDef characterBody;
 	characterBody.type = b2_dynamicBody;
 	characterBody.userData = baby;
 	characterBody.position.Set(baby.position.x/PTM_RATIO, baby.position.y/PTM_RATIO);
 	
-	
+	// Set the body's shape
 	b2PolygonShape characterShape;
 	characterShape.SetAsBox(([baby contentSize].width/PTM_RATIO)/2, ([baby contentSize].height/PTM_RATIO)/2);
 	
@@ -190,7 +194,7 @@ enum {
 	glDisableClientState(GL_COLOR_ARRAY);
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	
-	//world->DrawDebugData();
+	world->DrawDebugData();
 	
 	// restore default GL states
 	glEnable(GL_TEXTURE_2D);
@@ -202,6 +206,7 @@ enum {
 
 -(void) tick: (ccTime) dt
 {
+	fighter.position = ccp(fighter.position.x-1, fighter.position.y);
 		
 	if (babycount < 20) {
 		[self throwABaby];
@@ -219,27 +224,61 @@ enum {
 	// Instruct the world to perform a single step of simulation. It is
 	// generally best to keep the time step and iterations fixed.
 	world->Step(dt, velocityIterations, positionIterations);
-
 	
 	//Iterate over the bodies in the physics world
 	for (b2Body* b = world->GetBodyList(); b; b = b->GetNext())
 	{
 		if (b->GetUserData() != NULL) {
+			if (b->GetUserData() == fighter) {
+				b2Vec2 b2Position = b2Vec2(b->GetPosition().x, b->GetPosition().y);
+				float32 b2Angle = 1 * CC_DEGREES_TO_RADIANS(0);
+				b->SetTransform(b2Position, b2Angle);
+			} 
+			
 			//Synchronize the AtlasSprites position and rotation with the corresponding body
 			CCSprite *myActor = (CCSprite*)b->GetUserData();
 			myActor.position = CGPointMake( b->GetPosition().x * PTM_RATIO, b->GetPosition().y * PTM_RATIO);
-			myActor.rotation = -1 * CC_RADIANS_TO_DEGREES(b->GetAngle());
+			myActor.rotation = -1 * CC_RADIANS_TO_DEGREES(b->GetAngle());	
 		}	
 	}
+	
+	std::vector<b2Body *>toDestroy; 
+	std::vector<ContactCollision>::iterator pos;
+	for(pos = contactWatcher->_contacts.begin(); 
+		pos != contactWatcher->_contacts.end(); ++pos) {
+		
+		ContactCollision contact = *pos;
+		
+		b2Body *bodyA = contact.fixtureA->GetBody();
+		b2Body *bodyB = contact.fixtureB->GetBody();
+		
+		if (bodyA->GetUserData() != NULL && bodyB->GetUserData() != NULL) {
+			if ((bodyA->GetUserData() == fighter && bodyB->GetUserData() != fighter)) {
+				NSLog(@"OOOHH SHIT THAT FUCKING BABY HIT YOU, DUDE!");
+			}
+		}
+		
+	}
+	
+	std::vector<b2Body *>::iterator pos2;
+	for(pos2 = toDestroy.begin(); pos2 != toDestroy.end(); ++pos2) {
+		b2Body *body = *pos2;     
+		if (body->GetUserData() != NULL) {
+			CCSprite *sprite = (CCSprite *) body->GetUserData();
+			[self removeChild:sprite cleanup:YES];
+		}
+		world->DestroyBody(body);
+	}
+	
 }
 
 -(void)throwABaby {
 	[self createBabyFrom:@"Baby" withCoords:CGPointMake(100, 100)];
 }
 
-- (void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
-{
+- (void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
 	[fighter click];
+	[self throwABaby];
 }
 
 - (void)accelerometer:(UIAccelerometer*)accelerometer didAccelerate:(UIAcceleration*)acceleration
@@ -249,23 +288,30 @@ enum {
 	//#define kFilterFactor 0.05f
 	#define kFilterFactor 1.0f	// don't use filter. the code is here just as an example
 	
-	float accelX = (float) acceleration.x * kFilterFactor + (1- kFilterFactor)*prevX;
+	//float accelX = (float) acceleration.x * kFilterFactor + (1- kFilterFactor)*prevX;
+	//float accelY = (float) acceleration.y * kFilterFactor + (1- kFilterFactor)*prevY;
+
+	float accelX = (float) -0.7f * kFilterFactor + (1- kFilterFactor)*prevX;
 	float accelY = (float) acceleration.y * kFilterFactor + (1- kFilterFactor)*prevY;
 	
 	prevX = accelX;
 	prevY = accelY;
 	
+	NSLog(@"%f %f", acceleration.x, acceleration.y);	
+	//NSLog(@"%f %f", accelX, accelY);	
 	// accelerometer values are in "Portrait" mode. Change them to Landscape left
 	// multiply the gravity by 10
-	b2Vec2 gravity( -accelY * 10, accelX * 10);
-	
+	b2Vec2 gravity( -accelY * 20, accelX * 20);
 	world->SetGravity( gravity );
+			
 }
 
 // on "dealloc" you need to release all your retained objects
-- (void) dealloc
-{
-	// in case you have something to dealloc, do it in this method
+- (void) dealloc {
+	
+	delete contactWatcher;
+	
+	// in case you have something to dealloc, do it in this method	
 	delete world;
 	world = NULL;
 	

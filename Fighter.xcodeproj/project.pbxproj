@@ -290,6 +290,7 @@
 		50F4144910692EE7002A0D5E /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 50F4144410692EE7002A0D5E /* Default.png */; };
 		50F4144A10692EE7002A0D5E /* fps_images.png in Resources */ = {isa = PBXBuildFile; fileRef = 50F4144510692EE7002A0D5E /* fps_images.png */; };
 		50F4144B10692EE7002A0D5E /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 50F4144610692EE7002A0D5E /* Icon.png */; };
+		B438C5991210FC02002D61C5 /* ContactWatcher.mm in Sources */ = {isa = PBXBuildFile; fileRef = B438C5981210FC02002D61C5 /* ContactWatcher.mm */; };
 		B43E43CE11E7F06400899B5F /* Baby.mm in Sources */ = {isa = PBXBuildFile; fileRef = B43E43CD11E7F06400899B5F /* Baby.mm */; };
 		B470A6B811E68E93002AE3AF /* Character.mm in Sources */ = {isa = PBXBuildFile; fileRef = B470A6B711E68E93002AE3AF /* Character.mm */; };
 		B470A6EF11E695E7002AE3AF /* Fighter.mm in Sources */ = {isa = PBXBuildFile; fileRef = B470A6EE11E695E7002AE3AF /* Fighter.mm */; };
@@ -598,6 +599,8 @@
 		50F4144510692EE7002A0D5E /* fps_images.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fps_images.png; sourceTree = "<group>"; };
 		50F4144610692EE7002A0D5E /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		50F4144710692EE7002A0D5E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B438C5971210FC02002D61C5 /* ContactWatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactWatcher.h; sourceTree = "<group>"; };
+		B438C5981210FC02002D61C5 /* ContactWatcher.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ContactWatcher.mm; sourceTree = "<group>"; };
 		B43E43CC11E7F06400899B5F /* Baby.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Baby.h; sourceTree = "<group>"; };
 		B43E43CD11E7F06400899B5F /* Baby.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Baby.mm; sourceTree = "<group>"; };
 		B470A6B611E68E93002AE3AF /* Character.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Character.h; sourceTree = "<group>"; };
@@ -710,6 +713,8 @@
 				B470A6B711E68E93002AE3AF /* Character.mm */,
 				1F3B9A2C0EF2145700286867 /* FighterAppDelegate.h */,
 				1F3B9A2B0EF2145700286867 /* FighterAppDelegate.mm */,
+				B438C5971210FC02002D61C5 /* ContactWatcher.h */,
+				B438C5981210FC02002D61C5 /* ContactWatcher.mm */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -1385,6 +1390,7 @@
 				B470A6B811E68E93002AE3AF /* Character.mm in Sources */,
 				B470A6EF11E695E7002AE3AF /* Fighter.mm in Sources */,
 				B43E43CE11E7F06400899B5F /* Baby.mm in Sources */,
+				B438C5991210FC02002D61C5 /* ContactWatcher.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
