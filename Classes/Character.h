@@ -16,12 +16,16 @@
 	float density;
 	float friction;
 	int health;
+	
+	BOOL isAttacking;
 
 }
 
 @property (nonatomic, retain) NSMutableDictionary *actions;
 @property (nonatomic, readonly) float density;
 @property (nonatomic, readonly) float friction;
+@property (nonatomic, readwrite) int health;
+@property (nonatomic, readwrite) BOOL isAttacking;
 
 -(void)loadAnimations;
 -(void)createAnimationNamed:(NSString *)action_name 

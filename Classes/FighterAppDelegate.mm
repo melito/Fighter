@@ -8,6 +8,8 @@
 
 #import "FighterAppDelegate.h"
 #import "cocos2d.h"
+#import "CleverCollieScene.h"
+#import "MenuScene.h"
 #import "FightScene.h"
 
 @implementation FighterAppDelegate
@@ -49,7 +51,12 @@
 	// You can change anytime.
 	[CCTexture2D setDefaultAlphaPixelFormat:kTexture2DPixelFormat_RGBA8888];
 		
-	[[CCDirector sharedDirector] runWithScene: [FightScene scene]];
+	[[CCDirector sharedDirector] runWithScene: [CleverCollieScene scene]];
+
+}
+
++(id)fightScene {
+	return [FightScene scene];
 }
 
 

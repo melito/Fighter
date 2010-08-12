@@ -17,6 +17,7 @@
 		density = 0.5f;
 		friction = 0.0f;
 		health = 5;
+		isAttacking = YES;
 	}
 	return self;
 }

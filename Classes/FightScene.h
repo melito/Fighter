@@ -19,6 +19,11 @@
 // HelloWorld Layer
 @interface FightScene : CCLayer
 {
+	
+	CCLabel *scoreLabel;
+	CCLabel *healthLabel;
+
+	
 	b2World* world;
 	GLESDebugDraw *m_debugDraw;
 	
@@ -28,15 +33,18 @@
 	ContactWatcher *contactWatcher;
 		
 	int babycount;
+	int killed_babies;
 	
 }
 
 @property (nonatomic, retain) Fighter *fighter;
+@property (nonatomic, readwrite) int killed_babies;
 
--(void)throwABaby;
+-(void) throwABaby;
 
 // returns a Scene that contains the HelloWorld as the only child
 +(id) scene;
+-(id) init;
 
 // adds a new sprite at a given coordinate
 //-(void) addNewSpriteWithCoords:(CGPoint)p;

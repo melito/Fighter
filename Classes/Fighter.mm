@@ -15,9 +15,10 @@
 -(id)init {
 
 	if (self=[super init]) {
-		density = 10.0f;
-		friction = 2.0f;
-		health   = 100;
+		density = 5.0f;
+		friction = 1.0f;
+		health   = 1000;
+		isAttacking = NO;
 	}
 	return self;
 }

@@ -8,7 +8,7 @@
 
 
 // Import the interfaces
-#import "FIghtScene.h"
+#import "FightScene.h"
 
 //Pixel to metres ratio. Box2D uses metres as the unit for measurement.
 //This ratio defines how many pixels correspond to 1 Box2D "metre"
@@ -28,6 +28,7 @@ enum {
 @implementation FightScene
 
 @synthesize fighter;
+@synthesize killed_babies;
 
 +(id) scene
 {
@@ -58,6 +59,25 @@ enum {
 		CGSize screenSize = [CCDirector sharedDirector].winSize;
 		CCLOG(@"Screen width %0.2f screen height %0.2f", screenSize.width, screenSize.height);
 		
+		killed_babies = 0;
+
+		healthLabel = [CCLabel labelWithString: [NSString stringWithFormat:@"Health: %d", 100] 
+								   dimensions: CGSizeMake(180, 20) 
+									alignment: UITextAlignmentLeft 
+									 fontName:@"Helvetica" 
+									 fontSize: 20]; 
+		[healthLabel setPosition: ccp(screenSize.height-220, screenSize.width-180)]; 
+		[self addChild: healthLabel];
+		
+		
+		scoreLabel = [CCLabel labelWithString: [NSString stringWithFormat:@"Stomped Babies: %d", killed_babies] 
+								  dimensions: CGSizeMake(180, 25) 
+								   alignment: UITextAlignmentLeft 
+									fontName:@"Helvetica" 
+									fontSize: 20]; 
+		[scoreLabel setPosition: ccp(screenSize.height+50, screenSize.width-180)]; 
+		[self addChild: scoreLabel];
+		
 		// Define the gravity vector.
 		b2Vec2 gravity;
 		gravity.Set(0.0f, -10.0f);
@@ -76,7 +96,7 @@ enum {
 		world->SetDebugDraw(m_debugDraw);
 		
 		uint32 flags = 0;
-		flags += b2DebugDraw::e_shapeBit;
+//		flags += b2DebugDraw::e_shapeBit;
 //		flags += b2DebugDraw::e_jointBit;
 //		flags += b2DebugDraw::e_aabbBit;
 //		flags += b2DebugDraw::e_pairBit;
@@ -229,11 +249,11 @@ enum {
 	for (b2Body* b = world->GetBodyList(); b; b = b->GetNext())
 	{
 		if (b->GetUserData() != NULL) {
-			if (b->GetUserData() == fighter) {
-				b2Vec2 b2Position = b2Vec2(b->GetPosition().x, b->GetPosition().y);
-				float32 b2Angle = 1 * CC_DEGREES_TO_RADIANS(0);
-				b->SetTransform(b2Position, b2Angle);
-			} 
+			//if (b->GetUserData() == fighter) {
+			//	b2Vec2 b2Position = b2Vec2(b->GetPosition().x, b->GetPosition().y);
+			//	float32 b2Angle = 1 * CC_DEGREES_TO_RADIANS(0);
+			//	b->SetTransform(b2Position, b2Angle);
+			//} 
 			
 			//Synchronize the AtlasSprites position and rotation with the corresponding body
 			CCSprite *myActor = (CCSprite*)b->GetUserData();
@@ -253,11 +273,31 @@ enum {
 		b2Body *bodyB = contact.fixtureB->GetBody();
 		
 		if (bodyA->GetUserData() != NULL && bodyB->GetUserData() != NULL) {
-			if ((bodyA->GetUserData() == fighter && bodyB->GetUserData() != fighter)) {
-				NSLog(@"OOOHH SHIT THAT FUCKING BABY HIT YOU, DUDE!");
-			}
-		}
-		
+			Character *spriteA = (Character *) bodyA->GetUserData();
+			Character *spriteB = (Character *) bodyB->GetUserData();
+			
+			if (spriteA == fighter && spriteB != fighter) {
+				
+				if (fighter.isAttacking) {
+					spriteB.health -= 5;
+				} else {
+					spriteA.health -= 5;
+					[healthLabel setString:[NSString stringWithFormat:@"Health: %d", spriteA.health]]; 
+				}
+				
+				if (spriteA.health <= 0) {
+					toDestroy.push_back(bodyA);
+				}
+				
+				if (spriteB.health <= 0) {
+					killed_babies += 1;
+					[scoreLabel setString:[NSString stringWithFormat:@"Stomped Babies: %i", killed_babies]];
+					toDestroy.push_back(bodyB);
+				}
+				
+			} 
+		}        
+				
 	}
 	
 	std::vector<b2Body *>::iterator pos2;
@@ -297,7 +337,7 @@ enum {
 	prevX = accelX;
 	prevY = accelY;
 	
-	NSLog(@"%f %f", acceleration.x, acceleration.y);	
+	//NSLog(@"%f %f", acceleration.x, acceleration.y);	
 	//NSLog(@"%f %f", accelX, accelY);	
 	// accelerometer values are in "Portrait" mode. Change them to Landscape left
 	// multiply the gravity by 10

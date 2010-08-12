@@ -14,6 +14,8 @@
 @synthesize actions;
 @synthesize density;
 @synthesize friction;
+@synthesize health;
+@synthesize isAttacking;
 
 -(id)init {
 
@@ -118,9 +120,11 @@
 	CCAnimation *defaultAction = [actions objectForKey:@"default"];
 	CCRepeatForever *repeat = [CCRepeatForever actionWithAction:defaultAction];
 	[self runAction:repeat];
+	self.isAttacking = NO;
 }
 
 -(void)click{
+	self.isAttacking = YES;
 	[self runActionWithName:@"click"];
 }
 
@@ -130,6 +134,7 @@
 	
 	[self stopAllActions];
 	[self runAction:[CCSequence actions:animationAction, actionDone, nil]];
+	
 }
 
 
