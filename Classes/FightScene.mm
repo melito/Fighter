@@ -16,14 +16,6 @@
 //to define the ratio so that your most common object type is 1x1 metre.
 #define PTM_RATIO 32
 
-// enums that will be used as tags
-enum {
-	kTagTileMap = 1,
-	kTagSpriteSheet = 1,
-	kTagAnimation1 = 1,
-};
-
-
 // HelloWorld implementation
 @implementation FightScene
 
@@ -137,7 +129,6 @@ enum {
 		contactWatcher = new ContactWatcher();
 		world->SetContactListener(contactWatcher);
 		
-		
 		babycount = 19;
 		[self schedule: @selector(tick:)];
 				
@@ -162,7 +153,6 @@ enum {
 	b2PolygonShape characterShape;
 	characterShape.SetAsBox(([fighter contentSize].width/PTM_RATIO)/2, ([fighter contentSize].height/PTM_RATIO)/2);
 	
-	fighterFixture;
 	fighterFixture.shape = &characterShape;
 	fighterFixture.density = fighter.density;
 	fighterFixture.friction = fighter.friction;
@@ -249,11 +239,11 @@ enum {
 	for (b2Body* b = world->GetBodyList(); b; b = b->GetNext())
 	{
 		if (b->GetUserData() != NULL) {
-			//if (b->GetUserData() == fighter) {
-			//	b2Vec2 b2Position = b2Vec2(b->GetPosition().x, b->GetPosition().y);
-			//	float32 b2Angle = 1 * CC_DEGREES_TO_RADIANS(0);
-			//	b->SetTransform(b2Position, b2Angle);
-			//} 
+			if (b->GetUserData() == fighter) {
+				b2Vec2 b2Position = b2Vec2(b->GetPosition().x, b->GetPosition().y);
+				float32 b2Angle = 1 * CC_DEGREES_TO_RADIANS(0);
+				b->SetTransform(b2Position, b2Angle);
+			} 
 			
 			//Synchronize the AtlasSprites position and rotation with the corresponding body
 			CCSprite *myActor = (CCSprite*)b->GetUserData();
