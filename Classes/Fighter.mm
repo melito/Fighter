@@ -11,6 +11,7 @@
 
 @implementation Fighter
 
+@synthesize nextPosXCoord;
 
 -(id)init {
 

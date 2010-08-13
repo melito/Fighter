@@ -10,7 +10,9 @@
 #import "Character.h"
 
 @interface Fighter : Character {
-
+	float nextPosXCoord;
 }
+
+@property (nonatomic, readwrite) float nextPosXCoord;
 
 @end

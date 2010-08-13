@@ -16,6 +16,9 @@
 @synthesize friction;
 @synthesize health;
 @synthesize isAttacking;
+@synthesize isActionRunning;
+@synthesize isMovementActionRunning;
+@synthesize currentAction;
 
 -(id)init {
 
@@ -116,24 +119,51 @@
 	
 }
 
--(void)runDefaultActionForever {
-	CCAnimation *defaultAction = [actions objectForKey:@"default"];
-	CCRepeatForever *repeat = [CCRepeatForever actionWithAction:defaultAction];
+
+-(void)runActionForever:(NSString *)actionName {
+	CCAnimation *animationAction = [actions objectForKey:actionName];
+	CCRepeatForever *repeat = [CCRepeatForever actionWithAction:animationAction];
+	[self stopAllActions];
 	[self runAction:repeat];
 	self.isAttacking = NO;
+	self.isActionRunning = NO;
+}
+
+-(void)runDefaultActionForever {
+	[self runActionForever:@"default"];
+}
+
+-(void)actionDone {
+	isActionRunning = NO;
+	if (currentAction == @"back" || currentAction == @"forward") {
+		[self runAction:currentAction];
+	} else {
+		[self runDefaultActionForever];
+	}
 }
 
 -(void)click{
 	self.isAttacking = YES;
-	[self runActionWithName:@"click"];
+	isActionRunning = NO;
+	
+	if (arc4random() % 2) {
+		[self runActionWithName:@"click"];
+	} else {
+		[self runActionWithName:@"punch"];
+	}
 }
 
 -(void)runActionWithName:(NSString *)actionName {
 	CCAnimation *animationAction = [actions objectForKey:actionName];
-	id actionDone = [CCCallFunc actionWithTarget:self selector:@selector(runDefaultActionForever)];
+	id actionDone = [CCCallFunc actionWithTarget:self selector:@selector(actionDone)];
 	
-	[self stopAllActions];
-	[self runAction:[CCSequence actions:animationAction, actionDone, nil]];
+	currentAction = actionName;
+	
+	if(isActionRunning == NO){
+	  isActionRunning = YES;
+	  [self stopAllActions];
+	  [self runAction:[CCSequence actions:animationAction, actionDone, nil]];
+	}
 	
 }
 

@@ -18,6 +18,10 @@
 	int health;
 	
 	BOOL isAttacking;
+	BOOL isActionRunning;
+	BOOL isMovementActionRunning;
+
+	NSString *currentAction;
 
 }
 
@@ -26,6 +30,9 @@
 @property (nonatomic, readonly) float friction;
 @property (nonatomic, readwrite) int health;
 @property (nonatomic, readwrite) BOOL isAttacking;
+@property (nonatomic, readwrite) BOOL isActionRunning;
+@property (nonatomic, readwrite) BOOL isMovementActionRunning;
+@property (nonatomic, retain) NSString *currentAction;
 
 -(void)loadAnimations;
 -(void)createAnimationNamed:(NSString *)action_name 
@@ -37,5 +44,7 @@
 
 -(void)runActionWithName:(NSString *)actionName;
 -(void)runDefaultActionForever;
+-(void)runActionForever;
 
+-(void)click;
 @end

@@ -129,10 +129,11 @@
 		contactWatcher = new ContactWatcher();
 		world->SetContactListener(contactWatcher);
 		
-		babycount = 19;
+		babycount = 0;
 		[self schedule: @selector(tick:)];
-				
-	
+		[self schedule: @selector(spawnEnemy:) interval:3];
+		
+		
 	}
 	return self;
 }
@@ -217,11 +218,6 @@
 -(void) tick: (ccTime) dt
 {
 	fighter.position = ccp(fighter.position.x-1, fighter.position.y);
-		
-	if (babycount < 20) {
-		[self throwABaby];
-		babycount += 1;
-	}
 	
 	//It is recommended that a fixed time step is used with Box2D for stability
 	//of the simulation, however, we are using a variable time step here.
@@ -240,9 +236,13 @@
 	{
 		if (b->GetUserData() != NULL) {
 			if (b->GetUserData() == fighter) {
-				b2Vec2 b2Position = b2Vec2(b->GetPosition().x, b->GetPosition().y);
-				float32 b2Angle = 1 * CC_DEGREES_TO_RADIANS(0);
-				b->SetTransform(b2Position, b2Angle);
+				
+				// nextPosXCoord gets set by the accelerometer callback further below
+				if (fighter.nextPosXCoord != 0) {
+					b2Vec2 b2Position = b2Vec2(b->GetPosition().x-(fighter.nextPosXCoord/PTM_RATIO), b->GetPosition().y);
+					float32 b2Angle = 1 * CC_DEGREES_TO_RADIANS(0);
+					b->SetTransform(b2Position, b2Angle);
+				}
 			} 
 			
 			//Synchronize the AtlasSprites position and rotation with the corresponding body
@@ -302,17 +302,49 @@
 	
 }
 
--(void)throwABaby {
-	[self createBabyFrom:@"Baby" withCoords:CGPointMake(100, 100)];
-}
-
-- (void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-	[fighter click];
+-(void)spawnEnemy:(ccTime) dt {
 	[self throwABaby];
 }
 
-- (void)accelerometer:(UIAccelerometer*)accelerometer didAccelerate:(UIAcceleration*)acceleration
-{	
+-(void)throwABaby{
+	CGSize screenSize = [CCDirector sharedDirector].winSize;
+
+	int _x = 0;
+	int _y = 0;
+	
+	switch ((1+arc4random()%4)) {
+		case 1:
+			// bottom left
+			// No action necessary
+			break;
+		case 2:
+			// top right
+			_x = screenSize.width;
+			_y = screenSize.height;
+			break;
+		case 3:
+			// top left
+			_x = 0;
+			_y = screenSize.height;
+			break;
+		case 4:
+			// bottom right
+			_x = screenSize.width;
+			_y = 0;
+			break;
+	}
+		
+	[self createBabyFrom:@"Baby" withCoords:CGPointMake(_x, _y)];
+	babycount += 1;
+}
+
+
+-(void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+	[fighter click];
+}
+
+-(void)accelerometer:(UIAccelerometer*)accelerometer didAccelerate:(UIAcceleration*)acceleration {
+	
 	static float prevX=0, prevY=0;
 	
 	//#define kFilterFactor 0.05f
@@ -326,13 +358,26 @@
 	
 	prevX = accelX;
 	prevY = accelY;
-	
+		
 	//NSLog(@"%f %f", acceleration.x, acceleration.y);	
 	//NSLog(@"%f %f", accelX, accelY);	
 	// accelerometer values are in "Portrait" mode. Change them to Landscape left
 	// multiply the gravity by 10
-	b2Vec2 gravity( -accelY * 20, accelX * 20);
-	world->SetGravity( gravity );
+	//b2Vec2 gravity( -accelY * 20, accelX * 20);
+	//world->SetGravity( gravity );
+	//Iterate over the bodies in the physics world
+	
+	if (accelY > 0.3f) {
+		[fighter runActionWithName:@"back"];	
+		fighter.nextPosXCoord = 1;
+	} else if (accelY < -0.3f) {
+		[fighter runActionWithName:@"forward"];
+		fighter.nextPosXCoord = -1;
+	} else {
+		[fighter runActionWithName:@"default"];
+		fighter.nextPosXCoord = 0;
+	}
+ 
 			
 }
 
