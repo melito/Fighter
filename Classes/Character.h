@@ -20,6 +20,7 @@
 	BOOL isAttacking;
 	BOOL isActionRunning;
 	BOOL isMovementActionRunning;
+	BOOL isHurting;
 
 	NSString *currentAction;
 
@@ -32,6 +33,8 @@
 @property (nonatomic, readwrite) BOOL isAttacking;
 @property (nonatomic, readwrite) BOOL isActionRunning;
 @property (nonatomic, readwrite) BOOL isMovementActionRunning;
+@property (nonatomic, readwrite) BOOL isHurting;
+
 @property (nonatomic, retain) NSString *currentAction;
 
 -(void)loadAnimations;

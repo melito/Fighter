@@ -8,6 +8,7 @@
 
 #import "cocos2d.h"
 #import "SimpleAudioEngine.h"
+#import "HighScoreScene.h"
 
 @interface MenuScene : CCLayer {}
 

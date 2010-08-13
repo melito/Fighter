@@ -18,7 +18,7 @@
 	if (self=[super init]) {
 		density = 5.0f;
 		friction = 1.0f;
-		health   = 1000;
+		health   = 100;
 		isAttacking = NO;
 	}
 	return self;

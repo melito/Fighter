@@ -30,17 +30,26 @@
 		background.anchorPoint = CGPointMake(0, 0);
 		[self addChild:background];
 		
-		
 		[CCMenuItemFont setFontSize:20];
 		[CCMenuItemFont setFontName:@"Helvetica"];
 		
 		CCMenuItem *startGame = [CCMenuItemFont itemFromString:@"Start Game"
 														target:self
 													  selector:@selector(startGame:)];
+
+		CCMenuItem *showScores = [CCMenuItemFont itemFromString:@"High Scores"
+														target:self
+													  selector:@selector(showAbout:)];
 		
-		CCMenu *menu = [CCMenu menuWithItems:startGame, nil];
+		
+		CCMenuItem *showAbout = [CCMenuItemFont itemFromString:@"About"
+														target:self
+													  selector:@selector(showAbout:)];
+		
+		
+		CCMenu *menu = [CCMenu menuWithItems:startGame, showScores, showAbout, nil];
 		[menu alignItemsVertically];
-		//menu.position = CGPointMake(((screenSize.height/2)-30), screenSize.width/2);
+		menu.position = CGPointMake(((screenSize.width/2)/2)+10, screenSize.height/2);
 		
 		[self addChild:menu];
 		
@@ -51,6 +60,10 @@
 -(void)startGame:(id)sender {
 	NSLog(@"Gettin ready to kill some babies....");
 	[[CCDirector sharedDirector] replaceScene:[CCFadeTransition transitionWithDuration:0.5 scene:[FighterAppDelegate fightScene]]];
+}
+
+-(void)showAbout:(id)sender{
+	[[CCDirector sharedDirector] replaceScene:[CCSlideInRTransition transitionWithDuration:0.5 scene:[HighScoreScene scene]]];
 }
 
 

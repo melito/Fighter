@@ -302,6 +302,8 @@
 		B44392DE1214D07600B92E11 /* back.1.6.92.384.gif in Resources */ = {isa = PBXBuildFile; fileRef = B44392DD1214D07600B92E11 /* back.1.6.92.384.gif */; };
 		B44393111214DAF600B92E11 /* punch.1.6.95.702.gif in Resources */ = {isa = PBXBuildFile; fileRef = B44393101214DAF600B92E11 /* punch.1.6.95.702.gif */; };
 		B44393341214E35B00B92E11 /* forward.1.6.92.384.gif in Resources */ = {isa = PBXBuildFile; fileRef = B44393331214E35B00B92E11 /* forward.1.6.92.384.gif */; };
+		B44394FC1215289200B92E11 /* HighScoreScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B44394FB1215289200B92E11 /* HighScoreScene.m */; };
+		B443951312152AC500B92E11 /* HighScoreBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = B443951212152AC500B92E11 /* HighScoreBackground.png */; };
 		B470A6B811E68E93002AE3AF /* Character.mm in Sources */ = {isa = PBXBuildFile; fileRef = B470A6B711E68E93002AE3AF /* Character.mm */; };
 		B470A6EF11E695E7002AE3AF /* Fighter.mm in Sources */ = {isa = PBXBuildFile; fileRef = B470A6EE11E695E7002AE3AF /* Fighter.mm */; };
 		B48F219B11E8004C00FDEAFB /* Character in Resources */ = {isa = PBXBuildFile; fileRef = B48F219111E8004C00FDEAFB /* Character */; };
@@ -625,6 +627,9 @@
 		B44392DD1214D07600B92E11 /* back.1.6.92.384.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = back.1.6.92.384.gif; path = Character/Fighter/back.1.6.92.384.gif; sourceTree = "<group>"; };
 		B44393101214DAF600B92E11 /* punch.1.6.95.702.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = punch.1.6.95.702.gif; path = Character/Fighter/punch.1.6.95.702.gif; sourceTree = "<group>"; };
 		B44393331214E35B00B92E11 /* forward.1.6.92.384.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = forward.1.6.92.384.gif; path = Character/Fighter/forward.1.6.92.384.gif; sourceTree = "<group>"; };
+		B44394FA1215289200B92E11 /* HighScoreScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HighScoreScene.h; sourceTree = "<group>"; };
+		B44394FB1215289200B92E11 /* HighScoreScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HighScoreScene.m; sourceTree = "<group>"; };
+		B443951212152AC500B92E11 /* HighScoreBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HighScoreBackground.png; sourceTree = "<group>"; };
 		B470A6B611E68E93002AE3AF /* Character.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Character.h; sourceTree = "<group>"; };
 		B470A6B711E68E93002AE3AF /* Character.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Character.mm; sourceTree = "<group>"; };
 		B470A6ED11E695E7002AE3AF /* Fighter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Fighter.h; sourceTree = "<group>"; };
@@ -1142,6 +1147,7 @@
 		50F4144210692EE7002A0D5E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				B443951212152AC500B92E11 /* HighScoreBackground.png */,
 				B44393331214E35B00B92E11 /* forward.1.6.92.384.gif */,
 				B44393101214DAF600B92E11 /* punch.1.6.95.702.gif */,
 				B44392DD1214D07600B92E11 /* back.1.6.92.384.gif */,
@@ -1181,6 +1187,8 @@
 		B48F222711E83A1B00FDEAFB /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				B44394FA1215289200B92E11 /* HighScoreScene.h */,
+				B44394FB1215289200B92E11 /* HighScoreScene.m */,
 				B438C8231213BA0A002D61C5 /* CleverCollieScene.h */,
 				B438C8241213BA0A002D61C5 /* CleverCollieScene.m */,
 				506EDC30102F528A00A389B3 /* FightScene.mm */,
@@ -1415,6 +1423,7 @@
 				B44392DE1214D07600B92E11 /* back.1.6.92.384.gif in Resources */,
 				B44393111214DAF600B92E11 /* punch.1.6.95.702.gif in Resources */,
 				B44393341214E35B00B92E11 /* forward.1.6.92.384.gif in Resources */,
+				B443951312152AC500B92E11 /* HighScoreBackground.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1435,6 +1444,7 @@
 				B438C5991210FC02002D61C5 /* ContactWatcher.mm in Sources */,
 				B438C8201213B9FC002D61C5 /* MenuScene.m in Sources */,
 				B438C8251213BA0A002D61C5 /* CleverCollieScene.m in Sources */,
+				B44394FC1215289200B92E11 /* HighScoreScene.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

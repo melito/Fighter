@@ -67,7 +67,7 @@
 								   alignment: UITextAlignmentLeft 
 									fontName:@"Helvetica" 
 									fontSize: 20]; 
-		[scoreLabel setPosition: ccp(screenSize.height+50, screenSize.width-180)]; 
+		[scoreLabel setPosition: ccp(screenSize.height+30, screenSize.width-180)]; 
 		[self addChild: scoreLabel];
 		
 		// Define the gravity vector.
@@ -131,7 +131,7 @@
 		
 		babycount = 0;
 		[self schedule: @selector(tick:)];
-		[self schedule: @selector(spawnEnemy:) interval:3];
+		[self schedule: @selector(spawnEnemy:) interval:2];
 		
 		
 	}
@@ -238,12 +238,17 @@
 			if (b->GetUserData() == fighter) {
 				
 				// nextPosXCoord gets set by the accelerometer callback further below
-				if (fighter.nextPosXCoord != 0) {
+				if (fighter.nextPosXCoord != 0 && fighter.isAttacking == NO) {
 					b2Vec2 b2Position = b2Vec2(b->GetPosition().x-(fighter.nextPosXCoord/PTM_RATIO), b->GetPosition().y);
 					float32 b2Angle = 1 * CC_DEGREES_TO_RADIANS(0);
 					b->SetTransform(b2Position, b2Angle);
 				}
-			} 
+				
+			} else {
+				b2Vec2 b2Position = b2Vec2(b->GetPosition().x, b->GetPosition().y);
+				float32 b2Angle = 1 * CC_DEGREES_TO_RADIANS(0);
+			}
+
 			
 			//Synchronize the AtlasSprites position and rotation with the corresponding body
 			CCSprite *myActor = (CCSprite*)b->GetUserData();
@@ -270,19 +275,28 @@
 				
 				if (fighter.isAttacking) {
 					spriteB.health -= 5;
+
+					bodyB->ApplyLinearImpulse(b2Vec2(60.0 * bodyB->GetMass(), 100.0 * bodyB->GetMass()), bodyB->GetWorldCenter());
+					//bodyB->ApplyForce(b2Vec2(100.0 * bodyB->GetMass(), 2.0 * bodyB->GetMass()), bodyB->GetWorldCenter());
+					
+				} else if (fighter.isHurting) {
+					// Do nothing
+					
 				} else {
 					spriteA.health -= 5;
+					[spriteA runActionWithName:@"blink"];
 					[healthLabel setString:[NSString stringWithFormat:@"Health: %d", spriteA.health]]; 
 				}
 				
 				if (spriteA.health <= 0) {
+					NSLog(@"Destroy body");
 					toDestroy.push_back(bodyA);
 				}
 				
 				if (spriteB.health <= 0) {
-					killed_babies += 1;
-					[scoreLabel setString:[NSString stringWithFormat:@"Stomped Babies: %i", killed_babies]];
 					toDestroy.push_back(bodyB);
+					killed_babies += 1;
+					[scoreLabel setString:[NSString stringWithFormat:@" Babies: %d", killed_babies]];
 				}
 				
 			} 
@@ -295,11 +309,25 @@
 		b2Body *body = *pos2;     
 		if (body->GetUserData() != NULL) {
 			CCSprite *sprite = (CCSprite *) body->GetUserData();
-			[self removeChild:sprite cleanup:YES];
+			
+			if (sprite != fighter) {
+				id blinkAction = [CCBlink actionWithDuration:1.5 blinks:5];
+				id removeSprite = [CCCallFuncND actionWithTarget:self selector:@selector(removeEnemy:data:) data:body];
+				[sprite runAction:[CCSequence actions:blinkAction, removeSprite, nil]];
+			} else {
+				[self removeChild:sprite cleanup:true];
+				world->DestroyBody(body);
+			}
 		}
-		world->DestroyBody(body);
 	}
 	
+}
+							   
+-(void)removeEnemy:(id)sender data:(b2Body *)deadBody {
+	NSLog(@"removeEnemy");
+	CCSprite *sprite = (CCSprite *)sender;
+	[self removeChild:sprite cleanup:YES];
+	world->DestroyBody(deadBody);
 }
 
 -(void)spawnEnemy:(ccTime) dt {
@@ -334,7 +362,7 @@
 			break;
 	}
 		
-	[self createBabyFrom:@"Baby" withCoords:CGPointMake(_x, _y)];
+	[self createBabyFrom:@"Baby" withCoords:CGPointMake(100, 100)];
 	babycount += 1;
 }
 

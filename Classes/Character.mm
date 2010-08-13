@@ -18,6 +18,7 @@
 @synthesize isAttacking;
 @synthesize isActionRunning;
 @synthesize isMovementActionRunning;
+@synthesize isHurting;
 @synthesize currentAction;
 
 -(id)init {
@@ -125,8 +126,8 @@
 	CCRepeatForever *repeat = [CCRepeatForever actionWithAction:animationAction];
 	[self stopAllActions];
 	[self runAction:repeat];
-	self.isAttacking = NO;
-	self.isActionRunning = NO;
+	isAttacking = NO;
+	isActionRunning = NO;
 }
 
 -(void)runDefaultActionForever {
@@ -135,6 +136,9 @@
 
 -(void)actionDone {
 	isActionRunning = NO;
+	isAttacking = NO;
+	isHurting = NO;
+	
 	if (currentAction == @"back" || currentAction == @"forward") {
 		[self runAction:currentAction];
 	} else {
@@ -143,26 +147,33 @@
 }
 
 -(void)click{
-	self.isAttacking = YES;
+	isAttacking = YES;
 	isActionRunning = NO;
 	
-	if (arc4random() % 2) {
+	//if (arc4random() % 2) {
 		[self runActionWithName:@"click"];
-	} else {
-		[self runActionWithName:@"punch"];
-	}
+	//} else {
+	//	[self runActionWithName:@"punch"];
+	//}
 }
 
 -(void)runActionWithName:(NSString *)actionName {
-	CCAnimation *animationAction = [actions objectForKey:actionName];
-	id actionDone = [CCCallFunc actionWithTarget:self selector:@selector(actionDone)];
-	
 	currentAction = actionName;
+	CCAnimation *animationAction = [actions objectForKey:currentAction];
+	id actionDone = [CCCallFunc actionWithTarget:self selector:@selector(actionDone)];
 	
 	if(isActionRunning == NO){
 	  isActionRunning = YES;
 	  [self stopAllActions];
-	  [self runAction:[CCSequence actions:animationAction, actionDone, nil]];
+		
+		if (currentAction == @"blink") {
+			isHurting = YES;
+			id blinkAction = [CCBlink actionWithDuration:1.5 blinks:8];
+			[self runAction:[CCSequence actions:blinkAction, actionDone, nil]];
+		} else {
+			[self runAction:[CCSequence actions:animationAction, actionDone, nil]];
+		}
+	  
 	}
 	
 }
