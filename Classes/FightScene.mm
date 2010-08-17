@@ -67,7 +67,7 @@
 								   alignment: UITextAlignmentLeft 
 									fontName:@"Helvetica" 
 									fontSize: 20]; 
-		[scoreLabel setPosition: ccp(screenSize.height+30, screenSize.width-180)]; 
+		[scoreLabel setPosition: ccp(screenSize.height+80, screenSize.width-180)]; 
 		[self addChild: scoreLabel];
 		
 		// Define the gravity vector.
