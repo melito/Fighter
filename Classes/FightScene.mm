@@ -62,12 +62,12 @@
 		[self addChild: healthLabel];
 		
 		
-		scoreLabel = [CCLabel labelWithString: [NSString stringWithFormat:@"Stomped Babies: %d", killed_babies] 
+		scoreLabel = [CCLabel labelWithString: [NSString stringWithFormat:@"Babies: %d", killed_babies] 
 								  dimensions: CGSizeMake(180, 25) 
 								   alignment: UITextAlignmentLeft 
 									fontName:@"Helvetica" 
 									fontSize: 20]; 
-		[scoreLabel setPosition: ccp(screenSize.height+80, screenSize.width-180)]; 
+		[scoreLabel setPosition: ccp(screenSize.height+130, screenSize.width-180)]; 
 		[self addChild: scoreLabel];
 		
 		// Define the gravity vector.

@@ -140,7 +140,7 @@
 	isHurting = NO;
 	
 	if (currentAction == @"back" || currentAction == @"forward") {
-		[self runAction:currentAction];
+		[self runActionWithName:currentAction];
 	} else {
 		[self runDefaultActionForever];
 	}
