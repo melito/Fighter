@@ -300,7 +300,6 @@
 		B44392291213C5FC00B92E11 /* LogoBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = B44392281213C5FC00B92E11 /* LogoBackground.png */; };
 		B443925E1213CDEA00B92E11 /* BabyFighterMenu.aif in Resources */ = {isa = PBXBuildFile; fileRef = B443925D1213CDEA00B92E11 /* BabyFighterMenu.aif */; };
 		B44392DE1214D07600B92E11 /* back.1.6.92.384.gif in Resources */ = {isa = PBXBuildFile; fileRef = B44392DD1214D07600B92E11 /* back.1.6.92.384.gif */; };
-		B44393111214DAF600B92E11 /* punch.1.6.95.702.gif in Resources */ = {isa = PBXBuildFile; fileRef = B44393101214DAF600B92E11 /* punch.1.6.95.702.gif */; };
 		B44393341214E35B00B92E11 /* forward.1.6.92.384.gif in Resources */ = {isa = PBXBuildFile; fileRef = B44393331214E35B00B92E11 /* forward.1.6.92.384.gif */; };
 		B44394FC1215289200B92E11 /* HighScoreScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B44394FB1215289200B92E11 /* HighScoreScene.m */; };
 		B443951312152AC500B92E11 /* HighScoreBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = B443951212152AC500B92E11 /* HighScoreBackground.png */; };
@@ -625,7 +624,6 @@
 		B44392281213C5FC00B92E11 /* LogoBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LogoBackground.png; sourceTree = "<group>"; };
 		B443925D1213CDEA00B92E11 /* BabyFighterMenu.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = BabyFighterMenu.aif; sourceTree = "<group>"; };
 		B44392DD1214D07600B92E11 /* back.1.6.92.384.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = back.1.6.92.384.gif; path = Character/Fighter/back.1.6.92.384.gif; sourceTree = "<group>"; };
-		B44393101214DAF600B92E11 /* punch.1.6.95.702.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = punch.1.6.95.702.gif; path = Character/Fighter/punch.1.6.95.702.gif; sourceTree = "<group>"; };
 		B44393331214E35B00B92E11 /* forward.1.6.92.384.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = forward.1.6.92.384.gif; path = Character/Fighter/forward.1.6.92.384.gif; sourceTree = "<group>"; };
 		B44394FA1215289200B92E11 /* HighScoreScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HighScoreScene.h; sourceTree = "<group>"; };
 		B44394FB1215289200B92E11 /* HighScoreScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HighScoreScene.m; sourceTree = "<group>"; };
@@ -1149,7 +1147,6 @@
 			children = (
 				B443951212152AC500B92E11 /* HighScoreBackground.png */,
 				B44393331214E35B00B92E11 /* forward.1.6.92.384.gif */,
-				B44393101214DAF600B92E11 /* punch.1.6.95.702.gif */,
 				B44392DD1214D07600B92E11 /* back.1.6.92.384.gif */,
 				B443925D1213CDEA00B92E11 /* BabyFighterMenu.aif */,
 				B44392281213C5FC00B92E11 /* LogoBackground.png */,
@@ -1421,7 +1418,6 @@
 				B44392291213C5FC00B92E11 /* LogoBackground.png in Resources */,
 				B443925E1213CDEA00B92E11 /* BabyFighterMenu.aif in Resources */,
 				B44392DE1214D07600B92E11 /* back.1.6.92.384.gif in Resources */,
-				B44393111214DAF600B92E11 /* punch.1.6.95.702.gif in Resources */,
 				B44393341214E35B00B92E11 /* forward.1.6.92.384.gif in Resources */,
 				B443951312152AC500B92E11 /* HighScoreBackground.png in Resources */,
 			);

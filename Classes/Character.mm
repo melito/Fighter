@@ -164,13 +164,13 @@
 	
 	if(isActionRunning == NO){
 	  isActionRunning = YES;
-	  [self stopAllActions];
 		
 		if (currentAction == @"blink") {
 			isHurting = YES;
 			id blinkAction = [CCBlink actionWithDuration:1.5 blinks:8];
 			[self runAction:[CCSequence actions:blinkAction, actionDone, nil]];
 		} else {
+			[self stopAllActions];
 			[self runAction:[CCSequence actions:animationAction, actionDone, nil]];
 		}
 	  

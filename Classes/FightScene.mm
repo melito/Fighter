@@ -88,11 +88,11 @@
 		world->SetDebugDraw(m_debugDraw);
 		
 		uint32 flags = 0;
-//		flags += b2DebugDraw::e_shapeBit;
+		flags += b2DebugDraw::e_shapeBit;
 //		flags += b2DebugDraw::e_jointBit;
 //		flags += b2DebugDraw::e_aabbBit;
 //		flags += b2DebugDraw::e_pairBit;
-//		flags += b2DebugDraw::e_centerOfMassBit;
+		flags += b2DebugDraw::e_centerOfMassBit;
 		m_debugDraw->SetFlags(flags);		
 		
 		
@@ -289,14 +289,12 @@
 				}
 				
 				if (spriteA.health <= 0) {
-					NSLog(@"Destroy body");
+					NSLog(@"Destroy fighter");
 					toDestroy.push_back(bodyA);
 				}
 				
 				if (spriteB.health <= 0) {
 					toDestroy.push_back(bodyB);
-					killed_babies += 1;
-					[scoreLabel setString:[NSString stringWithFormat:@" Babies: %d", killed_babies]];
 				}
 				
 			} 
@@ -328,6 +326,9 @@
 	CCSprite *sprite = (CCSprite *)sender;
 	[self removeChild:sprite cleanup:YES];
 	world->DestroyBody(deadBody);
+	
+	killed_babies += 1;
+	[scoreLabel setString:[NSString stringWithFormat:@" Babies: %d", killed_babies]];
 }
 
 -(void)spawnEnemy:(ccTime) dt {
