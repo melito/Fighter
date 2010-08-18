@@ -109,7 +109,7 @@
 		[animation addFrame:frame];
 	}
 	
-	CCAnimate *animationAction = [CCAnimate actionWithAnimation:animation];
+	CCAnimate *animationAction = [CCAnimate actionWithAnimation:animation restoreOriginalFrame:NO];
 	
 	[actions setValue:animationAction forKey:action_name];
 	NSLog(@"animation: '%@' for '%@' registered", action_name, [self class]);
@@ -122,7 +122,7 @@
 
 
 -(void)runActionForever:(NSString *)actionName {
-	CCAnimation *animationAction = [actions objectForKey:actionName];
+	CCAnimate *animationAction = [actions objectForKey:actionName];
 	CCRepeatForever *repeat = [CCRepeatForever actionWithAction:animationAction];
 	[self stopAllActions];
 	[self runAction:repeat];
@@ -138,6 +138,7 @@
 	isActionRunning = NO;
 	isAttacking = NO;
 	isHurting = NO;
+	self.visible = YES;
 	
 	if (currentAction == @"back" || currentAction == @"forward") {
 		[self runActionWithName:currentAction];
@@ -157,50 +158,27 @@
 	//}
 }
 
--(void)runActionWithName:(NSString *)actionName {
-	currentAction = actionName;
-	CCAnimation *animationAction = [actions objectForKey:currentAction];
+-(void)gotHit{
+	isAttacking = NO;
+	isHurting = YES;
+
+	id blinkAction = [CCBlink actionWithDuration:1.5 blinks:7];
 	id actionDone = [CCCallFunc actionWithTarget:self selector:@selector(actionDone)];
-	
-	if(isActionRunning == NO){
-	  isActionRunning = YES;
-		
-		if (currentAction == @"blink") {
-			isHurting = YES;
-			id blinkAction = [CCBlink actionWithDuration:1.5 blinks:8];
-			[self runAction:[CCSequence actions:blinkAction, actionDone, nil]];
-		} else {
-			[self stopAllActions];
-			[self runAction:[CCSequence actions:animationAction, actionDone, nil]];
-		}
-	  
-	}
-	
+
+	[self runAction:[CCSequence actions:blinkAction, actionDone, nil]];
 }
 
-
-#pragma mark -
-#pragma mark Physics
-
-#define PTM_RATIO 32
-
-// FIXME: Don't think this should be here.
-// We're creating too many extra objects.
-// Should probably replace with a struct that box2d can access from the scene
--(void)addToBox2d {
-	/*
-	 float shWidth = [self contentSize].width/PTM_RATIO;
-	 float shHeight = [self contentSize].height/PTM_RATIO;
-	 
-	 body.type = b2_dynamicBody;
-	 body.userData = self;
-		
-	 polygonShape.SetAsBox(shWidth/2, shHeight/2);
-	 
-	 fixtureDef.shape = &polygonShape;	
-	 fixtureDef.density = 1.0f;
-	 fixtureDef.friction = 0.3f;
-	 */
+-(void)runActionWithName:(NSString *)actionName {
+	currentAction = actionName;
+	CCAnimate *animationAction = [actions objectForKey:currentAction];
+	id actionDone = [CCCallFunc actionWithTarget:self selector:@selector(actionDone)];
+    id seq = [CCSequence actions:animationAction, actionDone, nil];
+	
+	if(isActionRunning == NO){
+		isActionRunning = YES;
+		[self runAction:seq];
+	}
+	
 }
 
 #pragma mark -

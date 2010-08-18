@@ -106,7 +106,7 @@
 		world->SetDebugDraw(m_debugDraw);
 		
 		uint32 flags = 0;
-//		flags += b2DebugDraw::e_shapeBit;
+		flags += b2DebugDraw::e_shapeBit;
 //		flags += b2DebugDraw::e_jointBit;
 //		flags += b2DebugDraw::e_aabbBit;
 //		flags += b2DebugDraw::e_pairBit;
@@ -308,7 +308,7 @@
 					
 				} else {
 					spriteA.health -= 5;
-					[spriteA runActionWithName:@"blink"];
+					[spriteA gotHit];
 					[healthLabel setString:[NSString stringWithFormat:@"Health: %d", spriteA.health]]; 
 				}
 				
