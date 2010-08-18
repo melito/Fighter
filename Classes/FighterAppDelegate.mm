@@ -51,7 +51,7 @@
 	// You can change anytime.
 	[CCTexture2D setDefaultAlphaPixelFormat:kTexture2DPixelFormat_RGBA8888];
 	
-	[[CCDirector sharedDirector] runWithScene: [FightScene scene]];
+	[[CCDirector sharedDirector] runWithScene: [CleverCollieScene scene]];
 
 }
 

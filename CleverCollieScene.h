@@ -12,15 +12,15 @@
 #import "MenuScene.h"
 
 @interface CleverCollieScene : CCLayer {
-	BOOL *sceneLoading;
+	BOOL sceneLoading;
 }
 
-@property (nonatomic, readwrite) BOOL *sceneLoading;
+@property (nonatomic, readwrite) BOOL sceneLoading;
 
 +(id) scene;
 -(id) init;
 -(void)dealloc;
 
--(void)pauseBeforeLoadingMenu;
+-(void) pauseBeforeLoadingMenu:(ccTime)dt;
 
 @end

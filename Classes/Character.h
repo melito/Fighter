@@ -47,7 +47,8 @@
 
 -(void)runActionWithName:(NSString *)actionName;
 -(void)runDefaultActionForever;
--(void)runActionForever;
+-(void)runActionForever:(NSString *)actionName;
+
 
 -(void)click;
 @end
