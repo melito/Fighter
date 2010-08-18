@@ -30,8 +30,8 @@
 		background.anchorPoint = CGPointMake(0, 0);
 		[self addChild:background];
 		
-		[CCMenuItemFont setFontSize:20];
-		[CCMenuItemFont setFontName:@"Helvetica"];
+		[CCMenuItemFont setFontSize:18];
+		[CCMenuItemFont setFontName:@"m26"];
 		
 		CCMenuItem *startGame = [CCMenuItemFont itemFromString:@"Start Game"
 														target:self

@@ -70,22 +70,22 @@
 		ground.anchorPoint = ccp(0,0);
 		[self addChild:ground];
 		
-		healthLabel = [CCLabel labelWithString: [NSString stringWithFormat:@"Health: %d", 100] 
+		healthLabel = [CCLabel labelWithString: [NSString stringWithFormat:@"Health:%d", 100] 
 								   dimensions: CGSizeMake(180, 20) 
 									alignment: UITextAlignmentLeft 
-									 fontName:@"Helvetica" 
-									 fontSize: 20]; 
+									 fontName:@"m26" 
+									 fontSize: 14]; 
 		[healthLabel setPosition: ccp(screenSize.height-220, screenSize.width-180)]; 
 		[self addChild: healthLabel];
 		
 
 		killed_babies = 0;
-		scoreLabel = [CCLabel labelWithString: [NSString stringWithFormat:@"Babies: %d", killed_babies] 
+		scoreLabel = [CCLabel labelWithString: [NSString stringWithFormat:@"Babies:%d", killed_babies] 
 								  dimensions: CGSizeMake(180, 25) 
-								   alignment: UITextAlignmentLeft 
-									fontName:@"Helvetica" 
-									fontSize: 20]; 
-		[scoreLabel setPosition: ccp(screenSize.height+130, screenSize.width-180)]; 
+								   alignment: UITextAlignmentRight 
+									fontName:@"m26" 
+									fontSize: 14]; 
+		[scoreLabel setPosition: ccp(screenSize.height, screenSize.width-180)]; 
 		[self addChild: scoreLabel];
 		
 		// Define the gravity vector.
@@ -309,7 +309,7 @@
 				} else {
 					spriteA.health -= 5;
 					[spriteA gotHit];
-					[healthLabel setString:[NSString stringWithFormat:@"Health: %d", spriteA.health]]; 
+					[healthLabel setString:[NSString stringWithFormat:@"Health:%d", spriteA.health]]; 
 				}
 				
 				if (spriteA.health <= 0) {
@@ -352,7 +352,7 @@
 	world->DestroyBody(deadBody);
 	
 	killed_babies += 1;
-	[scoreLabel setString:[NSString stringWithFormat:@" Babies: %d", killed_babies]];
+	[scoreLabel setString:[NSString stringWithFormat:@"Babies:%d", killed_babies]];
 }
 
 -(void)spawnEnemy:(ccTime) dt {
