@@ -40,7 +40,7 @@
 	[director setDeviceOrientation:kCCDeviceOrientationLandscapeLeft];
 	
 	// Turn on display FPS
-	[director setDisplayFPS:YES];
+	[director setDisplayFPS:NO];
 	
 	// Turn on multiple touches
 	EAGLView *view = [director openGLView];
@@ -55,6 +55,7 @@
 
 }
 
+// FIXME: This is here because the MenuScene was throwing box2d errors before transitions
 +(id)fightScene {
 	return [FightScene scene];
 }

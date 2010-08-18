@@ -73,7 +73,7 @@
 		healthLabel = [CCLabel labelWithString: [NSString stringWithFormat:@"Health:%d", 100] 
 								   dimensions: CGSizeMake(180, 20) 
 									alignment: UITextAlignmentLeft 
-									 fontName:@"m26" 
+									 fontName:@"kongtext" 
 									 fontSize: 14]; 
 		[healthLabel setPosition: ccp(screenSize.height-220, screenSize.width-180)]; 
 		[self addChild: healthLabel];
@@ -83,7 +83,7 @@
 		scoreLabel = [CCLabel labelWithString: [NSString stringWithFormat:@"Babies:%d", killed_babies] 
 								  dimensions: CGSizeMake(180, 25) 
 								   alignment: UITextAlignmentRight 
-									fontName:@"m26" 
+									fontName:@"kongtext" 
 									fontSize: 14]; 
 		[scoreLabel setPosition: ccp(screenSize.height, screenSize.width-180)]; 
 		[self addChild: scoreLabel];
