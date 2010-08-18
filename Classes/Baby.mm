@@ -13,7 +13,7 @@
 
 -(id)init {
 	
-	if (self=[super init]) {
+	if ((self=[super init])) {
 		density = 0.5f;
 		friction = 0.0f;
 		health = 5;

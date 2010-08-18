@@ -22,8 +22,7 @@
 @synthesize fighter;
 @synthesize killed_babies;
 
-+(id) scene
-{
++(id) scene {
 	// 'scene' is an autorelease object.
 	CCScene *scene = [CCScene node];
 	
@@ -37,117 +36,31 @@
 	return scene;
 }
 
-// initialize your instance here
--(id) init
-{
-	if( (self=[super init])) {
-		
+-(id) init {
+	if( (self=[super init])) {		
 		// enable touches
 		self.isTouchEnabled = YES;
-		
 		// enable accelerometer
 		self.isAccelerometerEnabled = YES;
 		
 		CGSize screenSize = [CCDirector sharedDirector].winSize;
 		CCLOG(@"Screen width %0.2f screen height %0.2f", screenSize.width, screenSize.height);
 		
-		clouds = [CCSprite spriteWithFile:@"FightSceneClouds.gif"];
+		// Setup the background sprites
+		[self addBackgroundSprites];
+				
+		// Setup the health and score labels
+		[self addHealthnScoreLabels];
+				
+		// Setup the Box2D world
+		[self setupBox2dWorld];
 		
-		//CCParallaxNode *parallaxbackground = [CCParallaxNode node];
-		//[parallaxbackground addChild:clouds z:-1 parallaxRatio:ccp(0.4f, 0.5f) positionOffset:ccp(320, 320)];
-		//[self addChild:parallaxbackground];
-
-		clouds.position = ccp(-700,160);
-		[self addChild:clouds];
-		
-		id a1 = [CCMoveBy actionWithDuration:60.0f position:ccp(1915, 190)];
-		id a2 = [CCCallFunc	actionWithTarget:self selector:@selector(resetClouds)];
-		id seq = [CCSequence actions:a1, a2, nil];
-		[clouds runAction:[CCRepeatForever actionWithAction:seq]];
-		//[parallaxbackground runAction:[CCRepeatForever actionWithAction: seq]];
-		
-		CCSprite *ground = [CCSprite spriteWithFile:@"FightSceneBackground.gif"];
-		ground.anchorPoint = ccp(0,0);
-		[self addChild:ground];
-		
-		healthLabel = [CCLabel labelWithString: [NSString stringWithFormat:@"Health:%d", 100] 
-								   dimensions: CGSizeMake(180, 20) 
-									alignment: UITextAlignmentLeft 
-									 fontName:@"kongtext" 
-									 fontSize: 14]; 
-		[healthLabel setPosition: ccp(screenSize.height-220, screenSize.width-180)]; 
-		[self addChild: healthLabel];
-		
-
-		killed_babies = 0;
-		scoreLabel = [CCLabel labelWithString: [NSString stringWithFormat:@"Babies:%d", killed_babies] 
-								  dimensions: CGSizeMake(180, 25) 
-								   alignment: UITextAlignmentRight 
-									fontName:@"kongtext" 
-									fontSize: 14]; 
-		[scoreLabel setPosition: ccp(screenSize.height, screenSize.width-180)]; 
-		[self addChild: scoreLabel];
-		
-		// Define the gravity vector.
-		b2Vec2 gravity;
-		gravity.Set(0.0f, -10.0f);
-		
-		// Do we want to let bodies sleep?
-		// This will speed up the physics simulation
-		bool doSleep = false;
-		
-		// Construct a world object, which will hold and simulate the rigid bodies.
-		world = new b2World(gravity, doSleep);
-		
-		world->SetContinuousPhysics(true);
-		
-		// Debug Draw functions
-		m_debugDraw = new GLESDebugDraw( PTM_RATIO );
-		world->SetDebugDraw(m_debugDraw);
-		
-		uint32 flags = 0;
-		flags += b2DebugDraw::e_shapeBit;
-//		flags += b2DebugDraw::e_jointBit;
-//		flags += b2DebugDraw::e_aabbBit;
-//		flags += b2DebugDraw::e_pairBit;
-//		flags += b2DebugDraw::e_centerOfMassBit;
-		m_debugDraw->SetFlags(flags);		
-		
-		
-		// Define the ground body.
-		b2BodyDef groundBodyDef;
-		groundBodyDef.position.Set(0, 0); // bottom-left corner
-		
-		// Call the body factory which allocates memory for the ground body
-		// from a pool and creates the ground box shape (also from a pool).
-		// The body is also added to the world.
-		b2Body* groundBody = world->CreateBody(&groundBodyDef);
-		
-		// Define the ground box shape.
-		b2PolygonShape groundBox;		
-		
-		// bottom
-		groundBox.SetAsEdge(b2Vec2(0,0), b2Vec2(screenSize.width/PTM_RATIO,0));
-		groundBody->CreateFixture(&groundBox,0);
-		
-		// top
-		groundBox.SetAsEdge(b2Vec2(0,screenSize.height/PTM_RATIO), b2Vec2(screenSize.width/PTM_RATIO,screenSize.height/PTM_RATIO));
-		groundBody->CreateFixture(&groundBox,0);
-		
-		// left
-		groundBox.SetAsEdge(b2Vec2(0,screenSize.height/PTM_RATIO), b2Vec2(0,0));
-		groundBody->CreateFixture(&groundBox,0);
-		
-		// right
-		groundBox.SetAsEdge(b2Vec2(screenSize.width/PTM_RATIO,screenSize.height/PTM_RATIO), b2Vec2(screenSize.width/PTM_RATIO,0));
-		groundBody->CreateFixture(&groundBox,0);
-	
 		[self createCharacterFrom:@"Fighter" withCoords:CGPointMake(screenSize.width/2, screenSize.height/2)];
 		
 		contactWatcher = new ContactWatcher();
 		world->SetContactListener(contactWatcher);
-		
-		babycount = 0;
+
+		// Setup scheduled tasks / tickers
 		[self schedule: @selector(tick:)];
 		[self schedule: @selector(spawnEnemy:) interval:2];
 		
@@ -156,19 +69,119 @@
 	return self;
 }
 
+-(void)addBackgroundSprites {
+	clouds = [CCSprite spriteWithFile:@"FightSceneClouds.gif"];
+	
+	//CCParallaxNode *parallaxbackground = [CCParallaxNode node];
+	//[parallaxbackground addChild:clouds z:-1 parallaxRatio:ccp(0.4f, 0.5f) positionOffset:ccp(320, 320)];
+	//[self addChild:parallaxbackground];
+	
+	clouds.position = ccp(-700,160);
+	[self addChild:clouds];
+	
+	id a1 = [CCMoveBy actionWithDuration:60.0f position:ccp(1915, 190)];
+	id a2 = [CCCallFunc	actionWithTarget:self selector:@selector(resetClouds)];
+	id seq = [CCSequence actions:a1, a2, nil];
+	[clouds runAction:[CCRepeatForever actionWithAction:seq]];
+	//[parallaxbackground runAction:[CCRepeatForever actionWithAction: seq]];
+	
+	CCSprite *ground = [CCSprite spriteWithFile:@"FightSceneBackground.gif"];
+	ground.anchorPoint = ccp(0,0);
+	[self addChild:ground];
+	
+}
+
+-(void)addHealthnScoreLabels {
+	CGSize screenSize = [CCDirector sharedDirector].winSize;
+
+	healthLabel = [CCLabel labelWithString: [NSString stringWithFormat:@"Health:%d", 100] 
+								dimensions: CGSizeMake(180, 20) 
+								 alignment: UITextAlignmentLeft 
+								  fontName:@"kongtext" 
+								  fontSize: 14]; 
+	[healthLabel setPosition: ccp(screenSize.height-220, screenSize.width-180)]; 
+	[self addChild: healthLabel];
+	
+	
+	killed_babies = 0;
+	scoreLabel = [CCLabel labelWithString: [NSString stringWithFormat:@"Babies:%d", killed_babies] 
+							   dimensions: CGSizeMake(180, 25) 
+								alignment: UITextAlignmentRight 
+								 fontName:@"kongtext" 
+								 fontSize: 14]; 
+	[scoreLabel setPosition: ccp(screenSize.height, screenSize.width-180)]; 
+	[self addChild: scoreLabel];
+	
+}
+
 -(void)resetClouds {
 	NSLog(@"Clouds reset");
 	clouds.position = ccp(-700,160);
 }
 
+-(void)setupBox2dWorld {
+	CGSize screenSize = [CCDirector sharedDirector].winSize;
+
+	// Define the gravity vector.
+	b2Vec2 gravity;
+	gravity.Set(0.0f, -10.0f);
+	
+	// Do we want to let bodies sleep?
+	// This will speed up the physics simulation
+	bool doSleep = false;
+	
+	// Construct a world object, which will hold and simulate the rigid bodies.
+	world = new b2World(gravity, doSleep);
+	
+	world->SetContinuousPhysics(true);
+	
+	// Debug Draw functions
+	m_debugDraw = new GLESDebugDraw( PTM_RATIO );
+	world->SetDebugDraw(m_debugDraw);
+	
+	uint32 flags = 0;
+	//flags += b2DebugDraw::e_shapeBit;
+	//		flags += b2DebugDraw::e_jointBit;
+	//		flags += b2DebugDraw::e_aabbBit;
+	//		flags += b2DebugDraw::e_pairBit;
+	//		flags += b2DebugDraw::e_centerOfMassBit;
+	m_debugDraw->SetFlags(flags);		
+	
+	
+	// Define the ground body.
+	b2BodyDef groundBodyDef;
+	groundBodyDef.position.Set(0, 0); // bottom-left corner
+	
+	// Call the body factory which allocates memory for the ground body
+	// from a pool and creates the ground box shape (also from a pool).
+	// The body is also added to the world.
+	b2Body* groundBody = world->CreateBody(&groundBodyDef);
+	
+	// Define the ground box shape.
+	b2PolygonShape groundBox;		
+	
+	// bottom
+	groundBox.SetAsEdge(b2Vec2(0,0), b2Vec2(screenSize.width/PTM_RATIO,0));
+	groundBody->CreateFixture(&groundBox,0);
+	
+	// top
+	groundBox.SetAsEdge(b2Vec2(0,screenSize.height/PTM_RATIO), b2Vec2(screenSize.width/PTM_RATIO,screenSize.height/PTM_RATIO));
+	groundBody->CreateFixture(&groundBox,0);
+	
+	// left
+	groundBox.SetAsEdge(b2Vec2(0,screenSize.height/PTM_RATIO), b2Vec2(0,0));
+	groundBody->CreateFixture(&groundBox,0);
+	
+	// right
+	groundBox.SetAsEdge(b2Vec2(screenSize.width/PTM_RATIO,screenSize.height/PTM_RATIO), b2Vec2(screenSize.width/PTM_RATIO,0));
+	groundBody->CreateFixture(&groundBox,0);
+	
+}
 
 -(void)createCharacterFrom:(NSString *)class_string withCoords:(CGPoint)coords {
 	
 	fighter = [[Fighter alloc] init];
 	fighter.position = ccp(coords.x, coords.y);
-	
-	//id character = [[NSClassFromString(class_string) alloc] init];
-	//NSLog(@"%@", character);
 	
 	b2BodyDef characterBody;
 	characterBody.type = b2_dynamicBody;
@@ -182,7 +195,7 @@
 	fighterFixture.density = fighter.density;
 	fighterFixture.friction = fighter.friction;
 	NSLog(@"Density: %f Friction: %f", fighter.density, fighter.friction);
-	
+
 	b2Body *body = world->CreateBody(&characterBody);
 	body->CreateFixture(&fighterFixture);
 	
@@ -193,11 +206,7 @@
 	
 	Baby *baby = [[Baby alloc] init];
 	baby.position = ccp(coords.x, coords.y);
-	
-	// FIXME: Kill this meta crap.
-	//id character = [[NSClassFromString(class_string) alloc] init];
-	//NSLog(@"%@", character);
-	
+		
 	// Set the characters body
 	b2BodyDef characterBody;
 	characterBody.type = b2_dynamicBody;
@@ -206,8 +215,9 @@
 	
 	// Set the body's shape
 	b2PolygonShape characterShape;
+		
 	characterShape.SetAsBox(([baby contentSize].width/PTM_RATIO)/2, ([baby contentSize].height/PTM_RATIO)/2);
-	
+
 	b2FixtureDef fixture;
 	fixture.shape = &characterShape;
 	fixture.density = baby.density;
@@ -216,12 +226,10 @@
 	
 	b2Body *body = world->CreateBody(&characterBody);
 	body->CreateFixture(&fixture);
-	
 	[self addChild:baby];
 }
 
--(void) draw
-{
+-(void) draw {
 	// Default GL states: GL_TEXTURE_2D, GL_VERTEX_ARRAY, GL_COLOR_ARRAY, GL_TEXTURE_COORD_ARRAY
 	// Needed states:  GL_VERTEX_ARRAY, 
 	// Unneeded states: GL_TEXTURE_2D, GL_COLOR_ARRAY, GL_TEXTURE_COORD_ARRAY
@@ -238,9 +246,7 @@
 
 }
 
-
--(void) tick: (ccTime) dt
-{
+-(void) tick: (ccTime) dt {
 	fighter.position = ccp(fighter.position.x-1, fighter.position.y);
 	
 	//It is recommended that a fixed time step is used with Box2D for stability
@@ -391,7 +397,6 @@
 	babycount += 1;
 }
 
-
 -(void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
 	[fighter click];
 }
@@ -434,7 +439,6 @@
 			
 }
 
-// on "dealloc" you need to release all your retained objects
 - (void) dealloc {
 	
 	delete contactWatcher;

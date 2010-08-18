@@ -43,18 +43,20 @@
 //        This gets very expensive after initializing lots of characters.
 //        Instead there should be a scene delegate that has a dictionary which holds all loaded animations
 -(void)loadAnimations {
-
+	
 	// Get the bundle path for resources based on class name (ie, Resources/Character/Fighter
 	NSString *path = [[NSString alloc] initWithFormat:@"Character/%@", NSStringFromClass([self class])];
+	NSLog(@"%@", path);
 	
 	NSBundle *characterBundle = [NSBundle mainBundle];
 	NSArray* mySprites = [characterBundle pathsForResourcesOfType:@"gif" inDirectory:path];
-	
+		
 	NSString *actionName;
 	int rows, columns, width, height;
 
 	// Iterate over each gif found in the resources bundle for the particular class
 	for (NSString *filename in mySprites) {
+
 		filename = [[filename componentsSeparatedByString:@"/"] lastObject];
 		NSLog(@"%@", filename);
 	
@@ -69,7 +71,7 @@
 		// The fifth is the width of the image
 		NSArray *fileStructure = [filename componentsSeparatedByString:@"."];
 		if ([fileStructure count] > 5) {
-			
+
 			width   = [[fileStructure objectAtIndex:[fileStructure count]-2] intValue];
 			height  = [[fileStructure objectAtIndex:[fileStructure count]-3] intValue];
 			columns = [[fileStructure objectAtIndex:[fileStructure count]-4] intValue];
@@ -84,7 +86,7 @@
 		}
 			
 	}
-				
+					
 }
 
 -(void)createAnimationNamed:(NSString *)action_name 

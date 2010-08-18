@@ -51,4 +51,8 @@
 //-(void) addNewSpriteWithCoords:(CGPoint)p;
 -(void) createCharacterFrom:(NSString *)class_name withCoords:(CGPoint)coords;
 
+-(void) addBackgroundSprites;
+-(void) addHealthnScoreLabels;
+-(void) setupBox2dWorld;
+
 @end
