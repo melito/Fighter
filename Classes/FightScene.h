@@ -19,11 +19,12 @@
 // HelloWorld Layer
 @interface FightScene : CCLayer
 {
+
+	CCSprite *clouds;
 	
 	CCLabel *scoreLabel;
 	CCLabel *healthLabel;
 
-	
 	b2World* world;
 	GLESDebugDraw *m_debugDraw;
 	

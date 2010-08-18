@@ -51,8 +51,25 @@
 		CGSize screenSize = [CCDirector sharedDirector].winSize;
 		CCLOG(@"Screen width %0.2f screen height %0.2f", screenSize.width, screenSize.height);
 		
-		killed_babies = 0;
+		clouds = [CCSprite spriteWithFile:@"FightSceneClouds.gif"];
+		
+		//CCParallaxNode *parallaxbackground = [CCParallaxNode node];
+		//[parallaxbackground addChild:clouds z:-1 parallaxRatio:ccp(0.4f, 0.5f) positionOffset:ccp(320, 320)];
+		//[self addChild:parallaxbackground];
 
+		clouds.position = ccp(-700,160);
+		[self addChild:clouds];
+		
+		id a1 = [CCMoveBy actionWithDuration:60.0f position:ccp(1915, 190)];
+		id a2 = [CCCallFunc	actionWithTarget:self selector:@selector(resetClouds)];
+		id seq = [CCSequence actions:a1, a2, nil];
+		[clouds runAction:[CCRepeatForever actionWithAction:seq]];
+		//[parallaxbackground runAction:[CCRepeatForever actionWithAction: seq]];
+		
+		CCSprite *ground = [CCSprite spriteWithFile:@"FightSceneBackground.gif"];
+		ground.anchorPoint = ccp(0,0);
+		[self addChild:ground];
+		
 		healthLabel = [CCLabel labelWithString: [NSString stringWithFormat:@"Health: %d", 100] 
 								   dimensions: CGSizeMake(180, 20) 
 									alignment: UITextAlignmentLeft 
@@ -61,7 +78,8 @@
 		[healthLabel setPosition: ccp(screenSize.height-220, screenSize.width-180)]; 
 		[self addChild: healthLabel];
 		
-		
+
+		killed_babies = 0;
 		scoreLabel = [CCLabel labelWithString: [NSString stringWithFormat:@"Babies: %d", killed_babies] 
 								  dimensions: CGSizeMake(180, 25) 
 								   alignment: UITextAlignmentLeft 
@@ -88,11 +106,11 @@
 		world->SetDebugDraw(m_debugDraw);
 		
 		uint32 flags = 0;
-		flags += b2DebugDraw::e_shapeBit;
+//		flags += b2DebugDraw::e_shapeBit;
 //		flags += b2DebugDraw::e_jointBit;
 //		flags += b2DebugDraw::e_aabbBit;
 //		flags += b2DebugDraw::e_pairBit;
-		flags += b2DebugDraw::e_centerOfMassBit;
+//		flags += b2DebugDraw::e_centerOfMassBit;
 		m_debugDraw->SetFlags(flags);		
 		
 		
@@ -137,6 +155,12 @@
 	}
 	return self;
 }
+
+-(void)resetClouds {
+	NSLog(@"Clouds reset");
+	clouds.position = ccp(-700,160);
+}
+
 
 -(void)createCharacterFrom:(NSString *)class_string withCoords:(CGPoint)coords {
 	

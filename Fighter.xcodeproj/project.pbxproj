@@ -298,14 +298,21 @@
 		B443921A1213C44A00B92E11 /* DogBark.aiff in Resources */ = {isa = PBXBuildFile; fileRef = B44392191213C44A00B92E11 /* DogBark.aiff */; };
 		B443921C1213C48D00B92E11 /* LogoName.png in Resources */ = {isa = PBXBuildFile; fileRef = B443921B1213C48D00B92E11 /* LogoName.png */; };
 		B44392291213C5FC00B92E11 /* LogoBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = B44392281213C5FC00B92E11 /* LogoBackground.png */; };
-		B443925E1213CDEA00B92E11 /* BabyFighterMenu.aif in Resources */ = {isa = PBXBuildFile; fileRef = B443925D1213CDEA00B92E11 /* BabyFighterMenu.aif */; };
 		B44392DE1214D07600B92E11 /* back.1.6.92.384.gif in Resources */ = {isa = PBXBuildFile; fileRef = B44392DD1214D07600B92E11 /* back.1.6.92.384.gif */; };
 		B44393341214E35B00B92E11 /* forward.1.6.92.384.gif in Resources */ = {isa = PBXBuildFile; fileRef = B44393331214E35B00B92E11 /* forward.1.6.92.384.gif */; };
 		B44394FC1215289200B92E11 /* HighScoreScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B44394FB1215289200B92E11 /* HighScoreScene.m */; };
 		B443951312152AC500B92E11 /* HighScoreBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = B443951212152AC500B92E11 /* HighScoreBackground.png */; };
 		B470A6B811E68E93002AE3AF /* Character.mm in Sources */ = {isa = PBXBuildFile; fileRef = B470A6B711E68E93002AE3AF /* Character.mm */; };
 		B470A6EF11E695E7002AE3AF /* Fighter.mm in Sources */ = {isa = PBXBuildFile; fileRef = B470A6EE11E695E7002AE3AF /* Fighter.mm */; };
-		B48F219B11E8004C00FDEAFB /* Character in Resources */ = {isa = PBXBuildFile; fileRef = B48F219111E8004C00FDEAFB /* Character */; };
+		B4C54B48121B269600B23490 /* BabyFighterMenu.aif in Resources */ = {isa = PBXBuildFile; fileRef = B4C54B47121B269600B23490 /* BabyFighterMenu.aif */; };
+		B4C54B4E121B4DC300B23490 /* FightSceneBackground.gif in Resources */ = {isa = PBXBuildFile; fileRef = B4C54B4D121B4DC300B23490 /* FightSceneBackground.gif */; };
+		B4C54B5E121B51F900B23490 /* FightSceneClouds.gif in Resources */ = {isa = PBXBuildFile; fileRef = B4C54B5D121B51F900B23490 /* FightSceneClouds.gif */; };
+		B4C54BD9121B5FD300B23490 /* default.1.3.25.60.gif in Resources */ = {isa = PBXBuildFile; fileRef = B4C54BD7121B5FD300B23490 /* default.1.3.25.60.gif */; };
+		B4C54BDA121B5FD300B23490 /* falling.1.2.25.43.gif in Resources */ = {isa = PBXBuildFile; fileRef = B4C54BD8121B5FD300B23490 /* falling.1.2.25.43.gif */; };
+		B4C54BE0121B5FE500B23490 /* back.1.6.92.384.gif in Resources */ = {isa = PBXBuildFile; fileRef = B4C54BDC121B5FE500B23490 /* back.1.6.92.384.gif */; };
+		B4C54BE1121B5FE500B23490 /* click.1.5.98.570.gif in Resources */ = {isa = PBXBuildFile; fileRef = B4C54BDD121B5FE500B23490 /* click.1.5.98.570.gif */; };
+		B4C54BE2121B5FE500B23490 /* default.1.6.93.360.gif in Resources */ = {isa = PBXBuildFile; fileRef = B4C54BDE121B5FE500B23490 /* default.1.6.93.360.gif */; };
+		B4C54BE3121B5FE500B23490 /* forward.1.6.92.384.gif in Resources */ = {isa = PBXBuildFile; fileRef = B4C54BDF121B5FE500B23490 /* forward.1.6.92.384.gif */; };
 		DC6640030F83B3EA000B3E49 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC6640020F83B3EA000B3E49 /* AudioToolbox.framework */; };
 		DC6640050F83B3EA000B3E49 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC6640040F83B3EA000B3E49 /* OpenAL.framework */; };
 		DCCBF1B70F6022AE0040855A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCBF1B60F6022AE0040855A /* CoreGraphics.framework */; };
@@ -622,7 +629,6 @@
 		B44392191213C44A00B92E11 /* DogBark.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = DogBark.aiff; sourceTree = "<group>"; };
 		B443921B1213C48D00B92E11 /* LogoName.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LogoName.png; sourceTree = "<group>"; };
 		B44392281213C5FC00B92E11 /* LogoBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LogoBackground.png; sourceTree = "<group>"; };
-		B443925D1213CDEA00B92E11 /* BabyFighterMenu.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = BabyFighterMenu.aif; sourceTree = "<group>"; };
 		B44392DD1214D07600B92E11 /* back.1.6.92.384.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = back.1.6.92.384.gif; path = Character/Fighter/back.1.6.92.384.gif; sourceTree = "<group>"; };
 		B44393331214E35B00B92E11 /* forward.1.6.92.384.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = forward.1.6.92.384.gif; path = Character/Fighter/forward.1.6.92.384.gif; sourceTree = "<group>"; };
 		B44394FA1215289200B92E11 /* HighScoreScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HighScoreScene.h; sourceTree = "<group>"; };
@@ -632,7 +638,15 @@
 		B470A6B711E68E93002AE3AF /* Character.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Character.mm; sourceTree = "<group>"; };
 		B470A6ED11E695E7002AE3AF /* Fighter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Fighter.h; sourceTree = "<group>"; };
 		B470A6EE11E695E7002AE3AF /* Fighter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Fighter.mm; sourceTree = "<group>"; };
-		B48F219111E8004C00FDEAFB /* Character */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Character; sourceTree = "<group>"; };
+		B4C54B47121B269600B23490 /* BabyFighterMenu.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = BabyFighterMenu.aif; sourceTree = "<group>"; };
+		B4C54B4D121B4DC300B23490 /* FightSceneBackground.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = FightSceneBackground.gif; sourceTree = "<group>"; };
+		B4C54B5D121B51F900B23490 /* FightSceneClouds.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = FightSceneClouds.gif; sourceTree = "<group>"; };
+		B4C54BD7121B5FD300B23490 /* default.1.3.25.60.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = default.1.3.25.60.gif; sourceTree = "<group>"; };
+		B4C54BD8121B5FD300B23490 /* falling.1.2.25.43.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = falling.1.2.25.43.gif; sourceTree = "<group>"; };
+		B4C54BDC121B5FE500B23490 /* back.1.6.92.384.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = back.1.6.92.384.gif; sourceTree = "<group>"; };
+		B4C54BDD121B5FE500B23490 /* click.1.5.98.570.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = click.1.5.98.570.gif; sourceTree = "<group>"; };
+		B4C54BDE121B5FE500B23490 /* default.1.6.93.360.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = default.1.6.93.360.gif; sourceTree = "<group>"; };
+		B4C54BDF121B5FE500B23490 /* forward.1.6.92.384.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = forward.1.6.92.384.gif; sourceTree = "<group>"; };
 		DC6640020F83B3EA000B3E49 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		DC6640040F83B3EA000B3E49 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		DCCBF1B60F6022AE0040855A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -1145,14 +1159,17 @@
 		50F4144210692EE7002A0D5E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				B4C54BDB121B5FE500B23490 /* Fighter */,
+				B4C54BD6121B5FD300B23490 /* Baby */,
+				B4C54B5D121B51F900B23490 /* FightSceneClouds.gif */,
+				B4C54B4D121B4DC300B23490 /* FightSceneBackground.gif */,
+				B4C54B47121B269600B23490 /* BabyFighterMenu.aif */,
 				B443951212152AC500B92E11 /* HighScoreBackground.png */,
 				B44393331214E35B00B92E11 /* forward.1.6.92.384.gif */,
 				B44392DD1214D07600B92E11 /* back.1.6.92.384.gif */,
-				B443925D1213CDEA00B92E11 /* BabyFighterMenu.aif */,
 				B44392281213C5FC00B92E11 /* LogoBackground.png */,
 				B443921B1213C48D00B92E11 /* LogoName.png */,
 				B44392191213C44A00B92E11 /* DogBark.aiff */,
-				B48F219111E8004C00FDEAFB /* Character */,
 				50F4144310692EE7002A0D5E /* blocks.png */,
 				B44392031213C1BD00B92E11 /* MenuBackground.png */,
 				50F4144410692EE7002A0D5E /* Default.png */,
@@ -1194,6 +1211,28 @@
 				B438C81F1213B9FC002D61C5 /* MenuScene.m */,
 			);
 			name = Scenes;
+			sourceTree = "<group>";
+		};
+		B4C54BD6121B5FD300B23490 /* Baby */ = {
+			isa = PBXGroup;
+			children = (
+				B4C54BD7121B5FD300B23490 /* default.1.3.25.60.gif */,
+				B4C54BD8121B5FD300B23490 /* falling.1.2.25.43.gif */,
+			);
+			name = Baby;
+			path = Character/Baby;
+			sourceTree = "<group>";
+		};
+		B4C54BDB121B5FE500B23490 /* Fighter */ = {
+			isa = PBXGroup;
+			children = (
+				B4C54BDC121B5FE500B23490 /* back.1.6.92.384.gif */,
+				B4C54BDD121B5FE500B23490 /* click.1.5.98.570.gif */,
+				B4C54BDE121B5FE500B23490 /* default.1.6.93.360.gif */,
+				B4C54BDF121B5FE500B23490 /* forward.1.6.92.384.gif */,
+			);
+			name = Fighter;
+			path = Character/Fighter;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1411,15 +1450,22 @@
 				50F4144910692EE7002A0D5E /* Default.png in Resources */,
 				50F4144A10692EE7002A0D5E /* fps_images.png in Resources */,
 				50F4144B10692EE7002A0D5E /* Icon.png in Resources */,
-				B48F219B11E8004C00FDEAFB /* Character in Resources */,
 				B44392041213C1BD00B92E11 /* MenuBackground.png in Resources */,
 				B443921A1213C44A00B92E11 /* DogBark.aiff in Resources */,
 				B443921C1213C48D00B92E11 /* LogoName.png in Resources */,
 				B44392291213C5FC00B92E11 /* LogoBackground.png in Resources */,
-				B443925E1213CDEA00B92E11 /* BabyFighterMenu.aif in Resources */,
 				B44392DE1214D07600B92E11 /* back.1.6.92.384.gif in Resources */,
 				B44393341214E35B00B92E11 /* forward.1.6.92.384.gif in Resources */,
 				B443951312152AC500B92E11 /* HighScoreBackground.png in Resources */,
+				B4C54B48121B269600B23490 /* BabyFighterMenu.aif in Resources */,
+				B4C54B4E121B4DC300B23490 /* FightSceneBackground.gif in Resources */,
+				B4C54B5E121B51F900B23490 /* FightSceneClouds.gif in Resources */,
+				B4C54BD9121B5FD300B23490 /* default.1.3.25.60.gif in Resources */,
+				B4C54BDA121B5FD300B23490 /* falling.1.2.25.43.gif in Resources */,
+				B4C54BE0121B5FE500B23490 /* back.1.6.92.384.gif in Resources */,
+				B4C54BE1121B5FE500B23490 /* click.1.5.98.570.gif in Resources */,
+				B4C54BE2121B5FE500B23490 /* default.1.6.93.360.gif in Resources */,
+				B4C54BE3121B5FE500B23490 /* forward.1.6.92.384.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
