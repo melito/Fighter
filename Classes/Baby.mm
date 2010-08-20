@@ -18,6 +18,7 @@
 		friction = 0.0f;
 		health = 5;
 		isAttacking = YES;
+		isActionRunning = NO;
 	}
 	return self;
 }

@@ -21,6 +21,7 @@
 	BOOL isActionRunning;
 	BOOL isMovementActionRunning;
 	BOOL isHurting;
+	BOOL isDead;
 
 	NSString *currentAction;
 
@@ -34,6 +35,7 @@
 @property (nonatomic, readwrite) BOOL isActionRunning;
 @property (nonatomic, readwrite) BOOL isMovementActionRunning;
 @property (nonatomic, readwrite) BOOL isHurting;
+@property (nonatomic, readwrite) BOOL isDead;
 
 @property (nonatomic, retain) NSString *currentAction;
 

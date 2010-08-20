@@ -16,8 +16,8 @@
 -(id)init {
 
 	if ((self=[super init])) {
-		density = 5.0f;
-		friction = 1.0f;
+		density = 10.0f;
+		friction = 4.0f;
 		health   = 100;
 		isAttacking = NO;
 	}

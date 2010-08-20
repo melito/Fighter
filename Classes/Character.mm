@@ -19,6 +19,7 @@
 @synthesize isActionRunning;
 @synthesize isMovementActionRunning;
 @synthesize isHurting;
+@synthesize isDead;
 @synthesize currentAction;
 
 -(id)init {
@@ -29,6 +30,8 @@
 
 		density = 1.0f;
 		friction = 0.3f;
+		
+		isDead = NO;
 		
 	}
 	
@@ -50,7 +53,8 @@
 	
 	NSBundle *characterBundle = [NSBundle mainBundle];
 	NSArray* mySprites = [characterBundle pathsForResourcesOfType:@"gif" inDirectory:path];
-		
+	NSLog(@"SPRITES: %@", mySprites);	
+	
 	NSString *actionName;
 	int rows, columns, width, height;
 
@@ -164,6 +168,7 @@
 	isAttacking = NO;
 	isHurting = YES;
 
+	//id hitAction   = [actions objectForKey:@"hit"];
 	id blinkAction = [CCBlink actionWithDuration:1.5 blinks:7];
 	id actionDone = [CCCallFunc actionWithTarget:self selector:@selector(actionDone)];
 

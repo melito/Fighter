@@ -24,7 +24,7 @@
 		
 		CGSize screenSize = [CCDirector sharedDirector].winSize;
 		
-		[[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"BabyFighterMenu.aif"];
+		[[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"Shoetaken_Intro.aif"];
 		
 		CCSprite* background = [CCSprite spriteWithFile:@"MenuBackground.png"];
 		background.anchorPoint = CGPointMake(0, 0);
@@ -58,6 +58,8 @@
 
 -(void)startGame:(id)sender {
 	NSLog(@"Gettin ready to kill some babies....");
+	[[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
+	[[SimpleAudioEngine sharedEngine] playEffect:@"Shoetaken_Blip1.aif"];
 	[[CCDirector sharedDirector] replaceScene:[CCFadeTransition transitionWithDuration:0.5 scene:[FighterAppDelegate fightScene]]];
 }
 

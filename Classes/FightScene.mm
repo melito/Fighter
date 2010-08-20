@@ -37,11 +37,15 @@
 }
 
 -(id) init {
-	if( (self=[super init])) {		
+	if( (self=[super init]) ) {		
 		// enable touches
 		self.isTouchEnabled = YES;
 		// enable accelerometer
 		self.isAccelerometerEnabled = YES;
+		
+		//[[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
+		[[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"Shoetaken_Jig.aif"];
+
 		
 		CGSize screenSize = [CCDirector sharedDirector].winSize;
 		CCLOG(@"Screen width %0.2f screen height %0.2f", screenSize.width, screenSize.height);
@@ -76,18 +80,18 @@
 	//[parallaxbackground addChild:clouds z:-1 parallaxRatio:ccp(0.4f, 0.5f) positionOffset:ccp(320, 320)];
 	//[self addChild:parallaxbackground];
 	
-	clouds.position = ccp(-700,160);
-	[self addChild:clouds];
+	//clouds.position = ccp(-700,160);
+	//[self addChild:clouds];
 	
-	id a1 = [CCMoveBy actionWithDuration:60.0f position:ccp(1915, 190)];
-	id a2 = [CCCallFunc	actionWithTarget:self selector:@selector(resetClouds)];
-	id seq = [CCSequence actions:a1, a2, nil];
-	[clouds runAction:[CCRepeatForever actionWithAction:seq]];
+	//id a1 = [CCMoveBy actionWithDuration:60.0f position:ccp(1915, 190)];
+	//id a2 = [CCCallFunc	actionWithTarget:self selector:@selector(resetClouds)];
+	//id seq = [CCSequence actions:a1, a2, nil];
+	//[clouds runAction:[CCRepeatForever actionWithAction:seq]];
 	//[parallaxbackground runAction:[CCRepeatForever actionWithAction: seq]];
 	
-	CCSprite *ground = [CCSprite spriteWithFile:@"FightSceneBackground.gif"];
-	ground.anchorPoint = ccp(0,0);
-	[self addChild:ground];
+	//CCSprite *ground = [CCSprite spriteWithFile:@"FightSceneBackground.gif"];
+	//ground.anchorPoint = ccp(0,0);
+	//[self addChild:ground];
 	
 }
 
@@ -247,7 +251,7 @@
 }
 
 -(void) tick: (ccTime) dt {
-	fighter.position = ccp(fighter.position.x-1, fighter.position.y);
+	//fighter.position = ccp(fighter.position.x-1, fighter.position.y);
 	
 	//It is recommended that a fixed time step is used with Box2D for stability
 	//of the simulation, however, we are using a variable time step here.
@@ -261,6 +265,12 @@
 	// generally best to keep the time step and iterations fixed.
 	world->Step(dt, velocityIterations, positionIterations);
 	
+	[self updatePositions];
+	[self detectCollisions];
+	
+}
+
+-(void)updatePositions {
 	//Iterate over the bodies in the physics world
 	for (b2Body* b = world->GetBodyList(); b; b = b->GetNext())
 	{
@@ -278,7 +288,7 @@
 				b2Vec2 b2Position = b2Vec2(b->GetPosition().x, b->GetPosition().y);
 				float32 b2Angle = 1 * CC_DEGREES_TO_RADIANS(0);
 			}
-
+			
 			
 			//Synchronize the AtlasSprites position and rotation with the corresponding body
 			CCSprite *myActor = (CCSprite*)b->GetUserData();
@@ -286,7 +296,9 @@
 			myActor.rotation = -1 * CC_RADIANS_TO_DEGREES(b->GetAngle());	
 		}	
 	}
-	
+}
+
+-(void)detectCollisions {
 	std::vector<b2Body *>toDestroy; 
 	std::vector<ContactCollision>::iterator pos;
 	for(pos = contactWatcher->_contacts.begin(); 
@@ -305,7 +317,7 @@
 				
 				if (fighter.isAttacking) {
 					spriteB.health -= 5;
-
+					
 					bodyB->ApplyLinearImpulse(b2Vec2(60.0 * bodyB->GetMass(), 100.0 * bodyB->GetMass()), bodyB->GetWorldCenter());
 					//bodyB->ApplyForce(b2Vec2(100.0 * bodyB->GetMass(), 2.0 * bodyB->GetMass()), bodyB->GetWorldCenter());
 					
@@ -320,6 +332,10 @@
 				
 				if (spriteA.health <= 0) {
 					NSLog(@"Destroy fighter");
+					fighter.isDead = YES;
+					[[SimpleAudioEngine sharedEngine] playEffect:@"Shoetaken_Blip2.aif"];
+					[[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
+					[[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"Shoetaken_Outro.aif"];
 					toDestroy.push_back(bodyA);
 				}
 				
@@ -329,7 +345,7 @@
 				
 			} 
 		}        
-				
+		
 	}
 	
 	std::vector<b2Body *>::iterator pos2;
@@ -339,16 +355,26 @@
 			CCSprite *sprite = (CCSprite *) body->GetUserData();
 			
 			if (sprite != fighter) {
+				//[sprite runActionWithName:@"fly"];
+				id hitAction   = [[sprite actions] objectForKey:@"hit"];
+				CCRepeatForever *repeat = [CCRepeatForever actionWithAction:hitAction];
+				[sprite stopAllActions];
+				[sprite runAction:repeat];
+				
 				id blinkAction = [CCBlink actionWithDuration:1.5 blinks:5];
-				id removeSprite = [CCCallFuncND actionWithTarget:self selector:@selector(removeEnemy:data:) data:body];
+				id removeSprite = [CCCallFuncND actionWithTarget:self selector:@selector(removeEnemy:data:) data:body];				
 				[sprite runAction:[CCSequence actions:blinkAction, removeSprite, nil]];
+				
 			} else {
-				[self removeChild:sprite cleanup:true];
-				world->DestroyBody(body);
+				
+				if (fighter.isDead) {
+					[self removeChild:sprite cleanup:true];
+					world->DestroyBody(body);
+					[self startGameOverScreen];
+				}
 			}
 		}
-	}
-	
+	}	
 }
 							   
 -(void)removeEnemy:(id)sender data:(b2Body *)deadBody {
@@ -395,6 +421,20 @@
 		
 	[self createBabyFrom:@"Baby" withCoords:CGPointMake(100, 100)];
 	babycount += 1;
+}
+
+-(void)startGameOverScreen {
+	
+	CGSize screenSize = [CCDirector sharedDirector].winSize;
+	
+	CCLabel *gameOver = [CCLabel labelWithString:@"Game Over"
+								dimensions: CGSizeMake(300, 300) 
+								 alignment: UITextAlignmentCenter 
+								  fontName:@"kongtext" 
+								  fontSize: 32]; 
+	[gameOver setPosition: ccp(screenSize.width/2, (screenSize.height/2)/2)]; 
+	[self addChild: gameOver];
+	
 }
 
 -(void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
