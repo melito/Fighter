@@ -16,7 +16,7 @@
 	float density;
 	float friction;
 	int health;
-	
+
 	BOOL isAttacking;
 	BOOL isActionRunning;
 	BOOL isMovementActionRunning;
@@ -31,6 +31,7 @@
 @property (nonatomic, readonly) float density;
 @property (nonatomic, readonly) float friction;
 @property (nonatomic, readwrite) int health;
+
 @property (nonatomic, readwrite) BOOL isAttacking;
 @property (nonatomic, readwrite) BOOL isActionRunning;
 @property (nonatomic, readwrite) BOOL isMovementActionRunning;

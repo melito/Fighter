@@ -73,6 +73,8 @@
 	return self;
 }
 
+
+// FIXME: This is slowing the entire game down
 -(void)addBackgroundSprites {
 	clouds = [CCSprite spriteWithFile:@"FightSceneClouds.gif"];
 	
@@ -80,19 +82,44 @@
 	//[parallaxbackground addChild:clouds z:-1 parallaxRatio:ccp(0.4f, 0.5f) positionOffset:ccp(320, 320)];
 	//[self addChild:parallaxbackground];
 	
-	//clouds.position = ccp(-700,160);
-	//[self addChild:clouds];
+	clouds.position = ccp(100,100);
+	[self addChild:clouds];
 	
-	//id a1 = [CCMoveBy actionWithDuration:60.0f position:ccp(1915, 190)];
-	//id a2 = [CCCallFunc	actionWithTarget:self selector:@selector(resetClouds)];
-	//id seq = [CCSequence actions:a1, a2, nil];
-	//[clouds runAction:[CCRepeatForever actionWithAction:seq]];
+	id a1 = [CCMoveBy actionWithDuration:20.0f position:ccp(300, 100)];
+	id a2 = [CCCallFunc	actionWithTarget:self selector:@selector(resetClouds)];
+	id seq = [CCSequence actions:a1, a2, nil];
+	[clouds runAction:[CCRepeatForever actionWithAction:seq]];
 	//[parallaxbackground runAction:[CCRepeatForever actionWithAction: seq]];
 	
 	//CCSprite *ground = [CCSprite spriteWithFile:@"FightSceneBackground.gif"];
 	//ground.anchorPoint = ccp(0,0);
 	//[self addChild:ground];
+	CCSprite *airplaneBackground = [CCSprite spriteWithFile:@"AirplaneCabin.gif"];
+	airplaneBackground.anchorPoint = ccp(0,0);
+	[self addChild:airplaneBackground];
 	
+	/*
+	CCSprite *airplaneRow5 = [CCSprite spriteWithFile:@"AirplaneRow5.gif"];
+	airplaneRow5.anchorPoint = ccp(0,0);
+	[self addChild:airplaneRow5];
+
+	CCSprite *airplaneRow4 = [CCSprite spriteWithFile:@"AirplaneRow4.gif"];
+	airplaneRow4.anchorPoint = ccp(0,0);
+	[self addChild:airplaneRow4];
+
+	CCSprite *airplaneRow3 = [CCSprite spriteWithFile:@"AirplaneRow3.gif"];
+	airplaneRow3.anchorPoint = ccp(0,0);
+	[self addChild:airplaneRow3];
+	
+	CCSprite *airplaneRow2 = [CCSprite spriteWithFile:@"AirplaneRow2.gif"];
+	airplaneRow2.anchorPoint = ccp(0,0);
+	[self addChild:airplaneRow2];*/
+		
+}
+
+-(void)resetClouds {
+	NSLog(@"Clouds reset");
+	clouds.position = ccp(100, 100);
 }
 
 -(void)addHealthnScoreLabels {
@@ -118,10 +145,6 @@
 	
 }
 
--(void)resetClouds {
-	NSLog(@"Clouds reset");
-	clouds.position = ccp(-700,160);
-}
 
 -(void)setupBox2dWorld {
 	CGSize screenSize = [CCDirector sharedDirector].winSize;

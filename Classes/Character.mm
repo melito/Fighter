@@ -158,9 +158,9 @@
 	isActionRunning = NO;
 	
 	//if (arc4random() % 2) {
-		[self runActionWithName:@"click"];
+	//	[self runActionWithName:@"click"];
 	//} else {
-	//	[self runActionWithName:@"punch"];
+		[self runActionWithName:@"kickleft"];
 	//}
 }
 
@@ -168,11 +168,11 @@
 	isAttacking = NO;
 	isHurting = YES;
 
-	//id hitAction   = [actions objectForKey:@"hit"];
+	id hitAction   = [actions objectForKey:@"hitright"];
 	id blinkAction = [CCBlink actionWithDuration:1.5 blinks:7];
 	id actionDone = [CCCallFunc actionWithTarget:self selector:@selector(actionDone)];
 
-	[self runAction:[CCSequence actions:blinkAction, actionDone, nil]];
+	[self runAction:[CCSequence actions:hitAction, blinkAction, actionDone, nil]];
 }
 
 -(void)runActionWithName:(NSString *)actionName {
