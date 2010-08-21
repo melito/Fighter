@@ -66,13 +66,12 @@
 
 		// Setup scheduled tasks / tickers
 		[self schedule: @selector(tick:)];
-		[self schedule: @selector(spawnEnemy:) interval:2];
+		//[self schedule: @selector(spawnEnemy:) interval:2];
 		
 		
 	}
 	return self;
 }
-
 
 // FIXME: This is slowing the entire game down
 -(void)addBackgroundSprites {
@@ -130,6 +129,7 @@
 								 alignment: UITextAlignmentLeft 
 								  fontName:@"kongtext" 
 								  fontSize: 14]; 
+	[healthLabel setColor:ccc3(0x00, 0x00, 0x00)];
 	[healthLabel setPosition: ccp(screenSize.height-220, screenSize.width-180)]; 
 	[self addChild: healthLabel];
 	
@@ -140,11 +140,11 @@
 								alignment: UITextAlignmentRight 
 								 fontName:@"kongtext" 
 								 fontSize: 14]; 
+	[scoreLabel setColor:ccc3(0x00, 0x00, 0x00)];
 	[scoreLabel setPosition: ccp(screenSize.height, screenSize.width-180)]; 
 	[self addChild: scoreLabel];
 	
 }
-
 
 -(void)setupBox2dWorld {
 	CGSize screenSize = [CCDirector sharedDirector].winSize;
@@ -516,4 +516,5 @@
 	// don't forget to call "super dealloc"
 	[super dealloc];
 }
+
 @end

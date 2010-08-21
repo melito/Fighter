@@ -56,7 +56,7 @@
 -(void) pauseBeforeLoadingMenu:(ccTime) dt {
 	if (sceneLoading == NO) {
 		sceneLoading = YES;
-		[[CCDirector sharedDirector] replaceScene:[CCFadeTransition transitionWithDuration:3.0 scene:[MenuScene scene]]];		
+		[[CCDirector sharedDirector] replaceScene:[CCFadeTransition transitionWithDuration:0.5f scene:[MenuScene scene]]];		
 	}
 }
 

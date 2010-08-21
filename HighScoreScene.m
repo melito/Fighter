@@ -21,7 +21,7 @@
 -(id) init{
 	
 	if ((self=[super init])) {
-		CCSprite* background = [CCSprite spriteWithFile:@"HighScoreBackground.png"];
+		CCSprite* background = [CCSprite spriteWithFile:@"SpaceBackground.gif"];
 		background.anchorPoint = CGPointMake(0, 0);
 		[self addChild:background];
 		
