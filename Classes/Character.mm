@@ -12,17 +12,17 @@
 @implementation Character
 
 @synthesize actions;
+@synthesize currentAction;
 @synthesize facing;
+
 @synthesize density;
 @synthesize friction;
 @synthesize health;
+
 @synthesize isAttacking;
 @synthesize isActionRunning;
-@synthesize isMovementActionRunning;
-@synthesize isMoving;
 @synthesize isHurting;
 @synthesize isDead;
-@synthesize currentAction;
 
 -(id)init {
 
@@ -128,15 +128,14 @@
 	
 }
 
-
 -(void)runActionForever:(NSString *)actionName {
-	currentAction = actionName;
 	CCAnimate *animationAction = [actions objectForKey:actionName];
 	CCRepeatForever *repeat = [CCRepeatForever actionWithAction:animationAction];
+	
 	[self stopAllActions];
 	[self runAction:repeat];
-	isAttacking = NO;
-	isActionRunning = NO;
+	
+	currentAction = actionName;	
 }
 
 -(void)runDefaultActionForever {
@@ -150,53 +149,48 @@
 }
 
 -(void)actionDone {
-	isActionRunning = NO;
 	isAttacking = NO;
 	isHurting = NO;
-	self.visible = YES;
+	isActionRunning = NO;
+	[self runDefaultActionForever];
+}
+
+-(void)runActionWithName:(NSString *)actionName {
+	if(isActionRunning == NO){
+		currentAction = actionName;		
+		isActionRunning = YES;
+
+		CCAnimate *animationAction = [actions objectForKey:currentAction];
+		id actionDone = [CCCallFunc actionWithTarget:self selector:@selector(actionDone)];
+		id seq = [CCSequence actions:animationAction, actionDone, nil];
 	
-	if (currentAction == @"back" || currentAction == @"forward") {
-		[self runActionWithName:currentAction];
-	} else {
-		[self runDefaultActionForever];
-	}
+		[self stopAllActions];
+		[self runAction:seq];
+	}	
 }
 
 -(void)click{
 	isAttacking = YES;
 	isActionRunning = NO;
-	
 	if (facing == @"left") {
 		[self runActionWithName:@"kickleft"];
 	} else {
 		[self runActionWithName:@"click"];
 	}
-
+	
 }
 
 -(void)gotHit{
 	isAttacking = NO;
 	isHurting = YES;
-
+	isActionRunning = YES;
+	
 	id hitAction   = [actions objectForKey:@"hitright"];
 	id blinkAction = [CCBlink actionWithDuration:1.5 blinks:7];
 	id actionDone = [CCCallFunc actionWithTarget:self selector:@selector(actionDone)];
-
+	
+	[self stopAllActions];
 	[self runAction:[CCSequence actions:hitAction, blinkAction, actionDone, nil]];
-}
-
--(void)runActionWithName:(NSString *)actionName {
-	
-	CCAnimate *animationAction = [actions objectForKey:currentAction];
-	id actionDone = [CCCallFunc actionWithTarget:self selector:@selector(actionDone)];
-    id seq = [CCSequence actions:animationAction, actionDone, nil];
-	
-	if(isActionRunning == NO){
-		currentAction = actionName;
-		isActionRunning = YES;
-		[self runAction:seq];
-	}
-	
 }
 
 #pragma mark -

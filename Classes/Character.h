@@ -21,8 +21,6 @@
 
 	BOOL isAttacking;
 	BOOL isActionRunning;
-	BOOL isMovementActionRunning;
-	BOOL isMoving;
 	BOOL isHurting;
 	BOOL isDead;
 
@@ -39,8 +37,6 @@
 
 @property (nonatomic, readwrite) BOOL isAttacking;
 @property (nonatomic, readwrite) BOOL isActionRunning;
-@property (nonatomic, readwrite) BOOL isMovementActionRunning;
-@property (nonatomic, readwrite) BOOL isMoving;
 @property (nonatomic, readwrite) BOOL isHurting;
 @property (nonatomic, readwrite) BOOL isDead;
 

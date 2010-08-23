@@ -355,18 +355,28 @@
 					b2Vec2 velocity = b->GetLinearVelocityFromLocalPoint(localPoint);
 					b2Vec2 force(-fighter.accelY, 0);
 					
+					//NSLog(@"%f", fighter.accelY);
+					
 					// Set properties to handle proper animation
-					if (fighter.accelY > 0.3f) {
+					if (fighter.accelY > 0.14f) {
 						fighter.facing = @"left";
-						fighter.isMoving = YES;
+						
+						// TODO: Put in a slow walk animation here
 						[fighter runActionWithName:@"back"];
-					} else if(fighter.accelY < -0.3f) {
+						
+						if (fighter.accelY > 0.3f) {
+							// TODO: Put run action in here
+						}
+						
+					} else if(fighter.accelY < -0.14f) {
 						fighter.facing = @"right";
-						fighter.isMoving = YES;
+	
+						// TODO: Put in a slow walk animation here
 						[fighter runActionWithName:@"forward"];
-					} else {
-						fighter.isMoving = NO;
-						//[fighter runDefaultActionForever];
+						
+						if(fighter.accelY < -0.3f) {
+							// TODO: Put the run action in here
+						}
 					}
 
 					// Apply velocity and force to player
