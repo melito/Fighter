@@ -120,7 +120,7 @@
 	[actions setValue:animationAction forKey:action_name];
 	NSLog(@"animation: '%@' for '%@' registered", action_name, [self class]);
 	
-	if ([action_name isEqualToString:@"defaultleft"]) {
+	if ([action_name isEqualToString:@"default"]) {
 		[self runDefaultActionForever];
 	}
 	
@@ -137,7 +137,7 @@
 }
 
 -(void)runDefaultActionForever {
-	[self runActionForever:@"defaultleft"];
+	[self runActionForever:@"default"];
 }
 
 -(void)actionDone {

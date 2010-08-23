@@ -51,6 +51,7 @@
 // adds a new sprite at a given coordinate
 //-(void) addNewSpriteWithCoords:(CGPoint)p;
 -(void) createCharacterFrom:(NSString *)class_name withCoords:(CGPoint)coords;
+-(void) createBabywithCoords:(CGPoint)coords;
 
 -(void) addBackgroundSprites;
 -(void) addHealthnScoreLabels;

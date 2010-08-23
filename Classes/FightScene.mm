@@ -66,7 +66,7 @@
 
 		// Setup scheduled tasks / tickers
 		[self schedule: @selector(tick:)];
-		//[self schedule: @selector(spawnEnemy:) interval:2];
+		[self schedule: @selector(spawnEnemy:) interval:2];
 		
 		
 	}
@@ -90,30 +90,31 @@
 	[clouds runAction:[CCRepeatForever actionWithAction:seq]];
 	//[parallaxbackground runAction:[CCRepeatForever actionWithAction: seq]];
 	
-	//CCSprite *ground = [CCSprite spriteWithFile:@"FightSceneBackground.gif"];
-	//ground.anchorPoint = ccp(0,0);
-	//[self addChild:ground];
+	/*
+	CCSprite *basebg = [[CCSprite alloc] init];
+	basebg.anchorPoint = ccp(0,0);*/
+	
 	CCSprite *airplaneBackground = [CCSprite spriteWithFile:@"AirplaneCabin.gif"];
 	airplaneBackground.anchorPoint = ccp(0,0);
 	[self addChild:airplaneBackground];
-	
 	/*
 	CCSprite *airplaneRow5 = [CCSprite spriteWithFile:@"AirplaneRow5.gif"];
 	airplaneRow5.anchorPoint = ccp(0,0);
-	[self addChild:airplaneRow5];
+	[basebg addChild:airplaneRow5];
 
 	CCSprite *airplaneRow4 = [CCSprite spriteWithFile:@"AirplaneRow4.gif"];
 	airplaneRow4.anchorPoint = ccp(0,0);
-	[self addChild:airplaneRow4];
+	[basebg addChild:airplaneRow4];
 
 	CCSprite *airplaneRow3 = [CCSprite spriteWithFile:@"AirplaneRow3.gif"];
 	airplaneRow3.anchorPoint = ccp(0,0);
-	[self addChild:airplaneRow3];
+	[basebg addChild:airplaneRow3];
 	
 	CCSprite *airplaneRow2 = [CCSprite spriteWithFile:@"AirplaneRow2.gif"];
 	airplaneRow2.anchorPoint = ccp(0,0);
-	[self addChild:airplaneRow2];*/
+	[basebg addChild:airplaneRow2];
 		
+	[self addChild:basebg];*/
 }
 
 -(void)resetClouds {
@@ -229,7 +230,42 @@
 	[self addChild:fighter];
 }
 
--(void)createBabyFrom:(NSString *)class_string withCoords:(CGPoint)coords {
+-(void)spawnEnemy:(ccTime) dt {
+	[self throwABaby];
+}
+
+-(void)throwABaby{
+	CGSize screenSize = [CCDirector sharedDirector].winSize;
+	
+	int _x = 0;
+	int _y = 0;
+	switch ((1+arc4random()%4)) {
+		case 1:
+			// bottom left
+			// No action necessary
+			break;
+		case 2:
+			// top right
+			_x = screenSize.width;
+			_y = screenSize.height;
+			break;
+		case 3:
+			// top left
+			_x = 0;
+			_y = screenSize.height;
+			break;
+		case 4:
+			// bottom right
+			_x = screenSize.width;
+			_y = 0;
+			break;
+	}
+	
+	[self createBabywithCoords:CGPointMake(100, 190)];
+	babycount += 1;
+}
+
+-(void)createBabywithCoords:(CGPoint)coords {
 	
 	Baby *baby = [[Baby alloc] init];
 	baby.position = ccp(coords.x, coords.y);
@@ -253,7 +289,17 @@
 	
 	b2Body *body = world->CreateBody(&characterBody);
 	body->CreateFixture(&fixture);
-	[self addChild:baby];
+	[self addChild:baby z:1];
+}
+
+-(void)removeEnemy:(id)sender data:(b2Body *)deadBody {
+	NSLog(@"removeEnemy");
+	CCSprite *sprite = (CCSprite *)sender;
+	[self removeChild:sprite cleanup:YES];
+	world->DestroyBody(deadBody);
+	
+	killed_babies += 1;
+	[scoreLabel setString:[NSString stringWithFormat:@"Babies:%d", killed_babies]];
 }
 
 -(void) draw {
@@ -399,53 +445,7 @@
 		}
 	}	
 }
-							   
--(void)removeEnemy:(id)sender data:(b2Body *)deadBody {
-	NSLog(@"removeEnemy");
-	CCSprite *sprite = (CCSprite *)sender;
-	[self removeChild:sprite cleanup:YES];
-	world->DestroyBody(deadBody);
-	
-	killed_babies += 1;
-	[scoreLabel setString:[NSString stringWithFormat:@"Babies:%d", killed_babies]];
-}
-
--(void)spawnEnemy:(ccTime) dt {
-	[self throwABaby];
-}
-
--(void)throwABaby{
-	CGSize screenSize = [CCDirector sharedDirector].winSize;
-
-	int _x = 0;
-	int _y = 0;
-	
-	switch ((1+arc4random()%4)) {
-		case 1:
-			// bottom left
-			// No action necessary
-			break;
-		case 2:
-			// top right
-			_x = screenSize.width;
-			_y = screenSize.height;
-			break;
-		case 3:
-			// top left
-			_x = 0;
-			_y = screenSize.height;
-			break;
-		case 4:
-			// bottom right
-			_x = screenSize.width;
-			_y = 0;
-			break;
-	}
-		
-	[self createBabyFrom:@"Baby" withCoords:CGPointMake(100, 100)];
-	babycount += 1;
-}
-
+						
 -(void)startGameOverScreen {
 	
 	CGSize screenSize = [CCDirector sharedDirector].winSize;
