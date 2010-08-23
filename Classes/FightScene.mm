@@ -43,15 +43,15 @@
 		// enable accelerometer
 		self.isAccelerometerEnabled = YES;
 		
-		//[[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
-		//[[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"Shoetaken_Jig.aif"];
+		[[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
+		[[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"Shoetaken_Jig.aif"];
 
 		
 		CGSize screenSize = [CCDirector sharedDirector].winSize;
 		CCLOG(@"Screen width %0.2f screen height %0.2f", screenSize.width, screenSize.height);
 		
 		// Setup the background sprites
-		//[self addBackgroundSprites];
+		[self addBackgroundSprites];
 				
 		// Setup the health and score labels
 		[self addHealthnScoreLabels];
@@ -66,7 +66,7 @@
 
 		// Setup scheduled tasks / tickers
 		[self schedule: @selector(tick:)];
-		//[self schedule: @selector(spawnEnemy:) interval:2];
+		[self schedule: @selector(spawnEnemy:) interval:2];
 		
 		
 	}
@@ -89,32 +89,27 @@
 	id seq = [CCSequence actions:a1, a2, nil];
 	[clouds runAction:[CCRepeatForever actionWithAction:seq]];
 	//[parallaxbackground runAction:[CCRepeatForever actionWithAction: seq]];
-	
-	/*
-	CCSprite *basebg = [[CCSprite alloc] init];
-	basebg.anchorPoint = ccp(0,0);*/
-	
+		
 	CCSprite *airplaneBackground = [CCSprite spriteWithFile:@"AirplaneCabin.gif"];
 	airplaneBackground.anchorPoint = ccp(0,0);
 	[self addChild:airplaneBackground];
-	/*
+	
 	CCSprite *airplaneRow5 = [CCSprite spriteWithFile:@"AirplaneRow5.gif"];
 	airplaneRow5.anchorPoint = ccp(0,0);
-	[basebg addChild:airplaneRow5];
+	[self addChild:airplaneRow5];
 
 	CCSprite *airplaneRow4 = [CCSprite spriteWithFile:@"AirplaneRow4.gif"];
 	airplaneRow4.anchorPoint = ccp(0,0);
-	[basebg addChild:airplaneRow4];
+	[self addChild:airplaneRow4];
 
 	CCSprite *airplaneRow3 = [CCSprite spriteWithFile:@"AirplaneRow3.gif"];
 	airplaneRow3.anchorPoint = ccp(0,0);
-	[basebg addChild:airplaneRow3];
+	[self addChild:airplaneRow3];
 	
 	CCSprite *airplaneRow2 = [CCSprite spriteWithFile:@"AirplaneRow2.gif"];
 	airplaneRow2.anchorPoint = ccp(0,0);
-	[basebg addChild:airplaneRow2];
+	[self addChild:airplaneRow2];
 		
-	[self addChild:basebg];*/
 }
 
 -(void)resetClouds {

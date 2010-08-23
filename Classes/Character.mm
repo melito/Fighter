@@ -190,7 +190,7 @@
 	id actionDone = [CCCallFunc actionWithTarget:self selector:@selector(actionDone)];
 	
 	[self stopAllActions];
-	[self runAction:[CCSequence actions:hitAction, blinkAction, actionDone, nil]];
+	[self runAction:[CCSequence actions:hitAction, actionDone, nil]];
 }
 
 #pragma mark -
