@@ -12,12 +12,14 @@
 @implementation Character
 
 @synthesize actions;
+@synthesize facing;
 @synthesize density;
 @synthesize friction;
 @synthesize health;
 @synthesize isAttacking;
 @synthesize isActionRunning;
 @synthesize isMovementActionRunning;
+@synthesize isMoving;
 @synthesize isHurting;
 @synthesize isDead;
 @synthesize currentAction;
@@ -128,6 +130,7 @@
 
 
 -(void)runActionForever:(NSString *)actionName {
+	currentAction = actionName;
 	CCAnimate *animationAction = [actions objectForKey:actionName];
 	CCRepeatForever *repeat = [CCRepeatForever actionWithAction:animationAction];
 	[self stopAllActions];
@@ -137,7 +140,13 @@
 }
 
 -(void)runDefaultActionForever {
-	[self runActionForever:@"default"];
+	if (currentAction != @"defaultleft" && currentAction != @"default") {
+		if (facing == @"left") {
+			[self runActionForever:@"defaultleft"];
+		} else {
+			[self runActionForever:@"default"];		
+		}
+	}
 }
 
 -(void)actionDone {
@@ -157,11 +166,12 @@
 	isAttacking = YES;
 	isActionRunning = NO;
 	
-	//if (arc4random() % 2) {
-	//	[self runActionWithName:@"click"];
-	//} else {
+	if (facing == @"left") {
 		[self runActionWithName:@"kickleft"];
-	//}
+	} else {
+		[self runActionWithName:@"click"];
+	}
+
 }
 
 -(void)gotHit{
@@ -176,12 +186,13 @@
 }
 
 -(void)runActionWithName:(NSString *)actionName {
-	currentAction = actionName;
+	
 	CCAnimate *animationAction = [actions objectForKey:currentAction];
 	id actionDone = [CCCallFunc actionWithTarget:self selector:@selector(actionDone)];
     id seq = [CCSequence actions:animationAction, actionDone, nil];
 	
 	if(isActionRunning == NO){
+		currentAction = actionName;
 		isActionRunning = YES;
 		[self runAction:seq];
 	}

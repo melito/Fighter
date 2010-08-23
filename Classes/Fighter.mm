@@ -11,7 +11,8 @@
 
 @implementation Fighter
 
-@synthesize nextPosXCoord;
+@synthesize accelX;
+@synthesize accelY;
 
 -(id)init {
 
@@ -19,6 +20,7 @@
 		density = 10.0f;
 		friction = 4.0f;
 		health   = 100;
+		facing   = @"right";
 		isAttacking = NO;
 	}
 	return self;

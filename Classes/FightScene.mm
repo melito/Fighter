@@ -44,14 +44,14 @@
 		self.isAccelerometerEnabled = YES;
 		
 		//[[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
-		[[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"Shoetaken_Jig.aif"];
+		//[[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"Shoetaken_Jig.aif"];
 
 		
 		CGSize screenSize = [CCDirector sharedDirector].winSize;
 		CCLOG(@"Screen width %0.2f screen height %0.2f", screenSize.width, screenSize.height);
 		
 		// Setup the background sprites
-		[self addBackgroundSprites];
+		//[self addBackgroundSprites];
 				
 		// Setup the health and score labels
 		[self addHealthnScoreLabels];
@@ -66,7 +66,7 @@
 
 		// Setup scheduled tasks / tickers
 		[self schedule: @selector(tick:)];
-		[self schedule: @selector(spawnEnemy:) interval:2];
+		//[self schedule: @selector(spawnEnemy:) interval:2];
 		
 		
 	}
@@ -334,35 +334,59 @@
 	// generally best to keep the time step and iterations fixed.
 	world->Step(dt, velocityIterations, positionIterations);
 	
-	[self updatePositions];
+	[self updatePositions:dt];
 	[self detectCollisions];
 	
 }
 
--(void)updatePositions {
+-(void)updatePositions:(ccTime) dt {
 	//Iterate over the bodies in the physics world
 	for (b2Body* b = world->GetBodyList(); b; b = b->GetNext())
 	{
 		if (b->GetUserData() != NULL) {
 			if (b->GetUserData() == fighter) {
 				
-				// nextPosXCoord gets set by the accelerometer callback further below
-				if (fighter.nextPosXCoord != 0 && fighter.isAttacking == NO) {
-					b2Vec2 b2Position = b2Vec2(b->GetPosition().x-(fighter.nextPosXCoord/PTM_RATIO), b->GetPosition().y);
-					float32 b2Angle = 1 * CC_DEGREES_TO_RADIANS(0);
-					b->SetTransform(b2Position, b2Angle);
+				if (fighter.isAttacking == NO) {
+
+					// Get velocity and force info.
+					b2Vec2 localPoint;
+					localPoint.Set(0,0);
+					
+					b2Vec2 velocity = b->GetLinearVelocityFromLocalPoint(localPoint);
+					b2Vec2 force(-fighter.accelY, 0);
+					
+					// Set properties to handle proper animation
+					if (fighter.accelY > 0.3f) {
+						fighter.facing = @"left";
+						fighter.isMoving = YES;
+						[fighter runActionWithName:@"back"];
+					} else if(fighter.accelY < -0.3f) {
+						fighter.facing = @"right";
+						fighter.isMoving = YES;
+						[fighter runActionWithName:@"forward"];
+					} else {
+						fighter.isMoving = NO;
+						//[fighter runDefaultActionForever];
+					}
+
+					// Apply velocity and force to player
+					velocity += force;
+					b->SetLinearVelocity(velocity);
+					
 				}
 				
 			} else {
-				b2Vec2 b2Position = b2Vec2(b->GetPosition().x, b->GetPosition().y);
-				float32 b2Angle = 1 * CC_DEGREES_TO_RADIANS(0);
+				
+				//b2Vec2 b2Position = b2Vec2(b->GetPosition().x, b->GetPosition().y);
+				//float32 b2Angle = 1 * CC_DEGREES_TO_RADIANS(0);
+				
 			}
-			
 			
 			//Synchronize the AtlasSprites position and rotation with the corresponding body
 			CCSprite *myActor = (CCSprite*)b->GetUserData();
 			myActor.position = CGPointMake( b->GetPosition().x * PTM_RATIO, b->GetPosition().y * PTM_RATIO);
 			myActor.rotation = -1 * CC_RADIANS_TO_DEGREES(b->GetAngle());	
+			
 		}	
 	}
 }
@@ -465,41 +489,21 @@
 }
 
 -(void)accelerometer:(UIAccelerometer*)accelerometer didAccelerate:(UIAcceleration*)acceleration {
-	
 	static float prevX=0, prevY=0;
-	
 	//#define kFilterFactor 0.05f
 	#define kFilterFactor 1.0f	// don't use filter. the code is here just as an example
 	
-	//float accelX = (float) acceleration.x * kFilterFactor + (1- kFilterFactor)*prevX;
-	//float accelY = (float) acceleration.y * kFilterFactor + (1- kFilterFactor)*prevY;
-
-	float accelX = (float) -0.7f * kFilterFactor + (1- kFilterFactor)*prevX;
+	float accelX = (float) acceleration.x * kFilterFactor + (1- kFilterFactor)*prevX;
 	float accelY = (float) acceleration.y * kFilterFactor + (1- kFilterFactor)*prevY;
-	
-	prevX = accelX;
-	prevY = accelY;
+
+	//prevX = accelX;
+	//prevY = accelY;
 		
 	//NSLog(@"%f %f", acceleration.x, acceleration.y);	
 	//NSLog(@"%f %f", accelX, accelY);	
-	// accelerometer values are in "Portrait" mode. Change them to Landscape left
-	// multiply the gravity by 10
-	//b2Vec2 gravity( -accelY * 20, accelX * 20);
-	//world->SetGravity( gravity );
-	//Iterate over the bodies in the physics world
 	
-	if (accelY > 0.3f) {
-		[fighter runActionWithName:@"back"];	
-		fighter.nextPosXCoord = 1;
-	} else if (accelY < -0.3f) {
-		[fighter runActionWithName:@"forward"];
-		fighter.nextPosXCoord = -1;
-	} else {
-		[fighter runActionWithName:@"default"];
-		fighter.nextPosXCoord = 0;
-	}
- 
-			
+	fighter.accelX = accelX;
+	fighter.accelY = accelY;
 }
 
 - (void) dealloc {

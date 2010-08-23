@@ -13,6 +13,8 @@
 @interface Character : CCSprite {
 	NSMutableDictionary *actions;
 	
+	NSString *facing;
+	
 	float density;
 	float friction;
 	int health;
@@ -20,6 +22,7 @@
 	BOOL isAttacking;
 	BOOL isActionRunning;
 	BOOL isMovementActionRunning;
+	BOOL isMoving;
 	BOOL isHurting;
 	BOOL isDead;
 
@@ -28,6 +31,8 @@
 }
 
 @property (nonatomic, retain) NSMutableDictionary *actions;
+@property (nonatomic, retain) NSString *facing;
+
 @property (nonatomic, readonly) float density;
 @property (nonatomic, readonly) float friction;
 @property (nonatomic, readwrite) int health;
@@ -35,6 +40,7 @@
 @property (nonatomic, readwrite) BOOL isAttacking;
 @property (nonatomic, readwrite) BOOL isActionRunning;
 @property (nonatomic, readwrite) BOOL isMovementActionRunning;
+@property (nonatomic, readwrite) BOOL isMoving;
 @property (nonatomic, readwrite) BOOL isHurting;
 @property (nonatomic, readwrite) BOOL isDead;
 
