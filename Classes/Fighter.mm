@@ -18,7 +18,7 @@
 
 	if ((self=[super init])) {
 		density = 10.0f;
-		friction = 1.0f;
+		friction = 0.0f;
 		health   = 100;
 		facing   = @"right";
 		isAttacking = NO;
