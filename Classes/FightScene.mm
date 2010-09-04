@@ -43,15 +43,15 @@
 		// enable accelerometer
 		self.isAccelerometerEnabled = YES;
 		
-		[[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
-		[[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"Shoetaken_Jig.aif"];
+		//[[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
+		//[[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"Shoetaken_Jig.aif"];
 
 		
 		CGSize screenSize = [CCDirector sharedDirector].winSize;
 		CCLOG(@"Screen width %0.2f screen height %0.2f", screenSize.width, screenSize.height);
 		
 		// Setup the background sprites
-		[self addBackgroundSprites];
+		//[self addBackgroundSprites];
 				
 		// Setup the health and score labels
 		[self addHealthnScoreLabels];
@@ -164,7 +164,7 @@
 	world->SetDebugDraw(m_debugDraw);
 	
 	uint32 flags = 0;
-	//flags += b2DebugDraw::e_shapeBit;
+	flags += b2DebugDraw::e_shapeBit;
 	//		flags += b2DebugDraw::e_jointBit;
 	//		flags += b2DebugDraw::e_aabbBit;
 	//		flags += b2DebugDraw::e_pairBit;
@@ -213,7 +213,7 @@
 	characterBody.position.Set(fighter.position.x/PTM_RATIO, fighter.position.y/PTM_RATIO);
 
 	b2PolygonShape characterShape;
-	characterShape.SetAsBox(([fighter contentSize].width/PTM_RATIO)/2, ([fighter contentSize].height/PTM_RATIO)/2);
+	characterShape.SetAsBox((([fighter contentSize].width-23)/PTM_RATIO)/2, (([fighter contentSize].height-5)/PTM_RATIO)/2);
 	
 	fighterFixture.shape = &characterShape;
 	fighterFixture.density = fighter.density;
@@ -277,45 +277,7 @@
 	// Set the body's shape
 	b2PolygonShape characterShape;
 		
-	//characterShape.SetAsBox(([baby contentSize].width/PTM_RATIO)/2, ([baby contentSize].height/PTM_RATIO)/2);
-	
-	//row 1, col 1
-	int num = 31;
-	b2Vec2 verts[] = {
-		b2Vec2(-24.5f / PTM_RATIO, -17.9f / PTM_RATIO),
-		b2Vec2(-24.7f / PTM_RATIO, -12.3f / PTM_RATIO),
-		b2Vec2(-21.1f / PTM_RATIO, -10.3f / PTM_RATIO),
-		b2Vec2(-16.9f / PTM_RATIO, -12.3f / PTM_RATIO),
-		b2Vec2(-10.0f / PTM_RATIO, -5.4f / PTM_RATIO),
-		b2Vec2(-2.2f / PTM_RATIO, -7.9f / PTM_RATIO),
-		b2Vec2(5.2f / PTM_RATIO, -6.1f / PTM_RATIO),
-		b2Vec2(-1.7f / PTM_RATIO, 0.8f / PTM_RATIO),
-		b2Vec2(-2.8f / PTM_RATIO, 10.5f / PTM_RATIO),
-		b2Vec2(7.1f / PTM_RATIO, 19.2f / PTM_RATIO),
-		b2Vec2(8.6f / PTM_RATIO, 20.9f / PTM_RATIO),
-		b2Vec2(10.5f / PTM_RATIO, 21.7f / PTM_RATIO),
-		b2Vec2(12.1f / PTM_RATIO, 18.3f / PTM_RATIO),
-		b2Vec2(15.6f / PTM_RATIO, 14.9f / PTM_RATIO),
-		b2Vec2(20.0f / PTM_RATIO, 11.4f / PTM_RATIO),
-		b2Vec2(21.1f / PTM_RATIO, 3.4f / PTM_RATIO),
-		b2Vec2(23.6f / PTM_RATIO, 0.8f / PTM_RATIO),
-		b2Vec2(22.3f / PTM_RATIO, -4.3f / PTM_RATIO),
-		b2Vec2(19.3f / PTM_RATIO, -7.0f / PTM_RATIO),
-		b2Vec2(13.0f / PTM_RATIO, -7.7f / PTM_RATIO),
-		b2Vec2(14.0f / PTM_RATIO, -10.0f / PTM_RATIO),
-		b2Vec2(13.0f / PTM_RATIO, -14.2f / PTM_RATIO),
-		b2Vec2(15.6f / PTM_RATIO, -17.1f / PTM_RATIO),
-		b2Vec2(19.5f / PTM_RATIO, -15.8f / PTM_RATIO),
-		b2Vec2(21.3f / PTM_RATIO, -19.0f / PTM_RATIO),
-		b2Vec2(20.2f / PTM_RATIO, -21.1f / PTM_RATIO),
-		b2Vec2(4.1f / PTM_RATIO, -21.1f / PTM_RATIO),
-		b2Vec2(-13.0f / PTM_RATIO, -20.9f / PTM_RATIO),
-		b2Vec2(-18.1f / PTM_RATIO, -19.5f / PTM_RATIO),
-		b2Vec2(-18.0f / PTM_RATIO, -21.1f / PTM_RATIO),
-		b2Vec2(-25.0f / PTM_RATIO, -17.8f / PTM_RATIO)
-	};
-
-	characterShape.Set(verts, num);
+	characterShape.SetAsBox((([baby contentSize].width/PTM_RATIO)/2)/2, (([baby contentSize].height/PTM_RATIO)/2)/2);
 	
 	b2FixtureDef fixture;
 	fixture.shape = &characterShape;
