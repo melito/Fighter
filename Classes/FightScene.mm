@@ -91,23 +91,23 @@
 		
 	CCSprite *airplaneBackground = [CCSprite spriteWithFile:@"AirplaneCabin.gif"];
 	airplaneBackground.anchorPoint = ccp(0,0);
-	[self addChild:airplaneBackground];
+	[self addChild:airplaneBackground z:1];
 	
 	CCSprite *airplaneRow5 = [CCSprite spriteWithFile:@"AirplaneRow5.gif"];
 	airplaneRow5.anchorPoint = ccp(0,0);
-	[self addChild:airplaneRow5];
+	[self addChild:airplaneRow5 z:2];
 
 	CCSprite *airplaneRow4 = [CCSprite spriteWithFile:@"AirplaneRow4.gif"];
 	airplaneRow4.anchorPoint = ccp(0,0);
-	[self addChild:airplaneRow4];
+	[self addChild:airplaneRow4 z:3];
 
 	CCSprite *airplaneRow3 = [CCSprite spriteWithFile:@"AirplaneRow3.gif"];
 	airplaneRow3.anchorPoint = ccp(0,0);
-	[self addChild:airplaneRow3];
+	[self addChild:airplaneRow3 z:4];
 	
 	CCSprite *airplaneRow2 = [CCSprite spriteWithFile:@"AirplaneRow2.gif"];
 	airplaneRow2.anchorPoint = ccp(0,0);
-	[self addChild:airplaneRow2];
+	[self addChild:airplaneRow2 z:5];
 		
 }
 
@@ -223,7 +223,7 @@
 	
 	body->SetFixedRotation(true);
 	
-	[self addChild:fighter];
+	[self addChild:fighter z:6];
 }
 
 -(void)spawnEnemy:(ccTime) dt {
@@ -234,34 +234,42 @@
 	CGSize screenSize = [CCDirector sharedDirector].winSize;
 	
 	int _x = 0;
-	int _y = 0;
-	switch ((1+arc4random()%4)) {
+	int _y = 180;
+	int _z = 0;
+	switch ((1+arc4random()%6)) {
 		case 1:
-			// bottom left
-			// No action necessary
+			// front row left
+			_x = 119;
+			_z = 4;
 			break;
 		case 2:
-			// top right
-			_x = screenSize.width;
-			_y = screenSize.height;
+			// front row right 
+			_x = 370;
+			_z = 4;
 			break;
 		case 3:
-			// top left
-			_x = 0;
-			_y = screenSize.height;
-			break;
+			// 2nd row left
+			_x = 119;
+			_z = 3;
 		case 4:
-			// bottom right
-			_x = screenSize.width;
-			_y = 0;
-			break;
+			// 2nd row right
+			_x = 370;
+			_z = 3;
+		case 5:
+			// 3rd row left
+			_x = 119;
+			_z = 2;
+		case 6:
+			// 3rd row right
+			_x = 370;
+			_z = 2;
 	}
 	
-	[self createBabywithCoords:CGPointMake(100, 190)];
+	[self createBabywithCoords:CGPointMake(_x, _y) atZ:(int)_z];
 	babycount += 1;
 }
 
--(void)createBabywithCoords:(CGPoint)coords {
+-(void)createBabywithCoords:(CGPoint)coords atZ:(int)_z {
 	
 	Baby *baby = [[Baby alloc] init];
 	baby.position = ccp(coords.x, coords.y);
@@ -286,9 +294,34 @@
 	b2Body *body = world->CreateBody(&characterBody);
 	body->CreateFixture(&fixture);
 	
+	switch (_z) {
+		case 4:
+			baby.scale = 0.9;
+			break;
+		case 3:
+			baby.scale = 0.8;
+			break;
+		case 2:
+			baby.scale = 0.7;
+			break;
+		case 1:
+			baby.scale = 0.5;
+			break;
+	}
+	[self addChild:baby z:_z];	
 	
+	// Throw the baby over the seat
+	body->ApplyLinearImpulse(b2Vec2(0, 10*body->GetMass()), body->GetWorldCenter());
 	
-	[self addChild:baby z:1];	
+	// Create the illusion of throwing the baby forward over the seats
+	id scaleAction = [CCScaleTo actionWithDuration:0.5 scale:1.0];
+	id moveToFrontAction = [CCCallFuncND actionWithTarget:self selector:@selector(moveEnemyToFront:data:) data:baby];				
+	[baby runAction:[CCSequence actions:scaleAction, moveToFrontAction, nil]];
+	
+}
+
+-(void)moveEnemyToFront:(id)sender data:(CCSprite *)enemy {
+	[self reorderChild:enemy z:6];
 }
 
 -(void)removeEnemy:(id)sender data:(b2Body *)deadBody {
