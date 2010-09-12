@@ -37,9 +37,11 @@
 	int babycount;
 	int killed_babies;
 	
+	CGSize screenSize;
 }
 
 @property (nonatomic, retain) Fighter *fighter;
+@property (nonatomic, readonly) CGSize screenSize;
 @property (nonatomic, readwrite) int killed_babies;
 
 -(void) throwABaby;

@@ -29,10 +29,6 @@ void ContactWatcher::EndContact(b2Contact* contact){
     }
 }
 
-void ContactWatcher::PreSolve(b2Contact* contact, const b2Manifold* oldManifold){ 
-	//NSLog(@"Conta"); 
-}
+void ContactWatcher::PreSolve(b2Contact* contact, const b2Manifold* oldManifold){ }
 
-void ContactWatcher::PostSolve(b2Contact* contact, const b2ContactImpulse* impulse) { 
-	//NSLog(@"Cont"); 
-}
+void ContactWatcher::PostSolve(b2Contact* contact, const b2ContactImpulse* impulse) { }

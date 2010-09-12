@@ -54,6 +54,7 @@
 -(void)runDefaultActionForever;
 -(void)runActionForever:(NSString *)actionName;
 
-
+-(void)gotHit;
 -(void)click;
+
 @end

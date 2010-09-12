@@ -46,12 +46,11 @@
 		//[[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
 		//[[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"Shoetaken_Jig.aif"];
 
-		
-		CGSize screenSize = [CCDirector sharedDirector].winSize;
+		screenSize = [CCDirector sharedDirector].winSize;
 		CCLOG(@"Screen width %0.2f screen height %0.2f", screenSize.width, screenSize.height);
 		
 		// Setup the background sprites
-		//[self addBackgroundSprites];
+		[self addBackgroundSprites];
 				
 		// Setup the health and score labels
 		[self addHealthnScoreLabels];
@@ -94,7 +93,6 @@
 	airplaneBackground.anchorPoint = ccp(0,0);
 	[self addChild:airplaneBackground];
 	
-	/*
 	CCSprite *airplaneRow5 = [CCSprite spriteWithFile:@"AirplaneRow5.gif"];
 	airplaneRow5.anchorPoint = ccp(0,0);
 	[self addChild:airplaneRow5];
@@ -109,7 +107,7 @@
 	
 	CCSprite *airplaneRow2 = [CCSprite spriteWithFile:@"AirplaneRow2.gif"];
 	airplaneRow2.anchorPoint = ccp(0,0);
-	[self addChild:airplaneRow2];*/
+	[self addChild:airplaneRow2];
 		
 }
 
@@ -164,11 +162,11 @@
 	world->SetDebugDraw(m_debugDraw);
 	
 	uint32 flags = 0;
-	flags += b2DebugDraw::e_shapeBit;
-	//		flags += b2DebugDraw::e_jointBit;
-	//		flags += b2DebugDraw::e_aabbBit;
-	//		flags += b2DebugDraw::e_pairBit;
-	//		flags += b2DebugDraw::e_centerOfMassBit;
+	//flags += b2DebugDraw::e_shapeBit;
+	//flags += b2DebugDraw::e_jointBit;
+	//flags += b2DebugDraw::e_aabbBit;
+	//flags += b2DebugDraw::e_pairBit;
+	//flags += b2DebugDraw::e_centerOfMassBit;
 	m_debugDraw->SetFlags(flags);		
 	
 	
@@ -213,7 +211,7 @@
 	characterBody.position.Set(fighter.position.x/PTM_RATIO, fighter.position.y/PTM_RATIO);
 
 	b2PolygonShape characterShape;
-	characterShape.SetAsBox((([fighter contentSize].width-23)/PTM_RATIO)/2, (([fighter contentSize].height-5)/PTM_RATIO)/2);
+	characterShape.SetAsBox((([fighter contentSize].width-15)/PTM_RATIO)/2, (([fighter contentSize].height-5)/PTM_RATIO)/2);
 	
 	fighterFixture.shape = &characterShape;
 	fighterFixture.density = fighter.density;
@@ -422,33 +420,68 @@
 			
 			if (spriteA == fighter && spriteB != fighter) {
 				
-				if (fighter.isAttacking) {
-					spriteB.health -= 5;
-					
-					bodyB->ApplyLinearImpulse(b2Vec2(60.0 * bodyB->GetMass(), 100.0 * bodyB->GetMass()), bodyB->GetWorldCenter());
-					//bodyB->ApplyForce(b2Vec2(100.0 * bodyB->GetMass(), 2.0 * bodyB->GetMass()), bodyB->GetWorldCenter());
-					
-				} else if (fighter.isHurting) {
-					// Do nothing
-					
-				} else {
-					spriteA.health -= 5;
-					[spriteA gotHit];
-					[healthLabel setString:[NSString stringWithFormat:@"Health:%d", spriteA.health]]; 
+				// Figure out point of collision
+				for (b2Contact* c = world->GetContactList(); c; c = c->GetNext())
+				{
+					if(c->IsTouching()) {
+						b2WorldManifold worldManifold;
+						c->GetWorldManifold(&worldManifold);
+							
+						b2Vec2 currentContactPoint = worldManifold.points[0]; // here you could iterate through points in the manifold
+						//CCLOG(@"current contact point is %f,%f",currentContactPoint.x, currentContactPoint.y);
+						float32 px = currentContactPoint.x;
+						float32 py = currentContactPoint.y;
+							
+						CGPoint location = CGPointMake(px * PTM_RATIO, py * PTM_RATIO); 
+						
+						if (fighter.isAttacking && (px < 5)) {
+							spriteB.health -= 5;
+							
+							NSLog(@"Player position x:%f, y:%f", fighter.position.x, fighter.position.y);
+							//NSLog(@"Player LinearVelocity: %f", bodyA->GetLinearVelocity());
+							//NSLog(@"Player AngularVelocity: %f", bodyA->GetAngularVelocity());
+							b2Vec2 f = bodyB->GetWorldVector(b2Vec2(100.0f, 60.0f));
+							b2Vec2 p = bodyB->GetWorldPoint(b2Vec2(40.0f, 20.0f));
+							bodyB->ApplyLinearImpulse(f, p);
+							
+							
+							//if(fighter.facing == @"right") {
+							//	NSLog(@"right hit");
+								//bodyB->ApplyForce(b2Vec2(0, -100.0*bodyB->GetMass()) , bodyB->GetPosition());
+								//bodyB->ApplyLinearImpulse(b2Vec2(-(spriteB.position.x) * bodyB->GetMass(), -(spriteB.position.x) * bodyB->GetMass()), bodyB->GetWorldCenter());
+							//} else {
+								//bodyB->ApplyForce(b2Vec2(1.0*bodyB->GetMass(), 60.0*bodyB->GetMass()) , bodyB->GetPosition() );
+							//	NSLog(@"left hit");
+							//	bodyB->ApplyLinearImpulse(b2Vec2(2.0 * bodyB->GetMass(), 60.0 * bodyB->GetMass()), bodyB->GetWorldCenter());
+							//}
+							
+							//bodyB->ApplyForce(b2Vec2(100.0 * bodyB->GetMass(), 2.0 * bodyB->GetMass()), bodyB->GetWorldCenter());
+							
+						} else if (fighter.isHurting) {
+							// Do nothing
+							
+						} else {
+							spriteA.health -= 5;
+							[spriteA gotHit];
+							[healthLabel setString:[NSString stringWithFormat:@"Health:%d", spriteA.health]]; 
+						}
+						
+						if (spriteA.health <= 0) {
+							NSLog(@"Destroy fighter");
+							fighter.isDead = YES;
+							[[SimpleAudioEngine sharedEngine] playEffect:@"Shoetaken_Blip2.aif"];
+							[[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
+							[[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"Shoetaken_Outro.aif"];
+							toDestroy.push_back(bodyA);
+						}
+						
+						if (spriteB.health <= 0) {
+							toDestroy.push_back(bodyB);
+						}
+						
+					}
 				}
 				
-				if (spriteA.health <= 0) {
-					NSLog(@"Destroy fighter");
-					fighter.isDead = YES;
-					[[SimpleAudioEngine sharedEngine] playEffect:@"Shoetaken_Blip2.aif"];
-					[[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
-					[[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"Shoetaken_Outro.aif"];
-					toDestroy.push_back(bodyA);
-				}
-				
-				if (spriteB.health <= 0) {
-					toDestroy.push_back(bodyB);
-				}
 				
 			} 
 		}        
