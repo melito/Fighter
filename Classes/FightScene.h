@@ -53,7 +53,11 @@
 // adds a new sprite at a given coordinate
 //-(void) addNewSpriteWithCoords:(CGPoint)p;
 -(void) createCharacterFrom:(NSString *)class_name withCoords:(CGPoint)coords;
--(void) createBabywithCoords:(CGPoint)coords;
+-(void) createBabywithCoords:(CGPoint)coords atZ:(int)_z;
+
+-(void)updatePositions:(ccTime)dt;
+-(void)startGameOverScreen;
+-(void)detectCollisions;
 
 -(void) addBackgroundSprites;
 -(void) addHealthnScoreLabels;

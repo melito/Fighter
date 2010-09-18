@@ -9,6 +9,7 @@
 
 // Import the interfaces
 #import "FightScene.h"
+#import "HighScoreScene.h"
 
 //Pixel to metres ratio. Box2D uses metres as the unit for measurement.
 //This ratio defines how many pixels correspond to 1 Box2D "metre"
@@ -21,6 +22,7 @@
 
 @synthesize fighter;
 @synthesize killed_babies;
+@synthesize screenSize;
 
 +(id) scene {
 	// 'scene' is an autorelease object.
@@ -66,7 +68,6 @@
 		// Setup scheduled tasks / tickers
 		[self schedule: @selector(tick:)];
 		[self schedule: @selector(spawnEnemy:) interval:2];
-		
 		
 	}
 	return self;
@@ -117,8 +118,6 @@
 }
 
 -(void)addHealthnScoreLabels {
-	CGSize screenSize = [CCDirector sharedDirector].winSize;
-
 	healthLabel = [CCLabel labelWithString: [NSString stringWithFormat:@"Health:%d", 100] 
 								dimensions: CGSizeMake(180, 20) 
 								 alignment: UITextAlignmentLeft 
@@ -126,7 +125,7 @@
 								  fontSize: 14]; 
 	[healthLabel setColor:ccc3(0x00, 0x00, 0x00)];
 	[healthLabel setPosition: ccp(screenSize.height-220, screenSize.width-180)]; 
-	[self addChild: healthLabel];
+	[self addChild: healthLabel z:7];
 	
 	
 	killed_babies = 0;
@@ -137,13 +136,11 @@
 								 fontSize: 14]; 
 	[scoreLabel setColor:ccc3(0x00, 0x00, 0x00)];
 	[scoreLabel setPosition: ccp(screenSize.height, screenSize.width-180)]; 
-	[self addChild: scoreLabel];
+	[self addChild: scoreLabel z:7];
 	
 }
 
 -(void)setupBox2dWorld {
-	CGSize screenSize = [CCDirector sharedDirector].winSize;
-
 	// Define the gravity vector.
 	b2Vec2 gravity;
 	gravity.Set(0.0f, -10.0f);
@@ -211,16 +208,15 @@
 	characterBody.position.Set(fighter.position.x/PTM_RATIO, fighter.position.y/PTM_RATIO);
 
 	b2PolygonShape characterShape;
-	characterShape.SetAsBox((([fighter contentSize].width-15)/PTM_RATIO)/2, (([fighter contentSize].height-5)/PTM_RATIO)/2);
+	characterShape.SetAsBox(((fighter.contentSize.width-16)/PTM_RATIO)/2, (fighter.contentSize.height/PTM_RATIO)/2);
 	
 	fighterFixture.shape = &characterShape;
 	fighterFixture.density = fighter.density;
 	fighterFixture.friction = fighter.friction;
 	NSLog(@"Density: %f Friction: %f", fighter.density, fighter.friction);
-
+	
 	b2Body *body = world->CreateBody(&characterBody);
 	body->CreateFixture(&fighterFixture);
-	
 	body->SetFixedRotation(true);
 	
 	[self addChild:fighter z:6];
@@ -230,9 +226,7 @@
 	[self throwABaby];
 }
 
--(void)throwABaby{
-	CGSize screenSize = [CCDirector sharedDirector].winSize;
-	
+-(void)throwABaby{	
 	int _x = 0;
 	int _y = 180;
 	int _z = 0;
@@ -294,28 +288,36 @@
 	b2Body *body = world->CreateBody(&characterBody);
 	body->CreateFixture(&fixture);
 	
+	float duration = 0.0f;
 	switch (_z) {
 		case 4:
 			baby.scale = 0.9;
+			duration = 0.5;
 			break;
 		case 3:
 			baby.scale = 0.8;
+			duration = 0.6;
 			break;
 		case 2:
 			baby.scale = 0.7;
+			duration = 0.8;
 			break;
 		case 1:
 			baby.scale = 0.5;
+			duration = 0.9;
 			break;
 	}
+	
+	
 	[self addChild:baby z:_z];	
 	
 	// Throw the baby over the seat
-	body->ApplyLinearImpulse(b2Vec2(0, 10*body->GetMass()), body->GetWorldCenter());
+	body->ApplyLinearImpulse(b2Vec2(1, 20*body->GetMass()), body->GetWorldCenter());
 	
 	// Create the illusion of throwing the baby forward over the seats
-	id scaleAction = [CCScaleTo actionWithDuration:0.5 scale:1.0];
-	id moveToFrontAction = [CCCallFuncND actionWithTarget:self selector:@selector(moveEnemyToFront:data:) data:baby];				
+	id scaleAction = [CCScaleTo actionWithDuration:duration scale:1.0];
+	id moveToFrontAction = [CCCallFuncND actionWithTarget:self selector:@selector(moveEnemyToFront:data:) data:baby];
+	
 	[baby runAction:[CCSequence actions:scaleAction, moveToFrontAction, nil]];
 	
 }
@@ -451,44 +453,35 @@
 			Character *spriteA = (Character *) bodyA->GetUserData();
 			Character *spriteB = (Character *) bodyB->GetUserData();
 			
+			
 			if (spriteA == fighter && spriteB != fighter) {
-				
+							
 				// Figure out point of collision
 				for (b2Contact* c = world->GetContactList(); c; c = c->GetNext())
 				{
 					if(c->IsTouching()) {
 						b2WorldManifold worldManifold;
 						c->GetWorldManifold(&worldManifold);
-							
+						
 						b2Vec2 currentContactPoint = worldManifold.points[0]; // here you could iterate through points in the manifold
 						//CCLOG(@"current contact point is %f,%f",currentContactPoint.x, currentContactPoint.y);
 						float32 px = currentContactPoint.x;
 						float32 py = currentContactPoint.y;
-							
+					
 						CGPoint location = CGPointMake(px * PTM_RATIO, py * PTM_RATIO); 
 						
-						if (fighter.isAttacking && (px < 5)) {
+						if (fighter.isAttacking) {
 							spriteB.health -= 5;
+
+							CCQuadParticleSystem *particle = [CCQuadParticleSystem particleWithFile:@"BloodExplosion2.plist"];
+							particle.position = spriteB.position;
+							[self addChild:particle z:9];
 							
-							NSLog(@"Player position x:%f, y:%f", fighter.position.x, fighter.position.y);
-							//NSLog(@"Player LinearVelocity: %f", bodyA->GetLinearVelocity());
-							//NSLog(@"Player AngularVelocity: %f", bodyA->GetAngularVelocity());
-							b2Vec2 f = bodyB->GetWorldVector(b2Vec2(100.0f, 60.0f));
-							b2Vec2 p = bodyB->GetWorldPoint(b2Vec2(40.0f, 20.0f));
-							bodyB->ApplyLinearImpulse(f, p);
-							
-							
-							//if(fighter.facing == @"right") {
-							//	NSLog(@"right hit");
-								//bodyB->ApplyForce(b2Vec2(0, -100.0*bodyB->GetMass()) , bodyB->GetPosition());
-								//bodyB->ApplyLinearImpulse(b2Vec2(-(spriteB.position.x) * bodyB->GetMass(), -(spriteB.position.x) * bodyB->GetMass()), bodyB->GetWorldCenter());
-							//} else {
-								//bodyB->ApplyForce(b2Vec2(1.0*bodyB->GetMass(), 60.0*bodyB->GetMass()) , bodyB->GetPosition() );
-							//	NSLog(@"left hit");
-							//	bodyB->ApplyLinearImpulse(b2Vec2(2.0 * bodyB->GetMass(), 60.0 * bodyB->GetMass()), bodyB->GetWorldCenter());
-							//}
-							
-							//bodyB->ApplyForce(b2Vec2(100.0 * bodyB->GetMass(), 2.0 * bodyB->GetMass()), bodyB->GetWorldCenter());
+							b2Vec2 velocity;
+							velocity = bodyA->GetLinearVelocity();
+
+							NSLog(@"Velocity: %f", velocity.x);
+							bodyB->ApplyTorque((velocity.x*55)+10);
 							
 						} else if (fighter.isHurting) {
 							// Do nothing
@@ -496,12 +489,13 @@
 						} else {
 							spriteA.health -= 5;
 							[spriteA gotHit];
+							bodyA->ApplyLinearImpulse(b2Vec2(0.0, -2.0), bodyA->GetWorldCenter());
 							[healthLabel setString:[NSString stringWithFormat:@"Health:%d", spriteA.health]]; 
 						}
 						
 						if (spriteA.health <= 0) {
 							NSLog(@"Destroy fighter");
-							fighter.isDead = YES;
+							fighter.isDead = NO;
 							[[SimpleAudioEngine sharedEngine] playEffect:@"Shoetaken_Blip2.aif"];
 							[[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
 							[[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"Shoetaken_Outro.aif"];
@@ -530,17 +524,18 @@
 			if (sprite != fighter) {
 				//[sprite runActionWithName:@"fly"];
 				id hitAction   = [[sprite actions] objectForKey:@"hit"];
-				CCRepeatForever *repeat = [CCRepeatForever actionWithAction:hitAction];
+				//CCRepeatForever *repeat = [CCRepeatForever actionWithAction:hitAction];
 				[sprite stopAllActions];
-				[sprite runAction:repeat];
+				//[sprite runAction:repeat];
 				
-				id blinkAction = [CCBlink actionWithDuration:1.5 blinks:5];
+				//id blinkAction = [CCBlink actionWithDuration:1.5 blinks:7];
 				id removeSprite = [CCCallFuncND actionWithTarget:self selector:@selector(removeEnemy:data:) data:body];				
-				[sprite runAction:[CCSequence actions:blinkAction, removeSprite, nil]];
+				[sprite runAction:[CCSequence actions:hitAction, hitAction, hitAction, hitAction, hitAction, removeSprite, nil]];
 				
 			} else {
 				
-				if (fighter.isDead) {
+				if (fighter.isDead == NO) {
+					fighter.isDead = YES;
 					[self removeChild:sprite cleanup:true];
 					world->DestroyBody(body);
 					[self startGameOverScreen];
@@ -551,9 +546,6 @@
 }
 						
 -(void)startGameOverScreen {
-	
-	CGSize screenSize = [CCDirector sharedDirector].winSize;
-	
 	CCLabel *gameOver = [CCLabel labelWithString:@"Game Over"
 								dimensions: CGSizeMake(300, 300) 
 								 alignment: UITextAlignmentCenter 
@@ -562,9 +554,12 @@
 	
 	[gameOver setColor:ccc3(0x00, 0x00, 0x00)];
 	[gameOver setPosition: ccp(screenSize.width/2, (screenSize.height/2)/2)]; 
-	[self addChild: gameOver];
+	[self addChild: gameOver z:7];
+	
+	[HighScoreScene saveScore:(int)killed_babies forPlayer:(NSString *)@"Player 1"];
 	
 }
+
 
 -(void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
 	[fighter click];
@@ -577,16 +572,11 @@
 	
 	float accelX = (float) acceleration.x * kFilterFactor + (1- kFilterFactor)*prevX;
 	float accelY = (float) acceleration.y * kFilterFactor + (1- kFilterFactor)*prevY;
-
-	//prevX = accelX;
-	//prevY = accelY;
-		
-	//NSLog(@"%f %f", acceleration.x, acceleration.y);	
-	//NSLog(@"%f %f", accelX, accelY);	
 	
 	fighter.accelX = accelX;
 	fighter.accelY = accelY;
 }
+
 
 - (void) dealloc {
 	

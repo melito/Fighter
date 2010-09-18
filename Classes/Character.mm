@@ -194,7 +194,7 @@
 	}
 	
 	id hitAction  = [actions objectForKey:hitDirection];
-	id blinkAction = [CCBlink actionWithDuration:1.5 blinks:7];
+	//id blinkAction = [CCBlink actionWithDuration:1.5 blinks:7];
 	id actionDone = [CCCallFunc actionWithTarget:self selector:@selector(actionDone)];
 	
 	[self stopAllActions];
