@@ -38,16 +38,15 @@
 		hsLogo.position = ccp(240, 260);
 		[self addChild:hsLogo];
 
-		//CCSprite *backButton = [CCSprite spriteWithFile:@"BackButton.gif"];
-		//backButton.position = ccp(20, 20);
-		//[self addChild:backButton];
-		
 		CCMenuItem *backButton = [CCMenuItemImage itemFromNormalImage:@"BackButton.gif" selectedImage:@"BackButton.gif" target:self selector:@selector(goBackToMainMenu:)];
 		CCMenu *menu = [CCMenu menuWithItems:backButton, nil];
 		[menu alignItemsVertically];
 		menu.position = ccp(20, 20);
 		
 		[self addChild:menu];
+		
+		UITableView *scoresTable = [[UITableView alloc] init];
+		[self addChild:scoresTable];
 		
 		// Setup some globals
 		databaseName = @"HighScores.sql";
@@ -67,8 +66,8 @@
 		id element;
 				
 		while(element = [enumerator nextObject]){
-		  NSLog("%@", element);
-		}		
+		  NSLog(@"%@", element);
+		}
 	}
 	return self;
 }
@@ -122,7 +121,10 @@
 
 				[scores addObject:[[NSString alloc] initWithFormat:@"%s - %d babies", player, numberOfBabies]];				
 			}
+		} else {
+			NSLog(@"Error getting scores: %s", sqlite3_errmsg(database));
 		}
+
 		// Release the compiled statement from memory
 		sqlite3_finalize(compiledStatement);
 		
