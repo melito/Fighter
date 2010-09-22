@@ -11,6 +11,8 @@
 
 @implementation MenuScene
 
+@synthesize menu;
+
 +(id) scene{
 	CCScene *scene = [CCScene node];
 	MenuScene *layer = [MenuScene node];
@@ -57,7 +59,7 @@
 													  selector:@selector(showAbout:)];
 		
 		
-		CCMenu *menu = [CCMenu menuWithItems:startGame, showScores, showAbout, nil];
+		menu = [CCMenu menuWithItems:startGame, showScores, showAbout, nil];
 		[menu alignItemsVertically];
 		menu.position = CGPointMake(((screenSize.width/2)/2)+10, screenSize.height/2);
 		
@@ -73,13 +75,6 @@
 	blackBar.opacity = 175;
 	[self addChild:blackBar];
 	[blackBar runAction:[CCMoveBy actionWithDuration:0.2f position:ccp(0, -100)]];
-	
-	/*CCSprite *logo = [CCSprite spriteWithFile:@"BabyFighterLogo.gif"];
-	logo.position = ccp(145, 265);
-	logo.opacity = 0;
-	[self addChild:logo];
-	[logo runAction:[CCFadeIn actionWithDuration:1.5]];*/
-	
 	
 	CCSpriteSheet *logoSpriteSheet = [CCSpriteSheet spriteSheetWithFile:@"BabyFighterLogo2.gif"];
 	CCSprite *logo = [[CCSprite alloc] init];
@@ -113,5 +108,10 @@
 	[[CCDirector sharedDirector] replaceScene:[CCSlideInRTransition transitionWithDuration:0.5 scene:[HighScoreScene scene]]];
 }
 
+-(void)dealloc {
+	//[menu dealloc];
+	[[CCTextureCache sharedTextureCache] removeUnusedTextures];	
+	[super dealloc];
+}
 
 @end

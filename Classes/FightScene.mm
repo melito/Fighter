@@ -350,12 +350,13 @@
 	glEnable(GL_TEXTURE_2D);
 	glEnableClientState(GL_COLOR_ARRAY);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+	
+	glEnable(GL_BLEND);	
+	glPointSize(12.0f); // 3.0
 
 }
 
--(void) tick: (ccTime) dt {
-	//fighter.position = ccp(fighter.position.x-1, fighter.position.y);
-	
+-(void) tick: (ccTime) dt {	
 	//It is recommended that a fixed time step is used with Box2D for stability
 	//of the simulation, however, we are using a variable time step here.
 	//You need to make an informed choice, the following URL is useful
@@ -421,10 +422,8 @@
 				}
 				
 			} else {
-				
 				//b2Vec2 b2Position = b2Vec2(b->GetPosition().x, b->GetPosition().y);
 				//float32 b2Angle = 1 * CC_DEGREES_TO_RADIANS(0);
-				
 			}
 			
 			//Synchronize the AtlasSprites position and rotation with the corresponding body
@@ -452,64 +451,51 @@
 			Character *spriteB = (Character *) bodyB->GetUserData();
 			
 			
+			// Contact between fighter and baby
 			if (spriteA == fighter && spriteB != fighter) {
-							
-				// Figure out point of collision
-				for (b2Contact* c = world->GetContactList(); c; c = c->GetNext())
-				{
-					if(c->IsTouching()) {
-						b2WorldManifold worldManifold;
-						c->GetWorldManifold(&worldManifold);
-						
-						b2Vec2 currentContactPoint = worldManifold.points[0]; // here you could iterate through points in the manifold
-						//CCLOG(@"current contact point is %f,%f",currentContactPoint.x, currentContactPoint.y);
-						float32 px = currentContactPoint.x;
-						float32 py = currentContactPoint.y;
-					
-						CGPoint location = CGPointMake(px * PTM_RATIO, py * PTM_RATIO); 
-						
-						if (fighter.isAttacking) {
-							spriteB.health -= 5;
+				
+				// If the fighter is attacking figure out what to do
+				if (fighter.isAttacking) {
+					spriteB.health -= 5;
 
-							CCQuadParticleSystem *particle = [CCQuadParticleSystem particleWithFile:@"BloodExplosion3.plist"];
-							particle.position = spriteB.position;
-							[self addChild:particle z:9];
+					CCQuadParticleSystem *particle = [CCQuadParticleSystem particleWithFile:@"BloodExplosion3.plist"];
+					particle.position = spriteB.position;
+					[self addChild:particle z:9];
 							
-							b2Vec2 velocity;
-							velocity = bodyA->GetLinearVelocity();
+					b2Vec2 velocity;
+					velocity = bodyA->GetLinearVelocity();
 
-							//CCLOG(@"Velocity: %f", velocity.x);
-							bodyB->ApplyTorque((velocity.x*55)+10);
+					//CCLOG(@"Velocity: %f", velocity.x);
+					bodyB->ApplyTorque((velocity.x*55)+10);
 							
-						} else if (fighter.isHurting) {
-							// Do nothing
+				} else if (fighter.isHurting) {
+					// Do nothing
 							
-						} else {
-							spriteA.health -= 5;
-							[spriteA gotHit];
-							bodyA->ApplyLinearImpulse(b2Vec2(0.0, -2.0), bodyA->GetWorldCenter());
-							[healthLabel setString:[NSString stringWithFormat:@"Health:%d", spriteA.health]]; 
-						}
-						
-						if (spriteA.health <= 0) {
-							CCLOG(@"Destroy fighter");
-							fighter.isDead = NO;
-							[[SimpleAudioEngine sharedEngine] playEffect:@"Shoetaken_Blip2.aif"];
-							[[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
-							[[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"Shoetaken_Outro.aif"];
-							toDestroy.push_back(bodyA);
-						}
-						
-						if (spriteB.health <= 0) {
-							toDestroy.push_back(bodyB);
-						}
-						
-					}
+				} else {
+					spriteA.health -= 5;
+					[spriteA gotHit];
+					bodyA->ApplyLinearImpulse(b2Vec2(0.0, -2.0), bodyA->GetWorldCenter());
+					[healthLabel setString:[NSString stringWithFormat:@"Health:%d", spriteA.health]]; 
 				}
+						
 				
-				
-			} 
-		}        
+				// Kill the fighter
+				if (spriteA.health <= 0) {
+					CCLOG(@"Destroy fighter");
+					fighter.isDead = NO;
+					[[SimpleAudioEngine sharedEngine] playEffect:@"Shoetaken_Blip2.aif"];
+					[[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
+					[[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"Shoetaken_Outro.aif"];
+					toDestroy.push_back(bodyA);
+				}
+						
+				// Kill the baby
+				if (spriteB.health <= 0) {
+					toDestroy.push_back(bodyB);
+				}
+						
+			}
+		}
 		
 	}
 	
@@ -576,7 +562,7 @@
 }
 
 
-- (void) dealloc {
+-(void)dealloc {
 	
 	delete contactWatcher;
 	

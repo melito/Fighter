@@ -60,6 +60,13 @@
 	return [FightScene scene];
 }
 
+-(void)applicationDidEnterBackground:(UIApplication *)application {
+	[[CCDirector sharedDirector] stopAnimation];
+}
+
+-(void)applicationWillEnterForeground:(UIApplication *)application {
+	[[CCDirector sharedDirector] startAnimation];
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
 	[[CCDirector sharedDirector] pause];

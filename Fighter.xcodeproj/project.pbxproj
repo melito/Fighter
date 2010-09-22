@@ -289,7 +289,6 @@
 		50F4144910692EE7002A0D5E /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 50F4144410692EE7002A0D5E /* Default.png */; };
 		50F4144A10692EE7002A0D5E /* fps_images.png in Resources */ = {isa = PBXBuildFile; fileRef = 50F4144510692EE7002A0D5E /* fps_images.png */; };
 		B40DDA061241F28B002BCC85 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B40DDA051241F28B002BCC85 /* libsqlite3.0.dylib */; };
-		B40DDA951241FE3E002BCC85 /* Character in Resources */ = {isa = PBXBuildFile; fileRef = B40DDA811241FE3E002BCC85 /* Character */; };
 		B40DDAB212420367002BCC85 /* HighScores.sql in Resources */ = {isa = PBXBuildFile; fileRef = B40DDAB112420367002BCC85 /* HighScores.sql */; };
 		B40DDAFE1242E722002BCC85 /* HighScoresLogo.gif in Resources */ = {isa = PBXBuildFile; fileRef = B40DDAFD1242E722002BCC85 /* HighScoresLogo.gif */; };
 		B40DDB141242E8A3002BCC85 /* BackButton.gif in Resources */ = {isa = PBXBuildFile; fileRef = B40DDB131242E8A3002BCC85 /* BackButton.gif */; };
@@ -307,6 +306,7 @@
 		B41751DB121F62A500D76477 /* BabyFighterLogo.gif in Resources */ = {isa = PBXBuildFile; fileRef = B41751DA121F62A500D76477 /* BabyFighterLogo.gif */; };
 		B41752541220841C00D76477 /* BabyFighterLogo2.gif in Resources */ = {isa = PBXBuildFile; fileRef = B41752531220841C00D76477 /* BabyFighterLogo2.gif */; };
 		B41B2DB012499C2300A5DBF2 /* BloodExplosion3.plist in Resources */ = {isa = PBXBuildFile; fileRef = B41B2DAF12499C2300A5DBF2 /* BloodExplosion3.plist */; };
+		B41B2E2E1249A6ED00A5DBF2 /* Character in Resources */ = {isa = PBXBuildFile; fileRef = B41B2E1A1249A6ED00A5DBF2 /* Character */; };
 		B438C5991210FC02002D61C5 /* ContactWatcher.mm in Sources */ = {isa = PBXBuildFile; fileRef = B438C5981210FC02002D61C5 /* ContactWatcher.mm */; };
 		B438C8201213B9FC002D61C5 /* MenuScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B438C81F1213B9FC002D61C5 /* MenuScene.m */; };
 		B438C8251213BA0A002D61C5 /* CleverCollieScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B438C8241213BA0A002D61C5 /* CleverCollieScene.m */; };
@@ -632,7 +632,6 @@
 		50F4144510692EE7002A0D5E /* fps_images.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fps_images.png; sourceTree = "<group>"; };
 		50F4144710692EE7002A0D5E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B40DDA051241F28B002BCC85 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
-		B40DDA811241FE3E002BCC85 /* Character */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Character; sourceTree = "<group>"; };
 		B40DDAB112420367002BCC85 /* HighScores.sql */ = {isa = PBXFileReference; lastKnownFileType = file; path = HighScores.sql; sourceTree = "<group>"; };
 		B40DDAFD1242E722002BCC85 /* HighScoresLogo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = HighScoresLogo.gif; sourceTree = "<group>"; };
 		B40DDB131242E8A3002BCC85 /* BackButton.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = BackButton.gif; sourceTree = "<group>"; };
@@ -650,6 +649,7 @@
 		B41751DA121F62A500D76477 /* BabyFighterLogo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = BabyFighterLogo.gif; sourceTree = "<group>"; };
 		B41752531220841C00D76477 /* BabyFighterLogo2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = BabyFighterLogo2.gif; sourceTree = "<group>"; };
 		B41B2DAF12499C2300A5DBF2 /* BloodExplosion3.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BloodExplosion3.plist; sourceTree = "<group>"; };
+		B41B2E1A1249A6ED00A5DBF2 /* Character */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Character; sourceTree = "<group>"; };
 		B438C5971210FC02002D61C5 /* ContactWatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactWatcher.h; sourceTree = "<group>"; };
 		B438C5981210FC02002D61C5 /* ContactWatcher.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ContactWatcher.mm; sourceTree = "<group>"; };
 		B438C81E1213B9FC002D61C5 /* MenuScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuScene.h; sourceTree = "<group>"; };
@@ -1193,13 +1193,13 @@
 		50F4144210692EE7002A0D5E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				B41B2E1A1249A6ED00A5DBF2 /* Character */,
 				B41B2DAF12499C2300A5DBF2 /* BloodExplosion3.plist */,
 				B40DDBA512444C43002BCC85 /* BloodExplosion2.plist */,
 				B40DDB8E12444882002BCC85 /* BloodExplosion.plist */,
 				B40DDB131242E8A3002BCC85 /* BackButton.gif */,
 				B40DDAFD1242E722002BCC85 /* HighScoresLogo.gif */,
 				B40DDAB112420367002BCC85 /* HighScores.sql */,
-				B40DDA811241FE3E002BCC85 /* Character */,
 				B43AD380122DC96400ED5E9E /* Icon.png */,
 				B41752531220841C00D76477 /* BabyFighterLogo2.gif */,
 				B41751DA121F62A500D76477 /* BabyFighterLogo.gif */,
@@ -1505,13 +1505,13 @@
 				B41751DB121F62A500D76477 /* BabyFighterLogo.gif in Resources */,
 				B41752541220841C00D76477 /* BabyFighterLogo2.gif in Resources */,
 				B43AD381122DC96400ED5E9E /* Icon.png in Resources */,
-				B40DDA951241FE3E002BCC85 /* Character in Resources */,
 				B40DDAB212420367002BCC85 /* HighScores.sql in Resources */,
 				B40DDAFE1242E722002BCC85 /* HighScoresLogo.gif in Resources */,
 				B40DDB141242E8A3002BCC85 /* BackButton.gif in Resources */,
 				B40DDB8F12444882002BCC85 /* BloodExplosion.plist in Resources */,
 				B40DDBA612444C43002BCC85 /* BloodExplosion2.plist in Resources */,
 				B41B2DB012499C2300A5DBF2 /* BloodExplosion3.plist in Resources */,
+				B41B2E2E1249A6ED00A5DBF2 /* Character in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,9 +10,15 @@
 #import "SimpleAudioEngine.h"
 #import "HighScoreScene.h"
 
-@interface MenuScene : CCLayer {}
+@interface MenuScene : CCLayer {
+	CCMenu *menu;
+}
+
+@property (nonatomic, retain) CCMenu *menu;
+
 
 +(id) scene;
 -(id) init;
+-(void)dealloc;
 
 @end
