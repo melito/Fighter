@@ -10,6 +10,7 @@
 #import "MenuScene.h"
 #import "sqlite3.h"
 
+
 @implementation HighScoreScene
 
 
@@ -45,9 +46,6 @@
 		
 		[self addChild:menu];
 		
-		UITableView *scoresTable = [[UITableView alloc] init];
-		[self addChild:scoresTable];
-		
 		// Setup some globals
 		databaseName = @"HighScores.sql";
 		
@@ -58,8 +56,20 @@
 		
 		// Execute the "checkAndCreateDatabase" function
 		[self checkAndCreateDatabase];
+		
 		// Query the database for all high scores
 		[self readScoresFromDatabase];
+		
+		/*
+		CCScrollView *view = [CCScrollView scrollViewWithViewSize:CGSizeMake(200, 200)];
+		CCSprite *baby = [CCSprite spriteWithFile:@"SpaceBaby.gif"];
+		
+		baby.position = ccp(0.0f, 0.0f);
+		view.position   = ccp(50.0f, 50.0f);
+		view.contentOffset = ccp(0.0f, 0.0f); // setting internal content container (CCLayer) position.
+		view.contentSize = baby.contentSize;
+		[view addChild:baby];
+		[self addChild:view];
 		
 		
 		NSEnumerator *enumerator = [scores objectEnumerator];
@@ -67,7 +77,7 @@
 				
 		while(element = [enumerator nextObject]){
 		  NSLog(@"%@", element);
-		}
+		}*/
 	}
 	return self;
 }

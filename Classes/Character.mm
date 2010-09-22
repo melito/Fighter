@@ -51,11 +51,11 @@
 	
 	// Get the bundle path for resources based on class name (ie, Resources/Character/Fighter
 	NSString *path = [[NSString alloc] initWithFormat:@"Character/%@", NSStringFromClass([self class])];
-	NSLog(@"%@", path);
+	CCLOG(@"%@", path);
 	
 	NSBundle *characterBundle = [NSBundle mainBundle];
 	NSArray* mySprites = [characterBundle pathsForResourcesOfType:@"gif" inDirectory:path];
-	NSLog(@"SPRITES: %@", mySprites);	
+	CCLOG(@"SPRITES: %@", mySprites);	
 	
 	NSString *actionName;
 	int rows, columns, width, height;
@@ -64,7 +64,7 @@
 	for (NSString *filename in mySprites) {
 
 		filename = [[filename componentsSeparatedByString:@"/"] lastObject];
-		NSLog(@"%@", filename);
+		CCLOG(@"%@", filename);
 	
 		// Spritesheets have a file name convention
 		// Rather than parse the image to figure out how big it is, how many cells it holds, etc
@@ -84,9 +84,9 @@
 			rows    = [[fileStructure objectAtIndex:[fileStructure count]-5] intValue];
 			actionName = [fileStructure objectAtIndex:[fileStructure count]-6 ];
 
-			NSLog(@"Action name: %@", actionName);
-			NSLog(@"Columns: %i Rows: %i", columns, rows);
-			NSLog(@"Width: %i Height: %i", width, height);
+			CCLOG(@"Action name: %@", actionName);
+			CCLOG(@"Columns: %i Rows: %i", columns, rows);
+			CCLOG(@"Width: %i Height: %i", width, height);
 			
 			[self createAnimationNamed:actionName withColumns:columns andRows:rows withFileName:filename width:width height:height];
 		}
@@ -120,7 +120,7 @@
 	CCAnimate *animationAction = [CCAnimate actionWithAnimation:animation restoreOriginalFrame:NO];
 	
 	[actions setValue:animationAction forKey:action_name];
-	NSLog(@"animation: '%@' for '%@' registered", action_name, [self class]);
+	CCLOG(@"animation: '%@' for '%@' registered", action_name, [self class]);
 	
 	if ([action_name isEqualToString:@"default"]) {
 		[self runDefaultActionForever];

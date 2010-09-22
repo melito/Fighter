@@ -45,8 +45,8 @@
 		// enable accelerometer
 		self.isAccelerometerEnabled = YES;
 		
-		//[[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
-		//[[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"Shoetaken_Jig.aif"];
+		[[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
+		[[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"Shoetaken_Jig.aif"];
 
 		screenSize = [CCDirector sharedDirector].winSize;
 		CCLOG(@"Screen width %0.2f screen height %0.2f", screenSize.width, screenSize.height);
@@ -113,7 +113,7 @@
 }
 
 -(void)resetClouds {
-	NSLog(@"Clouds reset");
+	CCLOG(@"Clouds reset");
 	clouds.position = ccp(100, 100);
 }
 
@@ -213,7 +213,7 @@
 	fighterFixture.shape = &characterShape;
 	fighterFixture.density = fighter.density;
 	fighterFixture.friction = fighter.friction;
-	NSLog(@"Density: %f Friction: %f", fighter.density, fighter.friction);
+	CCLOG(@"Density: %f Friction: %f", fighter.density, fighter.friction);
 	
 	b2Body *body = world->CreateBody(&characterBody);
 	body->CreateFixture(&fighterFixture);
@@ -283,7 +283,7 @@
 	fixture.shape = &characterShape;
 	fixture.density = baby.density;
 	fixture.friction = baby.friction;
-	NSLog(@"Density:%f Friction:%f", baby.density, baby.friction);
+	CCLOG(@"Density:%f Friction:%f", baby.density, baby.friction);
 	
 	b2Body *body = world->CreateBody(&characterBody);
 	body->CreateFixture(&fixture);
@@ -327,7 +327,7 @@
 }
 
 -(void)removeEnemy:(id)sender data:(b2Body *)deadBody {
-	NSLog(@"removeEnemy");
+	CCLOG(@"removeEnemy");
 	CCSprite *sprite = (CCSprite *)sender;
 	[self removeChild:sprite cleanup:YES];
 	world->DestroyBody(deadBody);
@@ -388,9 +388,7 @@
 					
 					b2Vec2 velocity = b->GetLinearVelocityFromLocalPoint(localPoint);
 					b2Vec2 force(-fighter.accelY, 0);
-					
-					//NSLog(@"%f", fighter.accelY);
-					
+										
 					// Set properties to handle proper animation
 					if (fighter.accelY > 0.14f) {
 						fighter.facing = @"left";
@@ -473,14 +471,14 @@
 						if (fighter.isAttacking) {
 							spriteB.health -= 5;
 
-							CCQuadParticleSystem *particle = [CCQuadParticleSystem particleWithFile:@"BloodExplosion2.plist"];
+							CCQuadParticleSystem *particle = [CCQuadParticleSystem particleWithFile:@"BloodExplosion3.plist"];
 							particle.position = spriteB.position;
 							[self addChild:particle z:9];
 							
 							b2Vec2 velocity;
 							velocity = bodyA->GetLinearVelocity();
 
-							NSLog(@"Velocity: %f", velocity.x);
+							//CCLOG(@"Velocity: %f", velocity.x);
 							bodyB->ApplyTorque((velocity.x*55)+10);
 							
 						} else if (fighter.isHurting) {
@@ -494,7 +492,7 @@
 						}
 						
 						if (spriteA.health <= 0) {
-							NSLog(@"Destroy fighter");
+							CCLOG(@"Destroy fighter");
 							fighter.isDead = NO;
 							[[SimpleAudioEngine sharedEngine] playEffect:@"Shoetaken_Blip2.aif"];
 							[[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
