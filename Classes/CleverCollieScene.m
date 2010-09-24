@@ -34,15 +34,23 @@
 		
 		sceneLoading = NO;
 		
-		CCSprite* background = [CCSprite spriteWithFile:@"LogoBackground.png"];
+		CCTexture2D *logoTexture = [[CCTextureCache sharedTextureCache] addImage:@"LogoBackground.png"];
+		CCSprite *background= [CCSprite spriteWithTexture:logoTexture];
 		background.anchorPoint = CGPointMake(0, 0);
 		[self addChild:background];
 
-		CCSprite* logo = [CCSprite spriteWithFile:@"LogoName.png"];
+		CCTexture2D *nameTexture = [[CCTextureCache sharedTextureCache] addImage:@"LogoName.png"];
+		CCSprite *logo = [CCSprite spriteWithTexture:nameTexture];
 		logo.anchorPoint = CGPointMake(0, 0);
-		[logo setOpacity:0];
-		[self addChild:logo];
-		[logo runAction:[CCFadeIn actionWithDuration:0.5]];
+		
+		float version = [[[UIDevice currentDevice] systemVersion] floatValue];
+		if (version >= 4.0) {
+			[logo setOpacity:0];
+			[self addChild:logo];
+			[logo runAction:[CCFadeIn actionWithDuration:0.5]];			
+		} else {
+			[self addChild:logo];
+		}
 
 		[[SimpleAudioEngine sharedEngine] playEffect:@"DogBark.aiff"];
 
@@ -56,7 +64,13 @@
 -(void) pauseBeforeLoadingMenu:(ccTime) dt {
 	if (sceneLoading == NO) {
 		sceneLoading = YES;
-		[[CCDirector sharedDirector] replaceScene:[CCFadeTransition transitionWithDuration:0.5f scene:[MenuScene scene]]];		
+		
+		float version = [[[UIDevice currentDevice] systemVersion] floatValue];
+		if (version >= 4.0) {
+			[[CCDirector sharedDirector] replaceScene:[CCFadeTransition transitionWithDuration:0.5f scene:[MenuScene scene]]];		
+		} else {
+			[[CCDirector sharedDirector] replaceScene:[MenuScene scene]];
+		}
 	}
 }
 

@@ -1,0 +1,1 @@
+////  CCMultiColumnTableView.h//  CCTable////  http://www.opensource.org/licenses/mit-license.php////  Created by Sangwoo Im on 6/3/10.//  Copyright 2010 Sangwoo Im. All rights reserved.//#import "CCTableView.h"/** * It adds multiple column support to CCTableView. */@interface CCMultiColumnTableView :          CCTableView {}@end

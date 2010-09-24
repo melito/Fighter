@@ -7,9 +7,8 @@
 //
 
 #import "cocos2d.h"
-#import "CCTableView.h"
 
-@interface HighScoreScene : CCLayer <CCTableViewDataSource, CCTableViewDelegate>  {
+@interface HighScoreScene : CCLayer {
 
 	// Database variables
 	NSString *databaseName;
@@ -22,5 +21,8 @@
 
 +(id) scene;
 -(id) init;
+
+-(void)checkAndCreateDatabase;
+-(void)readScoresFromDatabase;
 
 @end

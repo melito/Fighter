@@ -1,0 +1,1 @@
+////  CCTableAppDelegate.h//  CCTable////  Created by Sangwoo Im on 6/3/10.//  Copyright Sangwoo Im 2010. All rights reserved.//#import <UIKit/UIKit.h>@interface CCTableAppDelegate : NSObject <UIApplicationDelegate> {	UIWindow *window;}@property (nonatomic, retain) UIWindow *window;@end

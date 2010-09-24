@@ -306,18 +306,29 @@
 		B41751DB121F62A500D76477 /* BabyFighterLogo.gif in Resources */ = {isa = PBXBuildFile; fileRef = B41751DA121F62A500D76477 /* BabyFighterLogo.gif */; };
 		B41752541220841C00D76477 /* BabyFighterLogo2.gif in Resources */ = {isa = PBXBuildFile; fileRef = B41752531220841C00D76477 /* BabyFighterLogo2.gif */; };
 		B41B2DB012499C2300A5DBF2 /* BloodExplosion3.plist in Resources */ = {isa = PBXBuildFile; fileRef = B41B2DAF12499C2300A5DBF2 /* BloodExplosion3.plist */; };
-		B41B2E2E1249A6ED00A5DBF2 /* Character in Resources */ = {isa = PBXBuildFile; fileRef = B41B2E1A1249A6ED00A5DBF2 /* Character */; };
+		B41B2EF31249C91200A5DBF2 /* BigExplosion.plist in Resources */ = {isa = PBXBuildFile; fileRef = B41B2EF21249C91200A5DBF2 /* BigExplosion.plist */; };
 		B438C5991210FC02002D61C5 /* ContactWatcher.mm in Sources */ = {isa = PBXBuildFile; fileRef = B438C5981210FC02002D61C5 /* ContactWatcher.mm */; };
-		B438C8201213B9FC002D61C5 /* MenuScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B438C81F1213B9FC002D61C5 /* MenuScene.m */; };
-		B438C8251213BA0A002D61C5 /* CleverCollieScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B438C8241213BA0A002D61C5 /* CleverCollieScene.m */; };
 		B43AD381122DC96400ED5E9E /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B43AD380122DC96400ED5E9E /* Icon.png */; };
 		B43E43CE11E7F06400899B5F /* Baby.mm in Sources */ = {isa = PBXBuildFile; fileRef = B43E43CD11E7F06400899B5F /* Baby.mm */; };
 		B44392041213C1BD00B92E11 /* MenuBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = B44392031213C1BD00B92E11 /* MenuBackground.png */; };
 		B443921A1213C44A00B92E11 /* DogBark.aiff in Resources */ = {isa = PBXBuildFile; fileRef = B44392191213C44A00B92E11 /* DogBark.aiff */; };
 		B443921C1213C48D00B92E11 /* LogoName.png in Resources */ = {isa = PBXBuildFile; fileRef = B443921B1213C48D00B92E11 /* LogoName.png */; };
 		B44392291213C5FC00B92E11 /* LogoBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = B44392281213C5FC00B92E11 /* LogoBackground.png */; };
-		B44394FC1215289200B92E11 /* HighScoreScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B44394FB1215289200B92E11 /* HighScoreScene.m */; };
 		B443951312152AC500B92E11 /* HighScoreBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = B443951212152AC500B92E11 /* HighScoreBackground.png */; };
+		B44C2598124C345100A8BF81 /* CCMultiColumnTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = B44C2586124C345100A8BF81 /* CCMultiColumnTableView.m */; };
+		B44C2599124C345100A8BF81 /* CCScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = B44C2588124C345100A8BF81 /* CCScrollView.m */; };
+		B44C259A124C345100A8BF81 /* CCTableAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B44C258A124C345100A8BF81 /* CCTableAppDelegate.m */; };
+		B44C259B124C345100A8BF81 /* CCTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = B44C258C124C345100A8BF81 /* CCTableView.m */; };
+		B44C259C124C345100A8BF81 /* CCTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B44C258E124C345100A8BF81 /* CCTableViewCell.m */; };
+		B44C259D124C345100A8BF81 /* ExampleScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B44C2590124C345100A8BF81 /* ExampleScene.m */; };
+		B44C259E124C345100A8BF81 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B44C2591124C345100A8BF81 /* main.m */; };
+		B44C259F124C345100A8BF81 /* MyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B44C2593124C345100A8BF81 /* MyCell.m */; };
+		B44C25A0124C345100A8BF81 /* ScrollViewScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B44C2595124C345100A8BF81 /* ScrollViewScene.m */; };
+		B44C25A1124C345100A8BF81 /* TableViewScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B44C2597124C345100A8BF81 /* TableViewScene.m */; };
+		B44C25AA124C347400A8BF81 /* AboutScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B44C25A3124C347400A8BF81 /* AboutScene.m */; };
+		B44C25AB124C347400A8BF81 /* CleverCollieScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B44C25A5124C347400A8BF81 /* CleverCollieScene.m */; };
+		B44C25AC124C347400A8BF81 /* HighScoreScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B44C25A7124C347400A8BF81 /* HighScoreScene.m */; };
+		B44C25AD124C347400A8BF81 /* MenuScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B44C25A9124C347400A8BF81 /* MenuScene.m */; };
 		B470A6B811E68E93002AE3AF /* Character.mm in Sources */ = {isa = PBXBuildFile; fileRef = B470A6B711E68E93002AE3AF /* Character.mm */; };
 		B470A6EF11E695E7002AE3AF /* Fighter.mm in Sources */ = {isa = PBXBuildFile; fileRef = B470A6EE11E695E7002AE3AF /* Fighter.mm */; };
 		B4A813E1121CB59300BEED98 /* Shoetaken_Intro.aif in Resources */ = {isa = PBXBuildFile; fileRef = B4A813E0121CB59300BEED98 /* Shoetaken_Intro.aif */; };
@@ -329,6 +340,7 @@
 		B4C54B4E121B4DC300B23490 /* FightSceneBackground.gif in Resources */ = {isa = PBXBuildFile; fileRef = B4C54B4D121B4DC300B23490 /* FightSceneBackground.gif */; };
 		B4C54C42121B764200B23490 /* kongtext.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B4C54C41121B764200B23490 /* kongtext.ttf */; };
 		B4C54C8A121B8C3C00B23490 /* m26.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B4C54C89121B8C3C00B23490 /* m26.ttf */; };
+		B4FA7E84124AD8D500D613DE /* Character in Resources */ = {isa = PBXBuildFile; fileRef = B4FA7E78124AD8D500D613DE /* Character */; };
 		DC6640030F83B3EA000B3E49 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC6640020F83B3EA000B3E49 /* AudioToolbox.framework */; };
 		DC6640050F83B3EA000B3E49 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC6640040F83B3EA000B3E49 /* OpenAL.framework */; };
 		DCCBF1B70F6022AE0040855A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCBF1B60F6022AE0040855A /* CoreGraphics.framework */; };
@@ -649,13 +661,9 @@
 		B41751DA121F62A500D76477 /* BabyFighterLogo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = BabyFighterLogo.gif; sourceTree = "<group>"; };
 		B41752531220841C00D76477 /* BabyFighterLogo2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = BabyFighterLogo2.gif; sourceTree = "<group>"; };
 		B41B2DAF12499C2300A5DBF2 /* BloodExplosion3.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BloodExplosion3.plist; sourceTree = "<group>"; };
-		B41B2E1A1249A6ED00A5DBF2 /* Character */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Character; sourceTree = "<group>"; };
+		B41B2EF21249C91200A5DBF2 /* BigExplosion.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BigExplosion.plist; sourceTree = "<group>"; };
 		B438C5971210FC02002D61C5 /* ContactWatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactWatcher.h; sourceTree = "<group>"; };
 		B438C5981210FC02002D61C5 /* ContactWatcher.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ContactWatcher.mm; sourceTree = "<group>"; };
-		B438C81E1213B9FC002D61C5 /* MenuScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuScene.h; sourceTree = "<group>"; };
-		B438C81F1213B9FC002D61C5 /* MenuScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuScene.m; sourceTree = "<group>"; };
-		B438C8231213BA0A002D61C5 /* CleverCollieScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CleverCollieScene.h; sourceTree = "<group>"; };
-		B438C8241213BA0A002D61C5 /* CleverCollieScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CleverCollieScene.m; sourceTree = "<group>"; };
 		B43AD380122DC96400ED5E9E /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		B43E43CC11E7F06400899B5F /* Baby.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Baby.h; sourceTree = "<group>"; };
 		B43E43CD11E7F06400899B5F /* Baby.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Baby.mm; sourceTree = "<group>"; };
@@ -663,9 +671,35 @@
 		B44392191213C44A00B92E11 /* DogBark.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = DogBark.aiff; sourceTree = "<group>"; };
 		B443921B1213C48D00B92E11 /* LogoName.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LogoName.png; sourceTree = "<group>"; };
 		B44392281213C5FC00B92E11 /* LogoBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LogoBackground.png; sourceTree = "<group>"; };
-		B44394FA1215289200B92E11 /* HighScoreScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HighScoreScene.h; sourceTree = "<group>"; };
-		B44394FB1215289200B92E11 /* HighScoreScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HighScoreScene.m; sourceTree = "<group>"; };
 		B443951212152AC500B92E11 /* HighScoreBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HighScoreBackground.png; sourceTree = "<group>"; };
+		B44C2584124C345100A8BF81 /* CCDebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCDebug.h; path = libs/CCTableSuite/CCDebug.h; sourceTree = "<group>"; };
+		B44C2585124C345100A8BF81 /* CCMultiColumnTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCMultiColumnTableView.h; path = libs/CCTableSuite/CCMultiColumnTableView.h; sourceTree = "<group>"; };
+		B44C2586124C345100A8BF81 /* CCMultiColumnTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCMultiColumnTableView.m; path = libs/CCTableSuite/CCMultiColumnTableView.m; sourceTree = "<group>"; };
+		B44C2587124C345100A8BF81 /* CCScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCScrollView.h; path = libs/CCTableSuite/CCScrollView.h; sourceTree = "<group>"; };
+		B44C2588124C345100A8BF81 /* CCScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCScrollView.m; path = libs/CCTableSuite/CCScrollView.m; sourceTree = "<group>"; };
+		B44C2589124C345100A8BF81 /* CCTableAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCTableAppDelegate.h; path = libs/CCTableSuite/CCTableAppDelegate.h; sourceTree = "<group>"; };
+		B44C258A124C345100A8BF81 /* CCTableAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCTableAppDelegate.m; path = libs/CCTableSuite/CCTableAppDelegate.m; sourceTree = "<group>"; };
+		B44C258B124C345100A8BF81 /* CCTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCTableView.h; path = libs/CCTableSuite/CCTableView.h; sourceTree = "<group>"; };
+		B44C258C124C345100A8BF81 /* CCTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCTableView.m; path = libs/CCTableSuite/CCTableView.m; sourceTree = "<group>"; };
+		B44C258D124C345100A8BF81 /* CCTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCTableViewCell.h; path = libs/CCTableSuite/CCTableViewCell.h; sourceTree = "<group>"; };
+		B44C258E124C345100A8BF81 /* CCTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCTableViewCell.m; path = libs/CCTableSuite/CCTableViewCell.m; sourceTree = "<group>"; };
+		B44C258F124C345100A8BF81 /* ExampleScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExampleScene.h; path = libs/CCTableSuite/ExampleScene.h; sourceTree = "<group>"; };
+		B44C2590124C345100A8BF81 /* ExampleScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ExampleScene.m; path = libs/CCTableSuite/ExampleScene.m; sourceTree = "<group>"; };
+		B44C2591124C345100A8BF81 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = libs/CCTableSuite/main.m; sourceTree = "<group>"; };
+		B44C2592124C345100A8BF81 /* MyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyCell.h; path = libs/CCTableSuite/MyCell.h; sourceTree = "<group>"; };
+		B44C2593124C345100A8BF81 /* MyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyCell.m; path = libs/CCTableSuite/MyCell.m; sourceTree = "<group>"; };
+		B44C2594124C345100A8BF81 /* ScrollViewScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ScrollViewScene.h; path = libs/CCTableSuite/ScrollViewScene.h; sourceTree = "<group>"; };
+		B44C2595124C345100A8BF81 /* ScrollViewScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ScrollViewScene.m; path = libs/CCTableSuite/ScrollViewScene.m; sourceTree = "<group>"; };
+		B44C2596124C345100A8BF81 /* TableViewScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TableViewScene.h; path = libs/CCTableSuite/TableViewScene.h; sourceTree = "<group>"; };
+		B44C2597124C345100A8BF81 /* TableViewScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TableViewScene.m; path = libs/CCTableSuite/TableViewScene.m; sourceTree = "<group>"; };
+		B44C25A2124C347400A8BF81 /* AboutScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AboutScene.h; path = Classes/AboutScene.h; sourceTree = "<group>"; };
+		B44C25A3124C347400A8BF81 /* AboutScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AboutScene.m; path = Classes/AboutScene.m; sourceTree = "<group>"; };
+		B44C25A4124C347400A8BF81 /* CleverCollieScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CleverCollieScene.h; path = Classes/CleverCollieScene.h; sourceTree = "<group>"; };
+		B44C25A5124C347400A8BF81 /* CleverCollieScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CleverCollieScene.m; path = Classes/CleverCollieScene.m; sourceTree = "<group>"; };
+		B44C25A6124C347400A8BF81 /* HighScoreScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HighScoreScene.h; path = Classes/HighScoreScene.h; sourceTree = "<group>"; };
+		B44C25A7124C347400A8BF81 /* HighScoreScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HighScoreScene.m; path = Classes/HighScoreScene.m; sourceTree = "<group>"; };
+		B44C25A8124C347400A8BF81 /* MenuScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MenuScene.h; path = Classes/MenuScene.h; sourceTree = "<group>"; };
+		B44C25A9124C347400A8BF81 /* MenuScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MenuScene.m; path = Classes/MenuScene.m; sourceTree = "<group>"; };
 		B470A6B611E68E93002AE3AF /* Character.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Character.h; sourceTree = "<group>"; };
 		B470A6B711E68E93002AE3AF /* Character.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Character.mm; sourceTree = "<group>"; };
 		B470A6ED11E695E7002AE3AF /* Fighter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Fighter.h; sourceTree = "<group>"; };
@@ -679,6 +713,7 @@
 		B4C54B4D121B4DC300B23490 /* FightSceneBackground.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = FightSceneBackground.gif; sourceTree = "<group>"; };
 		B4C54C41121B764200B23490 /* kongtext.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = kongtext.ttf; sourceTree = "<group>"; };
 		B4C54C89121B8C3C00B23490 /* m26.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = m26.ttf; sourceTree = "<group>"; };
+		B4FA7E78124AD8D500D613DE /* Character */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Character; sourceTree = "<group>"; };
 		DC6640020F83B3EA000B3E49 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		DC6640040F83B3EA000B3E49 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		DCCBF1B60F6022AE0040855A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -809,6 +844,7 @@
 		506EDAA3102F461B00A389B3 /* cocos2d Sources */ = {
 			isa = PBXGroup;
 			children = (
+				B44C2564124C331F00A8BF81 /* CCTableSuite */,
 				507ED65211C638E2002ED3FC /* CocosDenshion */,
 				507ED38911C62F83002ED3FC /* cocos2d */,
 				50B1F62511130E43001483A3 /* Box2D */,
@@ -1193,7 +1229,8 @@
 		50F4144210692EE7002A0D5E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				B41B2E1A1249A6ED00A5DBF2 /* Character */,
+				B4FA7E78124AD8D500D613DE /* Character */,
+				B41B2EF21249C91200A5DBF2 /* BigExplosion.plist */,
 				B41B2DAF12499C2300A5DBF2 /* BloodExplosion3.plist */,
 				B40DDBA512444C43002BCC85 /* BloodExplosion2.plist */,
 				B40DDB8E12444882002BCC85 /* BloodExplosion.plist */,
@@ -1233,6 +1270,33 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		B44C2564124C331F00A8BF81 /* CCTableSuite */ = {
+			isa = PBXGroup;
+			children = (
+				B44C2584124C345100A8BF81 /* CCDebug.h */,
+				B44C2585124C345100A8BF81 /* CCMultiColumnTableView.h */,
+				B44C2586124C345100A8BF81 /* CCMultiColumnTableView.m */,
+				B44C2587124C345100A8BF81 /* CCScrollView.h */,
+				B44C2588124C345100A8BF81 /* CCScrollView.m */,
+				B44C2589124C345100A8BF81 /* CCTableAppDelegate.h */,
+				B44C258A124C345100A8BF81 /* CCTableAppDelegate.m */,
+				B44C258B124C345100A8BF81 /* CCTableView.h */,
+				B44C258C124C345100A8BF81 /* CCTableView.m */,
+				B44C258D124C345100A8BF81 /* CCTableViewCell.h */,
+				B44C258E124C345100A8BF81 /* CCTableViewCell.m */,
+				B44C258F124C345100A8BF81 /* ExampleScene.h */,
+				B44C2590124C345100A8BF81 /* ExampleScene.m */,
+				B44C2591124C345100A8BF81 /* main.m */,
+				B44C2592124C345100A8BF81 /* MyCell.h */,
+				B44C2593124C345100A8BF81 /* MyCell.m */,
+				B44C2594124C345100A8BF81 /* ScrollViewScene.h */,
+				B44C2595124C345100A8BF81 /* ScrollViewScene.m */,
+				B44C2596124C345100A8BF81 /* TableViewScene.h */,
+				B44C2597124C345100A8BF81 /* TableViewScene.m */,
+			);
+			name = CCTableSuite;
+			sourceTree = "<group>";
+		};
 		B470A6EC11E695D8002AE3AF /* Character */ = {
 			isa = PBXGroup;
 			children = (
@@ -1254,14 +1318,16 @@
 		B48F222711E83A1B00FDEAFB /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				B44394FA1215289200B92E11 /* HighScoreScene.h */,
-				B44394FB1215289200B92E11 /* HighScoreScene.m */,
-				B438C8231213BA0A002D61C5 /* CleverCollieScene.h */,
-				B438C8241213BA0A002D61C5 /* CleverCollieScene.m */,
+				B44C25A2124C347400A8BF81 /* AboutScene.h */,
+				B44C25A3124C347400A8BF81 /* AboutScene.m */,
+				B44C25A4124C347400A8BF81 /* CleverCollieScene.h */,
+				B44C25A5124C347400A8BF81 /* CleverCollieScene.m */,
+				B44C25A6124C347400A8BF81 /* HighScoreScene.h */,
+				B44C25A7124C347400A8BF81 /* HighScoreScene.m */,
+				B44C25A8124C347400A8BF81 /* MenuScene.h */,
+				B44C25A9124C347400A8BF81 /* MenuScene.m */,
 				506EDC30102F528A00A389B3 /* FightScene.mm */,
 				506EDC2F102F528A00A389B3 /* FightScene.h */,
-				B438C81E1213B9FC002D61C5 /* MenuScene.h */,
-				B438C81F1213B9FC002D61C5 /* MenuScene.m */,
 			);
 			name = Scenes;
 			sourceTree = "<group>";
@@ -1511,7 +1577,8 @@
 				B40DDB8F12444882002BCC85 /* BloodExplosion.plist in Resources */,
 				B40DDBA612444C43002BCC85 /* BloodExplosion2.plist in Resources */,
 				B41B2DB012499C2300A5DBF2 /* BloodExplosion3.plist in Resources */,
-				B41B2E2E1249A6ED00A5DBF2 /* Character in Resources */,
+				B41B2EF31249C91200A5DBF2 /* BigExplosion.plist in Resources */,
+				B4FA7E84124AD8D500D613DE /* Character in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1530,9 +1597,20 @@
 				B470A6EF11E695E7002AE3AF /* Fighter.mm in Sources */,
 				B43E43CE11E7F06400899B5F /* Baby.mm in Sources */,
 				B438C5991210FC02002D61C5 /* ContactWatcher.mm in Sources */,
-				B438C8201213B9FC002D61C5 /* MenuScene.m in Sources */,
-				B438C8251213BA0A002D61C5 /* CleverCollieScene.m in Sources */,
-				B44394FC1215289200B92E11 /* HighScoreScene.m in Sources */,
+				B44C2598124C345100A8BF81 /* CCMultiColumnTableView.m in Sources */,
+				B44C2599124C345100A8BF81 /* CCScrollView.m in Sources */,
+				B44C259A124C345100A8BF81 /* CCTableAppDelegate.m in Sources */,
+				B44C259B124C345100A8BF81 /* CCTableView.m in Sources */,
+				B44C259C124C345100A8BF81 /* CCTableViewCell.m in Sources */,
+				B44C259D124C345100A8BF81 /* ExampleScene.m in Sources */,
+				B44C259E124C345100A8BF81 /* main.m in Sources */,
+				B44C259F124C345100A8BF81 /* MyCell.m in Sources */,
+				B44C25A0124C345100A8BF81 /* ScrollViewScene.m in Sources */,
+				B44C25A1124C345100A8BF81 /* TableViewScene.m in Sources */,
+				B44C25AA124C347400A8BF81 /* AboutScene.m in Sources */,
+				B44C25AB124C347400A8BF81 /* CleverCollieScene.m in Sources */,
+				B44C25AC124C347400A8BF81 /* HighScoreScene.m in Sources */,
+				B44C25AD124C347400A8BF81 /* MenuScene.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1700,8 +1778,9 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = "Baby Fighter";
-				SDKROOT = iphoneos4.0;
+				SDKROOT = iphoneos3.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = "libs/**";
 				WARNING_CFLAGS = "-Wall";
 			};
 			name = Debug;
@@ -1725,8 +1804,9 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = "Baby Fighter";
-				SDKROOT = iphoneos4.0;
+				SDKROOT = iphoneos3.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = "libs/**";
 				WARNING_CFLAGS = "-Wall";
 			};
 			name = Release;
@@ -1783,7 +1863,8 @@
 				OTHER_CFLAGS = "-fvisibility=hidden";
 				PREBINDING = NO;
 				PRODUCT_NAME = "Baby Fighter";
-				SDKROOT = iphoneos4.0;
+				SDKROOT = iphonesimulator4.0;
+				USER_HEADER_SEARCH_PATHS = "libs/**";
 			};
 			name = Debug;
 		};
@@ -1804,7 +1885,8 @@
 				OTHER_CFLAGS = "-fvisibility=hidden";
 				PREBINDING = NO;
 				PRODUCT_NAME = "Baby Fighter";
-				SDKROOT = iphoneos4.0;
+				SDKROOT = iphonesimulator4.0;
+				USER_HEADER_SEARCH_PATHS = "libs/**";
 			};
 			name = Release;
 		};

@@ -75,21 +75,19 @@
 
 // FIXME: This is slowing the entire game down
 -(void)addBackgroundSprites {
-	clouds = [CCSprite spriteWithFile:@"FightSceneClouds.gif"];
 	
-	//CCParallaxNode *parallaxbackground = [CCParallaxNode node];
-	//[parallaxbackground addChild:clouds z:-1 parallaxRatio:ccp(0.4f, 0.5f) positionOffset:ccp(320, 320)];
-	//[self addChild:parallaxbackground];
-	
-	clouds.position = ccp(100,100);
-	[self addChild:clouds];
-	
-	id a1 = [CCMoveBy actionWithDuration:20.0f position:ccp(300, 100)];
-	id a2 = [CCCallFunc	actionWithTarget:self selector:@selector(resetClouds)];
-	id seq = [CCSequence actions:a1, a2, nil];
-	[clouds runAction:[CCRepeatForever actionWithAction:seq]];
-	//[parallaxbackground runAction:[CCRepeatForever actionWithAction: seq]];
+	float version = [[[UIDevice currentDevice] systemVersion] floatValue];
+	if (version >= 4.0) {
+		clouds = [CCSprite spriteWithFile:@"FightSceneClouds.gif"];
+		clouds.position = ccp(100,100);
+		[self addChild:clouds];
 		
+		id a1 = [CCMoveBy actionWithDuration:20.0f position:ccp(300, 100)];
+		id a2 = [CCCallFunc	actionWithTarget:self selector:@selector(resetClouds)];
+		id seq = [CCSequence actions:a1, a2, nil];
+		[clouds runAction:[CCRepeatForever actionWithAction:seq]];		
+	}
+	
 	CCSprite *airplaneBackground = [CCSprite spriteWithFile:@"AirplaneCabin.gif"];
 	airplaneBackground.anchorPoint = ccp(0,0);
 	[self addChild:airplaneBackground z:1];
@@ -118,25 +116,32 @@
 }
 
 -(void)addHealthnScoreLabels {
+	
+	CCLOG(@"%d, %d", screenSize.width, screenSize.height);
+	
+	CCSprite *smallBlackBar = [CCSprite spriteWithFile:@"BlackBar.gif"];
+	smallBlackBar.position = CGPointMake(screenSize.width-240, screenSize.width-150);
+	smallBlackBar.opacity = 55;
+	[self addChild:smallBlackBar z:2];
+	
 	healthLabel = [CCLabel labelWithString: [NSString stringWithFormat:@"Health:%d", 100] 
 								dimensions: CGSizeMake(180, 20) 
 								 alignment: UITextAlignmentLeft 
 								  fontName:@"kongtext" 
 								  fontSize: 14]; 
-	[healthLabel setColor:ccc3(0x00, 0x00, 0x00)];
+	[healthLabel setColor:ccc3(0xff, 0xff, 0xff)];
 	[healthLabel setPosition: ccp(screenSize.height-220, screenSize.width-180)]; 
-	[self addChild: healthLabel z:7];
-	
-	
+	[self addChild: healthLabel z:3];
+		
 	killed_babies = 0;
 	scoreLabel = [CCLabel labelWithString: [NSString stringWithFormat:@"Babies:%d", killed_babies] 
 							   dimensions: CGSizeMake(180, 25) 
 								alignment: UITextAlignmentRight 
 								 fontName:@"kongtext" 
 								 fontSize: 14]; 
-	[scoreLabel setColor:ccc3(0x00, 0x00, 0x00)];
-	[scoreLabel setPosition: ccp(screenSize.height, screenSize.width-180)]; 
-	[self addChild: scoreLabel z:7];
+	[scoreLabel setColor:ccc3(0xff, 0xff, 0xff)];
+	[scoreLabel setPosition: ccp(screenSize.width-115, screenSize.width-180)]; 
+	[self addChild: scoreLabel z:3];
 	
 }
 
@@ -344,15 +349,15 @@
 	glDisableClientState(GL_COLOR_ARRAY);
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	
-	world->DrawDebugData();
+	//world->DrawDebugData();
 	
 	// restore default GL states
 	glEnable(GL_TEXTURE_2D);
 	glEnableClientState(GL_COLOR_ARRAY);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-	
+		
 	glEnable(GL_BLEND);	
-	glPointSize(12.0f); // 3.0
+	glPointSize(12.0f); // 3.0		
 
 }
 
@@ -393,27 +398,15 @@
 					// Set properties to handle proper animation
 					if (fighter.accelY > 0.14f) {
 						fighter.facing = @"left";
-						
-						// TODO: Put in a slow walk animation here
-						[fighter runActionWithName:@"back"];
-						
-						if (fighter.accelY > 0.3f) {
-							// TODO: Put run action in here
-						}
-						
+						fighter.flipX = NO;
+						[fighter runActionWithName:@"run"];
 					} else if(fighter.accelY < -0.14f) {
 						fighter.facing = @"right";
-	
-						// TODO: Put in a slow walk animation here
-						[fighter runActionWithName:@"forward"];
-						
-						if(fighter.accelY < -0.3f) {
-							// TODO: Put the run action in here
-						}
+						fighter.flipX = YES;
+						[fighter runActionWithName:@"run"];
 					} else {
 						b2Vec2 force(0.0f, 0.0f);
 					}
-
 
 					// Apply velocity and force to player
 					velocity += force;
@@ -506,13 +499,9 @@
 			CCSprite *sprite = (CCSprite *) body->GetUserData();
 			
 			if (sprite != fighter) {
-				//[sprite runActionWithName:@"fly"];
 				id hitAction   = [[sprite actions] objectForKey:@"hit"];
-				//CCRepeatForever *repeat = [CCRepeatForever actionWithAction:hitAction];
 				[sprite stopAllActions];
-				//[sprite runAction:repeat];
-				
-				//id blinkAction = [CCBlink actionWithDuration:1.5 blinks:7];
+
 				id removeSprite = [CCCallFuncND actionWithTarget:self selector:@selector(removeEnemy:data:) data:body];				
 				[sprite runAction:[CCSequence actions:hitAction, hitAction, hitAction, hitAction, hitAction, removeSprite, nil]];
 				
@@ -530,15 +519,31 @@
 }
 						
 -(void)startGameOverScreen {
+	
+	CCSprite *blackBar = [CCSprite spriteWithFile:@"BlackBar.gif"];
+	blackBar.position = ccp(240, screenSize.height/2);
+	blackBar.opacity = 175;
+	[self addChild:blackBar z:7];
+	
 	CCLabel *gameOver = [CCLabel labelWithString:@"Game Over"
 								dimensions: CGSizeMake(300, 300) 
 								 alignment: UITextAlignmentCenter 
 								  fontName:@"kongtext" 
 								  fontSize: 32]; 
 	
-	[gameOver setColor:ccc3(0x00, 0x00, 0x00)];
-	[gameOver setPosition: ccp(screenSize.width/2, (screenSize.height/2)/2)]; 
-	[self addChild: gameOver z:7];
+	[gameOver setColor:ccc3(0xff, 0xff, 0xff)];
+	[gameOver setPosition: ccp((screenSize.width/2)+5, (screenSize.height/2)-115)]; 
+	[self addChild: gameOver z:8];
+	
+	CCLabel *tapAgain = [CCLabel labelWithString:@"tap for more"
+									  dimensions: CGSizeMake(300, 300) 
+									   alignment: UITextAlignmentCenter 
+										fontName:@"kongtext" 
+										fontSize: 24]; 
+	
+	[tapAgain setColor:ccc3(0xff, 0xff, 0x00)];
+	[tapAgain setPosition: ccp((screenSize.width/2)+5, (screenSize.height/2)-155)]; 
+	[self addChild:tapAgain z:8];
 	
 	[HighScoreScene saveScore:(int)killed_babies forPlayer:(NSString *)@"Player 1"];
 	
@@ -546,7 +551,19 @@
 
 
 -(void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-	[fighter click];
+	if (fighter.isDead == NO) {
+		[fighter click];
+	} else {
+		
+		CCQuadParticleSystem *particle = [CCQuadParticleSystem particleWithFile:@"BigExplosion.plist"];
+		particle.position = CGPointMake((screenSize.height/2)+50, (screenSize.width/2)-120);
+		[self addChild:particle z:9];
+		[self schedule:@selector(restartLevel:) interval:2.0];
+	}
+}
+
+-(void)restartLevel:(id)sender {
+	[[CCDirector sharedDirector] replaceScene:[FightScene scene]];
 }
 
 -(void)accelerometer:(UIAccelerometer*)accelerometer didAccelerate:(UIAcceleration*)acceleration {

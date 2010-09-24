@@ -139,12 +139,15 @@
 }
 
 -(void)runDefaultActionForever {
-	if (currentAction != @"defaultleft" && currentAction != @"default") {
+	if (currentAction != @"default") {
+		
 		if (facing == @"left") {
-			[self runActionForever:@"defaultleft"];
+			self.flipX = NO;
 		} else {
-			[self runActionForever:@"default"];		
+			self.flipX = YES;
 		}
+		
+		[self runActionForever:@"default"];	
 	}
 }
 
@@ -173,9 +176,11 @@
 	isAttacking = YES;
 	isActionRunning = NO;
 	if (facing == @"left") {
-		[self runActionWithName:@"kickleft"];
+		self.flipX = NO;
+		[self runActionWithName:@"kick"];
 	} else {
-		[self runActionWithName:@"click"];
+		self.flipX = YES;
+		[self runActionWithName:@"kick"];
 	}
 	
 }

@@ -441,6 +441,9 @@
 }
 
 #pragma mark CCNode Draw
+// FIXME: MEL METHODS
+-(void) beforeDraw {}
+-(void) afterDraw {}
 
 -(void) draw
 {

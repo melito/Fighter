@@ -49,15 +49,15 @@
 	// Default texture format for PNG/BMP/TIFF/JPEG/GIF images
 	// It can be RGBA8888, RGBA4444, RGB5_A1, RGB565
 	// You can change anytime.
-	[CCTexture2D setDefaultAlphaPixelFormat:kTexture2DPixelFormat_RGBA8888];
+	float version = [[[UIDevice currentDevice] systemVersion] floatValue];
+	if (version >= 4.0) {
+		[CCTexture2D setDefaultAlphaPixelFormat:kTexture2DPixelFormat_RGBA8888];
+	} else {
+		[CCTexture2D setDefaultAlphaPixelFormat:kTexture2DPixelFormat_RGBA4444];
+	}
 	
-	[[CCDirector sharedDirector] runWithScene:[MenuScene scene]];
+	[[CCDirector sharedDirector] runWithScene:[HighScoreScene scene]];
 
-}
-
-// FIXME: This is here because the MenuScene was throwing box2d errors before transitions
-+(id)fightScene {
-	return [FightScene scene];
 }
 
 -(void)applicationDidEnterBackground:(UIApplication *)application {

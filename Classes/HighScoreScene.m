@@ -60,24 +60,12 @@
 		// Query the database for all high scores
 		[self readScoresFromDatabase];
 		
-		/*
-		CCScrollView *view = [CCScrollView scrollViewWithViewSize:CGSizeMake(200, 200)];
-		CCSprite *baby = [CCSprite spriteWithFile:@"SpaceBaby.gif"];
+		NSString *score;
 		
-		baby.position = ccp(0.0f, 0.0f);
-		view.position   = ccp(50.0f, 50.0f);
-		view.contentOffset = ccp(0.0f, 0.0f); // setting internal content container (CCLayer) position.
-		view.contentSize = baby.contentSize;
-		[view addChild:baby];
-		[self addChild:view];
+		for (score in scores) {
+			NSLog(@"%@", score);
+		}
 		
-		
-		NSEnumerator *enumerator = [scores objectEnumerator];
-		id element;
-				
-		while(element = [enumerator nextObject]){
-		  NSLog(@"%@", element);
-		}*/
 	}
 	return self;
 }
@@ -129,7 +117,7 @@
 				NSString *player = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 1)];
 				NSString *numberOfBabies = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, 2)];
 
-				[scores addObject:[[NSString alloc] initWithFormat:@"%s - %d babies", player, numberOfBabies]];				
+				[scores addObject:[[NSString alloc] initWithFormat:@"%@ - %@ babies", player, numberOfBabies]];				
 			}
 		} else {
 			NSLog(@"Error getting scores: %s", sqlite3_errmsg(database));
