@@ -24,26 +24,27 @@
 -(id) init{
 	
 	if ((self=[super init])) {
+
+		[[CCTouchDispatcher sharedDispatcher] addTargetedDelegate:self priority:0 swallowsTouches:YES];
 		
 		// Add some labels and background
 		CCSprite* background = [CCSprite spriteWithFile:@"SpaceBackground.gif"];
 		background.anchorPoint = CGPointMake(0, 0);
-		[self addChild:background];
+		[self addChild:background z:0];
 		
 		CCSprite *blackBar = [CCSprite spriteWithFile:@"BlackBar.gif"];
 		blackBar.position = ccp(240, 260);
 		blackBar.opacity = 175;
-		[self addChild:blackBar];
+		[self addChild:blackBar z:2];
 
 		CCSprite *hsLogo = [CCSprite spriteWithFile:@"HighScoresLogo.gif"];
 		hsLogo.position = ccp(240, 260);
-		[self addChild:hsLogo];
+		[self addChild:hsLogo z:3];
 
 		CCMenuItem *backButton = [CCMenuItemImage itemFromNormalImage:@"BackButton.gif" selectedImage:@"BackButton.gif" target:self selector:@selector(goBackToMainMenu:)];
 		CCMenu *menu = [CCMenu menuWithItems:backButton, nil];
 		[menu alignItemsVertically];
 		menu.position = ccp(20, 20);
-		
 		[self addChild:menu];
 		
 		// Setup some globals
@@ -61,15 +62,41 @@
 		[self readScoresFromDatabase];
 		
 		NSString *score;
-		
-		for (score in scores) {
+		int level = 195;
+		scoresTable = [[CCNode alloc] init];
+		for(score in scores){
+			
 			NSLog(@"%@", score);
+			CCLabel *label = [CCLabel labelWithString:score fontName:@"kongtext" fontSize:14];
+			label.position = CGPointMake(250, level);
+			[scoresTable addChild:label];
+			level += 18;
+			
 		}
 		
+		[self addChild:scoresTable z:1];
+				
 	}
 	return self;
 }
 
+-(void)ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event { 
+  // NOP - Here to avoid CCAssert error from not overriding 
+}
+
+-(void)ccTouchMoved:(UITouch *)touch withEvent:(UIEvent *)event {
+    //NSSet *allTouches = [event allTouches];
+	
+	CGPoint touchLocation = [touch locationInView: [touch view]];   
+    CGPoint prevLocation = [touch previousLocationInView: [touch view]];    
+    touchLocation = [[CCDirector sharedDirector] convertToGL: touchLocation];
+    prevLocation = [[CCDirector sharedDirector] convertToGL: prevLocation];
+	
+    CGPoint diff = ccpSub(touchLocation,prevLocation);
+    CGPoint currentPos = [scoresTable position];
+    [scoresTable setPosition:ccpAdd(currentPos, CGPointMake(0, diff.y))];   
+		
+}
 
 -(void) checkAndCreateDatabase{
 	// Check if the SQL database has already been saved to the users phone, if not then copy it over
@@ -92,7 +119,6 @@
 	
 	// Copy the database from the package to the users filesystem
 	[fileManager copyItemAtPath:databasePathFromApp toPath:databasePath error:nil];
-	
 	[fileManager release];
 }
 
@@ -174,5 +200,11 @@
 	[[CCDirector sharedDirector] replaceScene:[CCSlideInLTransition transitionWithDuration:0.5 scene:[MenuScene scene]]];
 }
 
+-(void)dealloc {
+	[[CCTouchDispatcher sharedDispatcher] removeDelegate:self];
+	[scores dealloc];
+	[scoresTable dealloc];
+	[super dealloc];	
+}
 
 @end

@@ -14,8 +14,9 @@
 	NSString *databaseName;
 	NSString *databasePath;
 	
-	// Array to store the animal objects
+	// Array to store the scores
 	NSMutableArray *scores;
+	CCNode *scoresTable;
 	
 }
 

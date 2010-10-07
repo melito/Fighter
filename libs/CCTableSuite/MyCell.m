@@ -1,1 +1,1 @@
-////  MyCell.m//  CCTable////  Created by Sangwoo Im on 6/4/10.//  Copyright 2010 Sangwoo Im. All rights reserved.//#import "MyCell.h"#import "CCNode.h"@implementation MyCell+(CGSize)cellSize {    return CGSizeMake(57, 57);}@end
+////  MyCell.m//  CCTable////  Created by Sangwoo Im on 6/4/10.//  Copyright 2010 Sangwoo Im. All rights reserved.//#import "MyCell.h"#import "CCNode.h"@implementation MyCell+(CGSize)cellSize {    return CGSizeMake(57, 20);}@end

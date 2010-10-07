@@ -56,7 +56,7 @@
 		[CCTexture2D setDefaultAlphaPixelFormat:kTexture2DPixelFormat_RGBA4444];
 	}
 	
-	[[CCDirector sharedDirector] runWithScene:[HighScoreScene scene]];
+	[[CCDirector sharedDirector] runWithScene:[CleverCollieScene scene]];
 
 }
 

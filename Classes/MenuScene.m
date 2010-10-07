@@ -8,6 +8,8 @@
 
 #import "MenuScene.h"
 #import "FightScene.h"
+#import "HighScoreScene.h"
+#import "AboutScene.h"
 
 @implementation MenuScene
 
@@ -49,16 +51,17 @@
 														target:self
 													  selector:@selector(startGame:)];
 
-		CCMenuItem *showScores = [CCMenuItemFont itemFromString:@"High Scores"
-														target:self
-													  selector:@selector(showAbout:)];
+		//CCMenuItem *showScores = [CCMenuItemFont itemFromString:@"High Scores"
+		//												target:self
+		//											  selector:@selector(showScores:)];
 		
 		CCMenuItem *showAbout = [CCMenuItemFont itemFromString:@"About"
 														target:self
 													  selector:@selector(showAbout:)];
 		
 		
-		menu = [CCMenu menuWithItems:startGame, showScores, showAbout, nil];
+		//menu = [CCMenu menuWithItems:startGame, showScores, showAbout, nil];
+		menu = [CCMenu menuWithItems:startGame, showAbout, nil];
 		[menu alignItemsVertically];
 		menu.position = CGPointMake(((screenSize.width/2)/2)+10, screenSize.height/2);
 		
@@ -111,8 +114,12 @@
 	[[CCDirector sharedDirector] replaceScene:[FightScene scene]];
 }
 
--(void)showAbout:(id)sender{
+-(void)showScores:(id)sender{
 	[[CCDirector sharedDirector] replaceScene:[CCSlideInRTransition transitionWithDuration:0.5 scene:[HighScoreScene scene]]];
+}
+
+-(void)showAbout:(id)sender{
+	[[CCDirector sharedDirector] replaceScene:[CCSlideInLTransition transitionWithDuration:0.5 scene:[AboutScene scene]]];
 }
 
 -(void)dealloc {

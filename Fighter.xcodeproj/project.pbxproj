@@ -321,7 +321,6 @@
 		B44C259B124C345100A8BF81 /* CCTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = B44C258C124C345100A8BF81 /* CCTableView.m */; };
 		B44C259C124C345100A8BF81 /* CCTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B44C258E124C345100A8BF81 /* CCTableViewCell.m */; };
 		B44C259D124C345100A8BF81 /* ExampleScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B44C2590124C345100A8BF81 /* ExampleScene.m */; };
-		B44C259E124C345100A8BF81 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B44C2591124C345100A8BF81 /* main.m */; };
 		B44C259F124C345100A8BF81 /* MyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B44C2593124C345100A8BF81 /* MyCell.m */; };
 		B44C25A0124C345100A8BF81 /* ScrollViewScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B44C2595124C345100A8BF81 /* ScrollViewScene.m */; };
 		B44C25A1124C345100A8BF81 /* TableViewScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B44C2597124C345100A8BF81 /* TableViewScene.m */; };
@@ -685,7 +684,6 @@
 		B44C258E124C345100A8BF81 /* CCTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCTableViewCell.m; path = libs/CCTableSuite/CCTableViewCell.m; sourceTree = "<group>"; };
 		B44C258F124C345100A8BF81 /* ExampleScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExampleScene.h; path = libs/CCTableSuite/ExampleScene.h; sourceTree = "<group>"; };
 		B44C2590124C345100A8BF81 /* ExampleScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ExampleScene.m; path = libs/CCTableSuite/ExampleScene.m; sourceTree = "<group>"; };
-		B44C2591124C345100A8BF81 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = libs/CCTableSuite/main.m; sourceTree = "<group>"; };
 		B44C2592124C345100A8BF81 /* MyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyCell.h; path = libs/CCTableSuite/MyCell.h; sourceTree = "<group>"; };
 		B44C2593124C345100A8BF81 /* MyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyCell.m; path = libs/CCTableSuite/MyCell.m; sourceTree = "<group>"; };
 		B44C2594124C345100A8BF81 /* ScrollViewScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ScrollViewScene.h; path = libs/CCTableSuite/ScrollViewScene.h; sourceTree = "<group>"; };
@@ -693,13 +691,13 @@
 		B44C2596124C345100A8BF81 /* TableViewScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TableViewScene.h; path = libs/CCTableSuite/TableViewScene.h; sourceTree = "<group>"; };
 		B44C2597124C345100A8BF81 /* TableViewScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TableViewScene.m; path = libs/CCTableSuite/TableViewScene.m; sourceTree = "<group>"; };
 		B44C25A2124C347400A8BF81 /* AboutScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AboutScene.h; path = Classes/AboutScene.h; sourceTree = "<group>"; };
-		B44C25A3124C347400A8BF81 /* AboutScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AboutScene.m; path = Classes/AboutScene.m; sourceTree = "<group>"; };
+		B44C25A3124C347400A8BF81 /* AboutScene.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = AboutScene.m; path = Classes/AboutScene.m; sourceTree = "<group>"; };
 		B44C25A4124C347400A8BF81 /* CleverCollieScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CleverCollieScene.h; path = Classes/CleverCollieScene.h; sourceTree = "<group>"; };
-		B44C25A5124C347400A8BF81 /* CleverCollieScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CleverCollieScene.m; path = Classes/CleverCollieScene.m; sourceTree = "<group>"; };
+		B44C25A5124C347400A8BF81 /* CleverCollieScene.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = CleverCollieScene.m; path = Classes/CleverCollieScene.m; sourceTree = "<group>"; };
 		B44C25A6124C347400A8BF81 /* HighScoreScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HighScoreScene.h; path = Classes/HighScoreScene.h; sourceTree = "<group>"; };
-		B44C25A7124C347400A8BF81 /* HighScoreScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HighScoreScene.m; path = Classes/HighScoreScene.m; sourceTree = "<group>"; };
+		B44C25A7124C347400A8BF81 /* HighScoreScene.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = HighScoreScene.m; path = Classes/HighScoreScene.m; sourceTree = "<group>"; };
 		B44C25A8124C347400A8BF81 /* MenuScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MenuScene.h; path = Classes/MenuScene.h; sourceTree = "<group>"; };
-		B44C25A9124C347400A8BF81 /* MenuScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MenuScene.m; path = Classes/MenuScene.m; sourceTree = "<group>"; };
+		B44C25A9124C347400A8BF81 /* MenuScene.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = MenuScene.m; path = Classes/MenuScene.m; sourceTree = "<group>"; };
 		B470A6B611E68E93002AE3AF /* Character.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Character.h; sourceTree = "<group>"; };
 		B470A6B711E68E93002AE3AF /* Character.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Character.mm; sourceTree = "<group>"; };
 		B470A6ED11E695E7002AE3AF /* Fighter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Fighter.h; sourceTree = "<group>"; };
@@ -1286,7 +1284,6 @@
 				B44C258E124C345100A8BF81 /* CCTableViewCell.m */,
 				B44C258F124C345100A8BF81 /* ExampleScene.h */,
 				B44C2590124C345100A8BF81 /* ExampleScene.m */,
-				B44C2591124C345100A8BF81 /* main.m */,
 				B44C2592124C345100A8BF81 /* MyCell.h */,
 				B44C2593124C345100A8BF81 /* MyCell.m */,
 				B44C2594124C345100A8BF81 /* ScrollViewScene.h */,
@@ -1603,7 +1600,6 @@
 				B44C259B124C345100A8BF81 /* CCTableView.m in Sources */,
 				B44C259C124C345100A8BF81 /* CCTableViewCell.m in Sources */,
 				B44C259D124C345100A8BF81 /* ExampleScene.m in Sources */,
-				B44C259E124C345100A8BF81 /* main.m in Sources */,
 				B44C259F124C345100A8BF81 /* MyCell.m in Sources */,
 				B44C25A0124C345100A8BF81 /* ScrollViewScene.m in Sources */,
 				B44C25A1124C345100A8BF81 /* TableViewScene.m in Sources */,
@@ -1863,7 +1859,7 @@
 				OTHER_CFLAGS = "-fvisibility=hidden";
 				PREBINDING = NO;
 				PRODUCT_NAME = "Baby Fighter";
-				SDKROOT = iphonesimulator4.0;
+				SDKROOT = iphoneos4.0;
 				USER_HEADER_SEARCH_PATHS = "libs/**";
 			};
 			name = Debug;
@@ -1885,7 +1881,7 @@
 				OTHER_CFLAGS = "-fvisibility=hidden";
 				PREBINDING = NO;
 				PRODUCT_NAME = "Baby Fighter";
-				SDKROOT = iphonesimulator4.0;
+				SDKROOT = iphoneos4.0;
 				USER_HEADER_SEARCH_PATHS = "libs/**";
 			};
 			name = Release;

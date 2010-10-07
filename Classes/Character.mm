@@ -189,17 +189,14 @@
 	isAttacking = NO;
 	isHurting = YES;
 	isActionRunning = YES;
-	
-	
-	NSString *hitDirection;
-	if(self.facing == @"right"){
-		hitDirection = [[NSString alloc] initWithString:@"hitright"];
+		
+	if(self.facing == @"left"){
+		self.flipX = NO;
 	} else {
-		hitDirection = [[NSString alloc] initWithString:@"hitleft"];
+		self.flipX = YES;
 	}
 	
-	id hitAction  = [actions objectForKey:hitDirection];
-	//id blinkAction = [CCBlink actionWithDuration:1.5 blinks:7];
+	id hitAction  = [actions objectForKey:@"hit"];
 	id actionDone = [CCCallFunc actionWithTarget:self selector:@selector(actionDone)];
 	
 	[self stopAllActions];
