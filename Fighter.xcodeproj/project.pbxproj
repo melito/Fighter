@@ -335,6 +335,8 @@
 		B4A813F9121CB96500BEED98 /* Shoetaken_Blip1.aif in Resources */ = {isa = PBXBuildFile; fileRef = B4A813F8121CB96500BEED98 /* Shoetaken_Blip1.aif */; };
 		B4A81400121CBB0800BEED98 /* Shoetaken_Blip2.aif in Resources */ = {isa = PBXBuildFile; fileRef = B4A813FF121CBB0800BEED98 /* Shoetaken_Blip2.aif */; };
 		B4A81404121CBC3100BEED98 /* Shoetaken_Outro.aif in Resources */ = {isa = PBXBuildFile; fileRef = B4A81403121CBC3100BEED98 /* Shoetaken_Outro.aif */; };
+		B4BA229A125D88060095AABD /* ForwardButton.gif in Resources */ = {isa = PBXBuildFile; fileRef = B4BA2299125D88060095AABD /* ForwardButton.gif */; };
+		B4BA22E5125D8A8E0095AABD /* AboutLogo.gif in Resources */ = {isa = PBXBuildFile; fileRef = B4BA22E4125D8A8E0095AABD /* AboutLogo.gif */; };
 		B4C54B48121B269600B23490 /* BabyFighterMenu.aif in Resources */ = {isa = PBXBuildFile; fileRef = B4C54B47121B269600B23490 /* BabyFighterMenu.aif */; };
 		B4C54B4E121B4DC300B23490 /* FightSceneBackground.gif in Resources */ = {isa = PBXBuildFile; fileRef = B4C54B4D121B4DC300B23490 /* FightSceneBackground.gif */; };
 		B4C54C42121B764200B23490 /* kongtext.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B4C54C41121B764200B23490 /* kongtext.ttf */; };
@@ -707,6 +709,8 @@
 		B4A813F8121CB96500BEED98 /* Shoetaken_Blip1.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = Shoetaken_Blip1.aif; sourceTree = "<group>"; };
 		B4A813FF121CBB0800BEED98 /* Shoetaken_Blip2.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = Shoetaken_Blip2.aif; sourceTree = "<group>"; };
 		B4A81403121CBC3100BEED98 /* Shoetaken_Outro.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = Shoetaken_Outro.aif; sourceTree = "<group>"; };
+		B4BA2299125D88060095AABD /* ForwardButton.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = ForwardButton.gif; sourceTree = "<group>"; };
+		B4BA22E4125D8A8E0095AABD /* AboutLogo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = AboutLogo.gif; sourceTree = "<group>"; };
 		B4C54B47121B269600B23490 /* BabyFighterMenu.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = BabyFighterMenu.aif; sourceTree = "<group>"; };
 		B4C54B4D121B4DC300B23490 /* FightSceneBackground.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = FightSceneBackground.gif; sourceTree = "<group>"; };
 		B4C54C41121B764200B23490 /* kongtext.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = kongtext.ttf; sourceTree = "<group>"; };
@@ -1227,6 +1231,8 @@
 		50F4144210692EE7002A0D5E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				B4BA22E4125D8A8E0095AABD /* AboutLogo.gif */,
+				B4BA2299125D88060095AABD /* ForwardButton.gif */,
 				B4FA7E78124AD8D500D613DE /* Character */,
 				B41B2EF21249C91200A5DBF2 /* BigExplosion.plist */,
 				B41B2DAF12499C2300A5DBF2 /* BloodExplosion3.plist */,
@@ -1576,6 +1582,8 @@
 				B41B2DB012499C2300A5DBF2 /* BloodExplosion3.plist in Resources */,
 				B41B2EF31249C91200A5DBF2 /* BigExplosion.plist in Resources */,
 				B4FA7E84124AD8D500D613DE /* Character in Resources */,
+				B4BA229A125D88060095AABD /* ForwardButton.gif in Resources */,
+				B4BA22E5125D8A8E0095AABD /* AboutLogo.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1774,7 +1782,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = "Baby Fighter";
-				SDKROOT = iphoneos3.2;
+				SDKROOT = iphonesimulator4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "libs/**";
 				WARNING_CFLAGS = "-Wall";
@@ -1800,7 +1808,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = "Baby Fighter";
-				SDKROOT = iphoneos3.2;
+				SDKROOT = iphonesimulator4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "libs/**";
 				WARNING_CFLAGS = "-Wall";
@@ -1854,12 +1862,12 @@
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-fvisibility=hidden";
 				PREBINDING = NO;
 				PRODUCT_NAME = "Baby Fighter";
-				SDKROOT = iphoneos4.0;
+				SDKROOT = iphonesimulator4.0;
 				USER_HEADER_SEARCH_PATHS = "libs/**";
 			};
 			name = Debug;
@@ -1877,11 +1885,11 @@
 				GCC_UNROLL_LOOPS = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_CFLAGS = "-fvisibility=hidden";
 				PREBINDING = NO;
 				PRODUCT_NAME = "Baby Fighter";
-				SDKROOT = iphoneos4.0;
+				SDKROOT = iphonesimulator4.0;
 				USER_HEADER_SEARCH_PATHS = "libs/**";
 			};
 			name = Release;

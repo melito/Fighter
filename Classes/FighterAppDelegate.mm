@@ -11,6 +11,7 @@
 #import "CleverCollieScene.h"
 #import "MenuScene.h"
 #import "FightScene.h"
+#import "AboutScene.h"
 
 @implementation FighterAppDelegate
 
