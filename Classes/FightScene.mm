@@ -24,6 +24,8 @@
 @synthesize killed_babies;
 @synthesize screenSize;
 
+@synthesize gameOverTapCount;
+
 +(id) scene {
 	// 'scene' is an autorelease object.
 	CCScene *scene = [CCScene node];
@@ -143,6 +145,7 @@
 	[scoreLabel setPosition: ccp(screenSize.width-115, screenSize.width-180)]; 
 	[self addChild: scoreLabel z:3];
 	
+	gameOverTapCount = 0;
 }
 
 -(void)setupBox2dWorld {
@@ -225,6 +228,7 @@
 	body->SetFixedRotation(true);
 	
 	[self addChild:fighter z:6];
+	
 }
 
 -(void)spawnEnemy:(ccTime) dt {
@@ -545,7 +549,7 @@
 	[tapAgain setPosition: ccp((screenSize.width/2)+5, (screenSize.height/2)-155)]; 
 	[self addChild:tapAgain z:8];
 	
-	[HighScoreScene saveScore:(int)killed_babies forPlayer:(NSString *)@"Player 1"];
+	//[HighScoreScene saveScore:(int)killed_babies forPlayer:(NSString *)@"Player 1"];
 	
 }
 
@@ -555,14 +559,22 @@
 		[fighter click];
 	} else {
 		
-		CCQuadParticleSystem *particle = [CCQuadParticleSystem particleWithFile:@"BigExplosion.plist"];
-		particle.position = CGPointMake((screenSize.height/2)+50, (screenSize.width/2)-120);
-		[self addChild:particle z:9];
-		[self schedule:@selector(restartLevel:) interval:2.0];
+		//CCQuadParticleSystem *particle = [CCQuadParticleSystem particleWithFile:@"BigExplosion.plist"];
+		//particle.position = CGPointMake((screenSize.height/2)+50, (screenSize.width/2)-120);
+		//[self addChild:particle z:9];
+		
+		if (gameOverTapCount > 2) {
+			[self restartLevel];
+		} else {
+			gameOverTapCount += 1;
+		}
+
+		
+		//[self schedule:@selector(restartLevel:) interval:2.0];
 	}
 }
 
--(void)restartLevel:(id)sender {
+-(void)restartLevel {
 	[[CCDirector sharedDirector] replaceScene:[FightScene scene]];
 }
 

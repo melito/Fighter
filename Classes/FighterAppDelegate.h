@@ -14,6 +14,4 @@
 
 @property (nonatomic, retain) UIWindow *window;
 
-+(id)fightScene;
-
 @end

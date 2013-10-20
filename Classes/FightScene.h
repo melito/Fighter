@@ -37,12 +37,15 @@
 	int babycount;
 	int killed_babies;
 	
+	int	gameOverTapCount;
+	
 	CGSize screenSize;
 }
 
 @property (nonatomic, retain) Fighter *fighter;
 @property (nonatomic, readonly) CGSize screenSize;
 @property (nonatomic, readwrite) int killed_babies;
+@property (nonatomic, readwrite) int gameOverTapCount;
 
 -(void) throwABaby;
 
@@ -62,5 +65,7 @@
 -(void) addBackgroundSprites;
 -(void) addHealthnScoreLabels;
 -(void) setupBox2dWorld;
+
+-(void)restartLevel;
 
 @end
