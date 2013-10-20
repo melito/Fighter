@@ -26,3 +26,6 @@ As soon as I remember the name of that store I'll post a really nice link to the
 
 What I did do was use art to create animations for sprite sheets.
 I basically had the parts and pieced them together using animation guidelines from an old picture that looked like it was from the 40's.....for real.
+
+Ok so other than that, if you use this for the basis of anything, let me know.
+Hopefully you'll improve it or do something completely unexpected that results in good things.
